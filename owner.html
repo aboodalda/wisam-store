@@ -25,22 +25,13 @@
     </div>
 
     <nav>
-      <a class="active" href="#dashboard">
-        <span>الرئيسية</span>
-      </a>
-
+      <a class="active" href="#dashboard">الرئيسية</a>
+      <a href="#products">المنتجات</a>
       <a href="#orders">
         <span>الطلبات</span>
         <span id="navOrderCount" class="nav-badge">0</span>
       </a>
-
-      <a href="#products">
-        <span>المنتجات</span>
-      </a>
-
-      <a href="#add">
-        <span>إضافة منتج</span>
-      </a>
+      <a href="#add">إضافة منتج</a>
     </nav>
 
     <a class="back-store" href="index.html">
@@ -57,7 +48,6 @@
       <div>
         <span class="eyebrow">WISAM STORE</span>
         <h1>لوحة التحكم</h1>
-        <p class="top-subtitle">إدارة المنتجات والطلبات بسهولة.</p>
       </div>
 
       <a href="index.html" class="preview">
@@ -67,32 +57,32 @@
     </header>
 
 
-    <!-- Dashboard -->
+    <!-- الإحصائيات -->
 
     <section id="dashboard" class="stats">
 
-      <div class="stat-card">
+      <div>
         <span>إجمالي المنتجات</span>
         <b id="totalProducts">0</b>
         <small>منتج</small>
       </div>
 
-      <div class="stat-card">
+      <div>
         <span>إجمالي الطلبات</span>
         <b id="totalOrders">0</b>
         <small>طلب</small>
       </div>
 
-      <div class="stat-card">
+      <div>
         <span>إجمالي المبيعات</span>
         <b id="totalSales">0 ر.س</b>
-        <small>باستثناء الطلبات الملغاة</small>
+        <small>حسب الطلبات</small>
       </div>
 
     </section>
 
 
-    <!-- Orders -->
+    <!-- الطلبات -->
 
     <section id="orders" class="panel orders-panel">
 
@@ -112,46 +102,47 @@
 
       <div class="order-toolbar">
 
-        <button class="filter active" onclick="filterOrders('all',this)">
+        <button class="filter active"
+          onclick="filterOrders('all',this)">
           الكل
         </button>
 
-        <button class="filter" onclick="filterOrders('new',this)">
+        <button class="filter"
+          onclick="filterOrders('new',this)">
           جديدة
         </button>
 
-        <button class="filter" onclick="filterOrders('processing',this)">
+        <button class="filter"
+          onclick="filterOrders('processing',this)">
           قيد التجهيز
         </button>
 
-        <button class="filter" onclick="filterOrders('delivered',this)">
+        <button class="filter"
+          onclick="filterOrders('delivered',this)">
           تم التسليم
         </button>
 
-        <button class="filter" onclick="filterOrders('cancelled',this)">
+        <button class="filter"
+          onclick="filterOrders('cancelled',this)">
           ملغاة
         </button>
 
       </div>
-
 
       <div id="ordersList"></div>
 
     </section>
 
 
-    <!-- Products -->
+    <!-- المنتجات -->
 
     <section id="products" class="panel">
 
       <div class="panel-title">
 
-        <div>
-          <span class="eyebrow">PRODUCTS</span>
-          <h2>المنتجات</h2>
-        </div>
+        <h2>المنتجات</h2>
 
-        <button onclick="document.getElementById('add').scrollIntoView({behavior:'smooth'})">
+        <button onclick="document.getElementById('add').scrollIntoView()">
           + إضافة منتج
         </button>
 
@@ -162,27 +153,20 @@
     </section>
 
 
-    <!-- Add Product -->
+    <!-- إضافة منتج -->
 
     <section id="add" class="panel">
 
       <div class="panel-title">
-
-        <div>
-          <span class="eyebrow">NEW PRODUCT</span>
-          <h2 id="formTitle">إضافة منتج جديد</h2>
-        </div>
-
+        <h2>إضافة منتج جديد</h2>
       </div>
 
 
       <form id="productForm">
 
-        <input type="hidden" id="editId">
-
-
         <label>
           اسم المنتج
+
           <input
             id="name"
             required
@@ -193,6 +177,7 @@
 
         <label>
           السعر
+
           <input
             id="price"
             type="number"
@@ -204,129 +189,12 @@
 
 
         <label>
-          القسم
-
-          <select id="category" required>
-
-            <option value="">اختر القسم</option>
-
-            <option value="phones">
-              📱 الجوالات
-            </option>
-
-            <option value="watches">
-              ⌚ الساعات
-            </option>
-
-            <option value="playstation">
-              🎮 PlayStation
-            </option>
-
-            <option value="headphones">
-              🎧 السماعات
-            </option>
-
-            <option value="other">
-              📦 أخرى
-            </option>
-
-          </select>
-
-        </label>
-
-
-        <label>
-          الشركة / العلامة التجارية
-
-          <select id="brand">
-
-            <option value="">اختر الشركة</option>
-
-            <option value="Apple">Apple</option>
-            <option value="Samsung">Samsung</option>
-            <option value="Huawei">Huawei</option>
-            <option value="Xiaomi">Xiaomi</option>
-            <option value="Redmi">Redmi</option>
-            <option value="Sony">Sony</option>
-            <option value="PlayStation">PlayStation</option>
-            <option value="JBL">JBL</option>
-            <option value="Anker">Anker</option>
-            <option value="عام">عام</option>
-
-          </select>
-
-        </label>
-
-
-        <label>
-          النوع الفرعي
-
-          <select id="subcategory">
-
-            <option value="">اختر النوع</option>
-
-            <option value="iphone">iPhone</option>
-            <option value="samsung">Samsung</option>
-            <option value="huawei">Huawei</option>
-            <option value="redmi">Redmi</option>
-            <option value="xiaomi">Xiaomi</option>
-
-            <option value="apple-watch">Apple Watch</option>
-            <option value="samsung-watch">Samsung Watch</option>
-            <option value="huawei-watch">Huawei Watch</option>
-
-            <option value="ps5">PlayStation 5</option>
-            <option value="ps4">PlayStation 4</option>
-            <option value="ps3">PlayStation 3</option>
-
-            <option value="other">أخرى</option>
-
-          </select>
-
-        </label>
-
-
-        <label>
           الوصف
 
-          <textarea
+          <input
             id="description"
-            placeholder="اكتب وصفاً مختصراً وجذاباً للمنتج"
-          ></textarea>
-
-        </label>
-
-
-        <label>
-          البطارية
-
-          <input
-            id="battery"
-            placeholder="مثال: 5000 mAh"
+            placeholder="وصف مختصر للمنتج"
           >
-
-        </label>
-
-
-        <label>
-          التخزين
-
-          <input
-            id="storage"
-            placeholder="مثال: 256GB"
-          >
-
-        </label>
-
-
-        <label>
-          حجم الشاشة
-
-          <input
-            id="screen"
-            placeholder="مثال: 6.7 بوصة"
-          >
-
         </label>
 
 
@@ -337,52 +205,79 @@
             id="icon"
             placeholder="📱"
           >
-
         </label>
 
 
-        <label class="full-width">
+        <!-- اختيار الصورة من الجهاز -->
+
+        <label class="image-upload-label">
 
           صورة المنتج
 
-          <input
-            id="image"
-            type="url"
-            placeholder="https://..."
-          >
+          <div class="image-upload">
 
-          <small class="field-help">
-            ضع رابط مباشر لصورة المنتج.
-          </small>
+            <input
+              id="imageFile"
+              type="file"
+              accept="image/*"
+            >
+
+            <div class="upload-content">
+
+              <div class="upload-icon">
+                🖼️
+              </div>
+
+              <strong>
+                اختر صورة المنتج
+              </strong>
+
+              <span>
+                من الجوال أو الكمبيوتر
+              </span>
+
+            </div>
+
+          </div>
 
         </label>
 
 
-        <div id="imagePreview" class="image-preview full-width">
-          <span>معاينة الصورة ستظهر هنا</span>
+        <!-- معاينة الصورة -->
+
+        <div
+          id="imagePreview"
+          class="image-preview"
+        >
+          <span>
+            ستظهر معاينة الصورة هنا
+          </span>
         </div>
 
 
-        <div class="form-actions full-width">
+        <!-- رابط الصورة اختياري -->
 
-          <button
-            class="save"
-            type="submit"
-            id="saveButton"
+        <label>
+
+          رابط الصورة
+          <small class="optional">
+            اختياري
+          </small>
+
+          <input
+            id="image"
+            placeholder="https://..."
           >
-            حفظ المنتج
-          </button>
 
-          <button
-            type="button"
-            class="cancel-edit"
-            id="cancelEdit"
-            onclick="cancelEdit()"
-          >
-            إلغاء
-          </button>
+        </label>
 
-        </div>
+
+        <button
+          class="save"
+          type="submit"
+        >
+          حفظ المنتج
+        </button>
 
       </form>
 
@@ -391,9 +286,12 @@
   </main>
 
 
-  <!-- Order Modal -->
+  <!-- تفاصيل الطلب -->
 
-  <div id="orderModal" class="order-modal">
+  <div
+    id="orderModal"
+    class="order-modal"
+  >
 
     <div class="order-modal-box">
 
