@@ -1,36 +1,69 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>وسام ستور | Wisam Store</title>
+
   <link rel="stylesheet" href="store.css">
 </head>
 
 <body>
 
-  <!-- Header -->
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
   <header class="store-header">
+
     <a class="brand" href="index.html">
-      <span class="brand-mark">W</span>
+
+      <span class="brand-mark">
+        W
+      </span>
 
       <span>
         <b>وسام</b>
         <em>ستور</em>
-        <small>WISAM STORE</small>
+
+        <small>
+          WISAM STORE
+        </small>
       </span>
+
     </a>
 
-    <button class="cart-button" id="cartButton">
+
+    <button
+      class="cart-button"
+      id="cartButton"
+      type="button"
+    >
+
       السلة 🛒
-      <span id="cartCount">0</span>
+
+      <span id="cartCount">
+        0
+      </span>
+
     </button>
+
   </header>
 
 
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
   <main>
 
-    <!-- Hero -->
+
+    <!-- HERO -->
+
     <section class="hero">
 
       <div class="hero-content">
@@ -39,30 +72,45 @@
           WISAM STORE · PREMIUM TECH
         </span>
 
+
         <h1>
           تقنية تليق<br>
           <strong>بذوقك.</strong>
         </h1>
+
 
         <p>
           أحدث الجوالات والساعات وأجهزة الألعاب،
           مع تجربة شراء راقية وأنيقة.
         </p>
 
-        <a class="primary-btn" href="#products">
+
+        <a
+          class="primary-btn"
+          href="#products"
+        >
           اكتشف المنتجات ←
         </a>
 
       </div>
 
+
       <div class="hero-orbit hero-orbit-one"></div>
+
       <div class="hero-orbit hero-orbit-two"></div>
 
     </section>
 
 
-    <!-- Products -->
-    <section class="section" id="products">
+
+    <!-- =========================
+         PRODUCTS
+    ========================== -->
+
+    <section
+      class="section"
+      id="products"
+    >
 
       <div class="section-heading">
 
@@ -76,24 +124,37 @@
 
       </div>
 
-      <div id="productGrid" class="product-grid"></div>
+
+      <div
+        id="productGrid"
+        class="product-grid"
+      ></div>
 
     </section>
 
   </main>
 
 
-  <!-- Product Details Modal -->
-  <div id="productModal" class="modal">
+
+  <!-- =========================
+       PRODUCT DETAILS MODAL
+  ========================== -->
+
+  <div
+    id="productModal"
+    class="modal"
+  >
 
     <div class="modal-box">
 
       <button
         id="closeProductModal"
         class="modal-close"
+        type="button"
       >
         ×
       </button>
+
 
       <div id="productDetails"></div>
 
@@ -102,31 +163,45 @@
   </div>
 
 
-  <!-- Checkout Modal -->
-  <div id="checkoutModal" class="modal">
+
+  <!-- =========================
+       CHECKOUT MODAL
+  ========================== -->
+
+  <div
+    id="checkoutModal"
+    class="modal"
+  >
 
     <div class="modal-box checkout-box">
+
 
       <button
         id="closeCheckout"
         class="modal-close"
+        type="button"
       >
         ×
       </button>
 
+
       <div class="checkout-content">
+
 
         <span class="eyebrow">
           WISAM STORE · CHECKOUT
         </span>
 
+
         <h2>
           تأكيد طلبك
         </h2>
 
+
         <p class="checkout-note">
           أدخل بياناتك وسنجهز طلبك مباشرة.
         </p>
+
 
 
         <form
@@ -134,62 +209,88 @@
           class="checkout-form"
         >
 
-          <!-- Name -->
+
+          <!-- NAME -->
+
           <label>
+
             الاسم الكامل
 
             <input
               id="customerName"
+              type="text"
               required
               placeholder="اكتب اسمك الكامل"
             >
+
           </label>
 
 
-          <!-- Phone -->
+
+          <!-- PHONE -->
+
           <label>
+
             رقم الجوال
 
             <input
               id="customerPhone"
+              type="tel"
               required
               inputmode="tel"
               placeholder="05xxxxxxxx"
             >
+
           </label>
 
 
-          <!-- City -->
+
+          <!-- CITY -->
+
           <label>
+
             المدينة
 
             <input
               id="customerCity"
+              type="text"
               required
               placeholder="مثال: غزة"
             >
+
           </label>
 
 
-          <!-- Address -->
+
+          <!-- ADDRESS -->
+
           <label>
+
             العنوان
 
             <input
               id="customerAddress"
+              type="text"
               required
               placeholder="المنطقة / الشارع / رقم المنزل"
             >
+
           </label>
 
 
-          <!-- Payment -->
+
+          <!-- PAYMENT TITLE -->
+
           <div class="payment-title">
             طريقة الدفع
           </div>
 
 
+
+          <!-- PAYMENT OPTIONS -->
+
           <div class="payment-options">
+
 
             <label class="payment-option">
 
@@ -207,6 +308,7 @@
             </label>
 
 
+
             <label class="payment-option">
 
               <input
@@ -221,15 +323,19 @@
 
             </label>
 
+
           </div>
 
 
-          <!-- Total -->
+
+          <!-- CHECKOUT TOTAL -->
+
           <div class="checkout-summary">
 
             <span>
               الإجمالي:
             </span>
+
 
             <strong id="checkoutTotal">
               0 ر.س
@@ -238,13 +344,16 @@
           </div>
 
 
-          <!-- Submit -->
+
+          <!-- CONFIRM -->
+
           <button
             class="primary-btn checkout-submit"
             type="submit"
           >
             تأكيد الطلب 📦
           </button>
+
 
         </form>
 
@@ -255,49 +364,75 @@
   </div>
 
 
-  <!-- Order Success -->
-  <div id="orderSuccessModal" class="modal">
+
+  <!-- =========================
+       SUCCESS MODAL
+  ========================== -->
+
+  <div
+    id="orderSuccessModal"
+    class="modal"
+  >
 
     <div class="modal-box success-box">
+
 
       <div class="success-icon">
         ✓
       </div>
 
+
       <span class="eyebrow">
         ORDER CONFIRMED
       </span>
+
 
       <h2>
         تم استلام طلبك بنجاح 🎉
       </h2>
 
+
       <p>
         رقم طلبك:
+
         <strong id="orderNumber"></strong>
       </p>
+
 
       <p class="success-note">
         احتفظ برقم الطلب لمتابعته.
       </p>
 
+
       <button
         id="closeSuccess"
         class="primary-btn"
+        type="button"
       >
         ممتاز
       </button>
+
 
     </div>
 
   </div>
 
 
-  <!-- Cart Drawer -->
-  <div id="cartDrawer" class="drawer">
 
-    <!-- Cart Header -->
+  <!-- =========================
+       SHOPPING CART
+  ========================== -->
+
+  <div
+    id="cartDrawer"
+    class="drawer"
+  >
+
+
+    <!-- CART HEADER -->
+
     <div class="drawer-head">
+
 
       <div>
 
@@ -305,69 +440,110 @@
           YOUR CART
         </span>
 
+
         <h2>
           سلة المشتريات
         </h2>
 
       </div>
 
+
       <button
         id="closeCart"
+        type="button"
         aria-label="إغلاق السلة"
       >
         ×
       </button>
 
+
     </div>
 
 
-    <!-- Cart Products -->
+
+    <!-- =========================
+         CART PRODUCTS
+    ========================== -->
+
     <div
       id="cartItems"
       class="cart-items"
     ></div>
 
 
-    <!-- Cart Footer -->
-<div id="cartItems" class="cart-items"></div>
 
-<div class="cart-checkout-area">
+    <!-- =========================
+         CHECKOUT AREA
 
-  <button
-    id="checkoutButton"
-    class="primary-btn checkout-cart-btn"
-  >
-    إتمام الطلب
-    <span>←</span>
-  </button>
+         زر إتمام الطلب هنا مباشرة
+         بعد المنتجات
+    ========================== -->
 
-  <div class="cart-total-line">
+    <div class="cart-checkout-area">
 
-    <span>
-      الإجمالي
-    </span>
 
-    <strong>
-      <span id="cartTotal">0</span>
-      ر.س
-    </strong>
+      <button
+        id="checkoutButton"
+        class="primary-btn checkout-cart-btn"
+        type="button"
+      >
+
+        إتمام الطلب
+
+        <span>
+          ←
+        </span>
+
+      </button>
+
+
+
+      <!-- TOTAL -->
+
+      <div class="cart-total-line">
+
+        <span>
+          الإجمالي
+        </span>
+
+
+        <strong>
+
+          <span id="cartTotal">
+            0
+          </span>
+
+          ر.س
+
+        </strong>
+
+      </div>
+
+
+    </div>
+
 
   </div>
 
-</div>
-
-  </div>
 
 
-  <!-- Overlay -->
+  <!-- =========================
+       OVERLAY
+  ========================== -->
+
   <div
     id="overlay"
     class="overlay"
   ></div>
 
 
-  <!-- Store JavaScript -->
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
   <script src="store.js"></script>
 
 </body>
+
 </html>
