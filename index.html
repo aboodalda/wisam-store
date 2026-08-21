@@ -329,34 +329,32 @@
 
 
     <!-- Cart Footer -->
-    <div class="cart-footer">
+<div id="cartItems" class="cart-items"></div>
 
-      <div class="cart-total-line">
+<div class="cart-checkout-area">
 
-        <span>
-          الإجمالي
-        </span>
+  <button
+    id="checkoutButton"
+    class="primary-btn checkout-cart-btn"
+  >
+    إتمام الطلب
+    <span>←</span>
+  </button>
 
-        <strong>
-          <span id="cartTotal">
-            0
-          </span>
-          ر.س
-        </strong>
+  <div class="cart-total-line">
 
-      </div>
+    <span>
+      الإجمالي
+    </span>
 
+    <strong>
+      <span id="cartTotal">0</span>
+      ر.س
+    </strong>
 
-      <!-- Checkout Button INSIDE CART -->
-      <button
-        id="checkoutButton"
-        class="primary-btn checkout-cart-btn"
-      >
-        إتمام الطلب
-        <span>←</span>
-      </button>
+  </div>
 
-    </div>
+</div>
 
   </div>
 
