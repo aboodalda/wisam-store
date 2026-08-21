@@ -22,6 +22,7 @@ const defaultProducts = [
     battery: "5000 mAh",
     storage: "128GB",
     screen: "6.6 بوصة",
+    colors: "أسود، أبيض، أزرق",
     icon: "📱"
   },
 
@@ -33,6 +34,10 @@ const defaultProducts = [
     subcategory: "apple-watch",
     price: 499,
     description: "أناقة وتقنية في معصمك",
+    storage: "",
+    screen: "",
+    battery: "",
+    colors: "أسود، فضي",
     icon: "⌚"
   },
 
@@ -40,10 +45,14 @@ const defaultProducts = [
     id: 3,
     name: "سماعات لاسلكية",
     brand: "عام",
-    category: "phones",
+    category: "headphones",
     subcategory: "other",
     price: 299,
     description: "صوت نقي وتجربة مريحة",
+    storage: "",
+    screen: "",
+    battery: "",
+    colors: "أبيض، أسود",
     icon: "🎧"
   },
 
@@ -56,6 +65,9 @@ const defaultProducts = [
     price: 1899,
     description: "تجربة ألعاب احترافية",
     storage: "1TB",
+    screen: "",
+    battery: "",
+    colors: "أبيض",
     icon: "🎮"
   }
 
@@ -74,7 +86,11 @@ const categoryNames = {
 
   watches: "الساعات الذكية",
 
-  playstation: "PlayStation"
+  headphones: "السماعات",
+
+  playstation: "PlayStation",
+
+  other: "منتجات أخرى"
 
 };
 
@@ -166,7 +182,9 @@ try {
   );
 
   if (!Array.isArray(cart)) {
+
     cart = [];
+
   }
 
 } catch (e) {
@@ -202,6 +220,7 @@ function escapeHtml(value) {
       }[match];
 
     }
+
   );
 
 }
@@ -236,14 +255,13 @@ function subName(product) {
 
 function createCategoryNavigation() {
 
-  const grid = document.getElementById(
-    "productGrid"
-  );
+  const grid =
+    document.getElementById(
+      "productGrid"
+    );
 
   if (!grid) return;
 
-
-  /* لا نكرر القائمة إذا كانت موجودة */
 
   if (
     document.getElementById(
@@ -256,10 +274,15 @@ function createCategoryNavigation() {
   }
 
 
-  const wrapper = document.createElement("div");
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
 
   wrapper.id =
     "storeCategoryNavigation";
+
 
   wrapper.className =
     "store-category-navigation";
@@ -292,12 +315,20 @@ function createCategoryNavigation() {
 
       <button
         class="category-main-btn"
+        data-category="headphones"
+      >
+        🎧 السماعات
+      </button>
+
+      <button
+        class="category-main-btn"
         data-category="playstation"
       >
         🎮 PlayStation
       </button>
 
     </div>
+
 
     <div
       id="subcategoryNavigation"
@@ -326,7 +357,8 @@ function createCategoryNavigation() {
           currentCategory =
             this.dataset.category;
 
-          currentSubcategory = "all";
+          currentSubcategory =
+            "all";
 
 
           wrapper
@@ -371,11 +403,13 @@ function renderSubcategories() {
       "subcategoryNavigation"
     );
 
+
   if (!box) return;
 
 
   if (
-    currentCategory === "all"
+    currentCategory ===
+    "all"
   ) {
 
     box.innerHTML = "";
@@ -392,35 +426,32 @@ function renderSubcategories() {
   let available = [];
 
 
-  products.forEach(product => {
-
-    if (
-      product.category ===
-      currentCategory
-    ) {
+  products.forEach(
+    product => {
 
       if (
-        product.subcategory &&
-        !available.includes(
-          product.subcategory
-        )
+        product.category ===
+        currentCategory
       ) {
 
-        available.push(
-          product.subcategory
-        );
+        if (
+          product.subcategory &&
+          !available.includes(
+            product.subcategory
+          )
+        ) {
+
+          available.push(
+            product.subcategory
+          );
+
+        }
 
       }
 
     }
+  );
 
-  });
-
-
-  /*
-    إذا لم توجد منتجات بعد،
-    نظهر الأقسام الأساسية
-  */
 
   if (
     !available.length
@@ -432,11 +463,17 @@ function renderSubcategories() {
     ) {
 
       available = [
+
         "iphone",
+
         "samsung",
+
         "huawei",
+
         "redmi",
+
         "xiaomi"
+
       ];
 
     }
@@ -448,9 +485,13 @@ function renderSubcategories() {
     ) {
 
       available = [
+
         "apple-watch",
+
         "samsung-watch",
+
         "huawei-watch"
+
       ];
 
     }
@@ -462,9 +503,13 @@ function renderSubcategories() {
     ) {
 
       available = [
+
         "ps5",
+
         "ps4",
+
         "ps3"
+
       ];
 
     }
@@ -481,19 +526,24 @@ function renderSubcategories() {
       الكل
     </button>
 
-    ${available.map(item => `
 
-      <button
-        class="subcategory-btn"
-        data-subcategory="${escapeHtml(item)}"
-      >
-        ${escapeHtml(
-          subcategoryNames[item] ||
-          item
-        )}
-      </button>
+    ${available.map(
+      item => `
 
-    `).join("")}
+        <button
+          class="subcategory-btn"
+          data-subcategory="${escapeHtml(item)}"
+        >
+
+          ${escapeHtml(
+            subcategoryNames[item] ||
+            item
+          )}
+
+        </button>
+
+      `
+    ).join("")}
 
   `;
 
@@ -594,6 +644,7 @@ function renderProducts() {
       "productGrid"
     );
 
+
   if (!grid) return;
 
 
@@ -613,9 +664,11 @@ function renderProducts() {
           📦
         </div>
 
+
         <h3>
           لا توجد منتجات هنا حاليًا
         </h3>
+
 
         <p>
           سيتم إضافة منتجات هذا القسم قريبًا.
@@ -637,12 +690,15 @@ function renderProducts() {
 
       <article
         class="product-card"
-        style="animation-delay:${Math.min(
-          index * 60,
-          400
-        )}ms"
+        style="
+          animation-delay:${Math.min(
+            index * 60,
+            400
+          )}ms
+        "
         onclick="openProduct(${product.id})"
       >
+
 
         <div class="product-image">
 
@@ -673,6 +729,7 @@ function renderProducts() {
 
         <div class="product-info">
 
+
           <div class="product-meta">
 
             ${escapeHtml(
@@ -692,21 +749,26 @@ function renderProducts() {
 
 
           <h3>
+
             ${escapeHtml(
               product.name
             )}
+
           </h3>
 
 
           <p>
+
             ${escapeHtml(
               product.description ||
               "منتج مميز من وسام ستور"
             )}
+
           </p>
 
 
           <div class="product-specs">
+
 
             ${
               product.battery
@@ -714,9 +776,13 @@ function renderProducts() {
                 ? `
 
                   <span class="spec-pill">
-                    🔋 ${escapeHtml(
+
+                    🔋
+
+                    ${escapeHtml(
                       product.battery
                     )}
+
                   </span>
 
                 `
@@ -731,9 +797,13 @@ function renderProducts() {
                 ? `
 
                   <span class="spec-pill">
-                    💾 ${escapeHtml(
+
+                    💾
+
+                    ${escapeHtml(
                       product.storage
                     )}
+
                   </span>
 
                 `
@@ -748,9 +818,13 @@ function renderProducts() {
                 ? `
 
                   <span class="spec-pill">
-                    📱 ${escapeHtml(
+
+                    📱
+
+                    ${escapeHtml(
                       product.screen
                     )}
+
                   </span>
 
                 `
@@ -758,11 +832,37 @@ function renderProducts() {
                 : ""
             }
 
+
+            ${
+              product.colors
+
+                ? `
+
+                  <span class="spec-pill">
+
+                    🎨
+
+                    ${escapeHtml(
+                      product.colors
+                    )}
+
+                  </span>
+
+                `
+
+                : ""
+            }
+
+
           </div>
 
 
           <span class="price">
-            ${money(product.price)}
+
+            ${money(
+              product.price
+            )}
+
           </span>
 
 
@@ -773,7 +873,9 @@ function renderProducts() {
               addToCart(${product.id})
             "
           >
+
             أضف إلى السلة
+
           </button>
 
 
@@ -784,10 +886,14 @@ function renderProducts() {
               openProduct(${product.id})
             "
           >
+
             عرض التفاصيل
+
           </button>
 
+
         </div>
+
 
       </article>
 
@@ -848,10 +954,12 @@ function openProduct(id) {
             : `
 
               <span class="detail-icon">
+
                 ${escapeHtml(
                   product.icon ||
                   "📦"
                 )}
+
               </span>
 
             `
@@ -876,9 +984,11 @@ function openProduct(id) {
 
 
         <h2>
+
           ${escapeHtml(
             product.name
           )}
+
         </h2>
 
 
@@ -894,7 +1004,9 @@ function openProduct(id) {
 
         <div class="detail-price">
 
-          ${money(product.price)}
+          ${money(
+            product.price
+          )}
 
         </div>
 
@@ -919,12 +1031,43 @@ function openProduct(id) {
             </small>
 
             <strong>
+
               ${escapeHtml(
                 subName(product)
               )}
+
             </strong>
 
           </div>
+
+
+          ${
+            product.brand
+
+              ? `
+
+                <div class="spec-item">
+
+                  <small>
+                    العلامة التجارية
+                  </small>
+
+                  <strong>
+
+                    🏷️
+
+                    ${escapeHtml(
+                      product.brand
+                    )}
+
+                  </strong>
+
+                </div>
+
+              `
+
+              : ""
+          }
 
 
           ${
@@ -939,9 +1082,13 @@ function openProduct(id) {
                   </small>
 
                   <strong>
+
+                    🔋
+
                     ${escapeHtml(
                       product.battery
                     )}
+
                   </strong>
 
                 </div>
@@ -964,9 +1111,13 @@ function openProduct(id) {
                   </small>
 
                   <strong>
+
+                    💾
+
                     ${escapeHtml(
                       product.storage
                     )}
+
                   </strong>
 
                 </div>
@@ -989,9 +1140,42 @@ function openProduct(id) {
                   </small>
 
                   <strong>
+
+                    📱
+
                     ${escapeHtml(
                       product.screen
                     )}
+
+                  </strong>
+
+                </div>
+
+              `
+
+              : ""
+          }
+
+
+          ${
+            product.colors
+
+              ? `
+
+                <div class="spec-item">
+
+                  <small>
+                    الألوان المتوفرة
+                  </small>
+
+                  <strong>
+
+                    🎨
+
+                    ${escapeHtml(
+                      product.colors
+                    )}
+
                   </strong>
 
                 </div>
@@ -1007,7 +1191,10 @@ function openProduct(id) {
 
         <button
           class="primary-btn"
-          style="width:100%;margin-top:5px"
+          style="
+            width:100%;
+            margin-top:5px
+          "
           onclick="
             addToCart(${product.id});
             closeProduct();
@@ -1030,6 +1217,9 @@ function openProduct(id) {
     document.getElementById(
       "productModal"
     );
+
+
+  if (!modal) return;
 
 
   modal.classList.add(
@@ -1161,8 +1351,15 @@ function renderCart() {
     );
 
 
-  if (!count || !box || !total)
+  if (
+    !count ||
+    !box ||
+    !total
+  ) {
+
     return;
+
+  }
 
 
   count.textContent =
@@ -1192,8 +1389,11 @@ function renderCart() {
             margin-bottom:15px;
           "
         >
+
           🛒
+
         </div>
+
 
         <h3
           style="
@@ -1201,11 +1401,16 @@ function renderCart() {
             margin-bottom:8px;
           "
         >
+
           السلة فارغة
+
         </h3>
 
+
         <p>
+
           أضف منتجًا للبدء بالطلب.
+
         </p>
 
       </div>
@@ -1221,24 +1426,34 @@ function renderCart() {
 
         <div class="cart-row">
 
+
           <div>
 
             <b>
+
               ${escapeHtml(
                 item.name
               )}
+
             </b>
+
 
             <br>
 
+
             <span>
-              ${money(item.price)}
+
+              ${money(
+                item.price
+              )}
+
             </span>
 
           </div>
 
 
           <div class="qty">
+
 
             <button
               onclick="
@@ -1248,7 +1463,9 @@ function renderCart() {
                 )
               "
             >
+
               −
+
             </button>
 
 
@@ -1263,10 +1480,14 @@ function renderCart() {
                 )
               "
             >
+
               +
+
             </button>
 
+
           </div>
+
 
         </div>
 
@@ -1342,15 +1563,21 @@ function openCart() {
       "cartDrawer"
     );
 
+
   const overlay =
     document.getElementById(
       "overlay"
     );
 
 
+  if (!drawer || !overlay)
+    return;
+
+
   drawer.classList.add(
     "open"
   );
+
 
   overlay.classList.add(
     "show"
@@ -1370,15 +1597,21 @@ function closeCart() {
       "cartDrawer"
     );
 
+
   const overlay =
     document.getElementById(
       "overlay"
     );
 
 
+  if (!drawer || !overlay)
+    return;
+
+
   drawer.classList.remove(
     "open"
   );
+
 
   overlay.classList.remove(
     "show"
@@ -1414,19 +1647,35 @@ function openCheckout() {
     );
 
 
-  document.getElementById(
-    "checkoutTotal"
-  ).textContent =
-    total.toLocaleString(
-      "ar-SA"
-    ) + " ر.س";
+  const checkoutTotal =
+    document.getElementById(
+      "checkoutTotal"
+    );
 
 
-  document.getElementById(
-    "checkoutModal"
-  ).classList.add(
-    "show"
-  );
+  if (checkoutTotal) {
+
+    checkoutTotal.textContent =
+      total.toLocaleString(
+        "ar-SA"
+      ) + " ر.س";
+
+  }
+
+
+  const checkoutModal =
+    document.getElementById(
+      "checkoutModal"
+    );
+
+
+  if (checkoutModal) {
+
+    checkoutModal.classList.add(
+      "show"
+    );
+
+  }
 
 
   document.body.style.overflow =
@@ -1444,11 +1693,19 @@ function openCheckout() {
 
 function closeCheckout() {
 
-  document.getElementById(
-    "checkoutModal"
-  ).classList.remove(
-    "show"
-  );
+  const checkoutModal =
+    document.getElementById(
+      "checkoutModal"
+    );
+
+
+  if (checkoutModal) {
+
+    checkoutModal.classList.remove(
+      "show"
+    );
+
+  }
 
 
   document.body.style.overflow =
@@ -1463,11 +1720,19 @@ function closeCheckout() {
 
 function closeSuccess() {
 
-  document.getElementById(
-    "orderSuccessModal"
-  ).classList.remove(
-    "show"
-  );
+  const successModal =
+    document.getElementById(
+      "orderSuccessModal"
+    );
+
+
+  if (successModal) {
+
+    successModal.classList.remove(
+      "show"
+    );
+
+  }
 
 
   document.body.style.overflow =
@@ -1591,12 +1856,30 @@ function setupCheckout() {
       };
 
 
-      const orders =
-        JSON.parse(
-          localStorage.getItem(
-            "wisamOrders"
-          ) || "[]"
-        );
+      let orders = [];
+
+
+      try {
+
+        orders =
+          JSON.parse(
+            localStorage.getItem(
+              "wisamOrders"
+            ) || "[]"
+          );
+
+
+        if (!Array.isArray(orders)) {
+
+          orders = [];
+
+        }
+
+      } catch (e) {
+
+        orders = [];
+
+      }
 
 
       orders.unshift(
@@ -1624,17 +1907,33 @@ function setupCheckout() {
       closeCheckout();
 
 
-      document.getElementById(
-        "orderNumber"
-      ).textContent =
-        order.id;
+      const orderNumber =
+        document.getElementById(
+          "orderNumber"
+        );
 
 
-      document.getElementById(
-        "orderSuccessModal"
-      ).classList.add(
-        "show"
-      );
+      if (orderNumber) {
+
+        orderNumber.textContent =
+          order.id;
+
+      }
+
+
+      const successModal =
+        document.getElementById(
+          "orderSuccessModal"
+        );
+
+
+      if (successModal) {
+
+        successModal.classList.add(
+          "show"
+        );
+
+      }
 
 
       document.body.style.overflow =
@@ -1657,30 +1956,36 @@ function setupEvents() {
       "cartButton"
     );
 
+
   const closeCartButton =
     document.getElementById(
       "closeCart"
     );
+
 
   const overlay =
     document.getElementById(
       "overlay"
     );
 
+
   const closeProductButton =
     document.getElementById(
       "closeProductModal"
     );
+
 
   const checkoutButton =
     document.getElementById(
       "checkoutButton"
     );
 
+
   const closeCheckoutButton =
     document.getElementById(
       "closeCheckout"
     );
+
 
   const closeSuccessButton =
     document.getElementById(
@@ -1688,39 +1993,60 @@ function setupEvents() {
     );
 
 
-  if (cartButton)
+  if (cartButton) {
+
     cartButton.onclick =
       openCart;
 
+  }
 
-  if (closeCartButton)
+
+  if (closeCartButton) {
+
     closeCartButton.onclick =
       closeCart;
 
+  }
 
-  if (overlay)
+
+  if (overlay) {
+
     overlay.onclick =
       closeCart;
 
+  }
 
-  if (closeProductButton)
+
+  if (closeProductButton) {
+
     closeProductButton.onclick =
       closeProduct;
 
+  }
 
-  if (checkoutButton)
+
+  if (checkoutButton) {
+
     checkoutButton.onclick =
       openCheckout;
 
+  }
 
-  if (closeCheckoutButton)
+
+  if (closeCheckoutButton) {
+
     closeCheckoutButton.onclick =
       closeCheckout;
 
+  }
 
-  if (closeSuccessButton)
+
+  if (closeSuccessButton) {
+
     closeSuccessButton.onclick =
       closeSuccess;
+
+  }
 
 
   const productModal =
@@ -1831,7 +2157,7 @@ function setupEvents() {
 
 /* =========================================================
    ADD CATEGORY CSS
-   يتم إضافته تلقائيًا حتى لا تحتاج تعديل index.html
+   يتم إضافته تلقائيًا
 ========================================================= */
 
 function injectCategoryStyles() {
@@ -1863,12 +2189,14 @@ function injectCategoryStyles() {
       margin-bottom:32px;
     }
 
+
     .category-main-buttons{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
       margin-bottom:14px;
     }
+
 
     .category-main-btn{
       border:1px solid #e3e1da;
@@ -1882,10 +2210,12 @@ function injectCategoryStyles() {
       transition:.25s;
     }
 
+
     .category-main-btn:hover{
       border-color:#c99a3f;
       transform:translateY(-2px);
     }
+
 
     .category-main-btn.active{
       background:#111;
@@ -1894,12 +2224,14 @@ function injectCategoryStyles() {
       box-shadow:0 8px 20px #00000014;
     }
 
+
     .subcategory-navigation{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
       min-height:0;
     }
+
 
     .subcategory-btn{
       border:1px solid #e5e3dc;
@@ -1913,10 +2245,12 @@ function injectCategoryStyles() {
       transition:.2s;
     }
 
+
     .subcategory-btn:hover{
       border-color:#c99a3f;
       color:#222;
     }
+
 
     .subcategory-btn.active{
       background:#c99a3f;
@@ -1924,6 +2258,7 @@ function injectCategoryStyles() {
       border-color:#c99a3f;
       font-weight:800;
     }
+
 
     .empty-products{
       grid-column:1/-1;
@@ -1934,20 +2269,24 @@ function injectCategoryStyles() {
       padding:70px 20px;
     }
 
+
     .empty-products div{
       font-size:55px;
       margin-bottom:15px;
     }
+
 
     .empty-products h3{
       margin:0 0 8px;
       font-size:22px;
     }
 
+
     .empty-products p{
       color:#999;
       margin:0;
     }
+
 
     @media(max-width:600px){
 
@@ -1956,16 +2295,19 @@ function injectCategoryStyles() {
         grid-template-columns:1fr 1fr;
       }
 
+
       .category-main-btn{
         padding:12px 8px;
         font-size:13px;
       }
+
 
       .subcategory-navigation{
         overflow-x:auto;
         flex-wrap:nowrap;
         padding-bottom:5px;
       }
+
 
       .subcategory-btn{
         white-space:nowrap;
