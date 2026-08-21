@@ -1,56 +1,80 @@
-const defaultProducts=[
+const defaultProducts = [
   {
-    id:1,
-    name:"هاتف ذكي",
-    price:1299,
-    description:"أداء قوي وتصميم أنيق",
-    icon:"📱"
+    id: 1,
+    name: "هاتف ذكي",
+    price: 1299,
+    description: "أداء قوي وتصميم أنيق",
+    icon: "📱",
+    category: "phones",
+    brand: "",
+    battery: "",
+    screen: "",
+    storage: "",
+    colors: ""
   },
   {
-    id:2,
-    name:"ساعة ذكية",
-    price:499,
-    description:"أناقة وتقنية في معصمك",
-    icon:"⌚"
+    id: 2,
+    name: "ساعة ذكية",
+    price: 499,
+    description: "أناقة وتقنية في معصمك",
+    icon: "⌚",
+    category: "watches",
+    brand: "",
+    battery: "",
+    screen: "",
+    storage: "",
+    colors: ""
   },
   {
-    id:3,
-    name:"سماعات لاسلكية",
-    price:299,
-    description:"صوت نقي وتجربة مريحة",
-    icon:"🎧"
+    id: 3,
+    name: "سماعات لاسلكية",
+    price: 299,
+    description: "صوت نقي وتجربة مريحة",
+    icon: "🎧",
+    category: "headphones",
+    brand: "",
+    battery: "",
+    screen: "",
+    storage: "",
+    colors: ""
   },
   {
-    id:4,
-    name:"جهاز ألعاب",
-    price:1899,
-    description:"تجربة ألعاب احترافية",
-    icon:"🎮"
+    id: 4,
+    name: "جهاز ألعاب",
+    price: 1899,
+    description: "تجربة ألعاب احترافية",
+    icon: "🎮",
+    category: "playstation",
+    brand: "",
+    battery: "",
+    screen: "",
+    storage: "",
+    colors: ""
   }
 ];
 
-let currentFilter="all";
-
-let selectedImageData="";
+let currentFilter = "all";
+let selectedImageData = "";
+let editingProductId = null;
 
 
 /* =========================
    PRODUCTS
 ========================= */
 
-function getProducts(){
+function getProducts() {
 
-  try{
+  try {
 
-    const x=JSON.parse(
+    const x = JSON.parse(
       localStorage.getItem("wisamProducts")
     );
 
-    return Array.isArray(x)&&x.length
-      ?x
-      :defaultProducts;
+    return Array.isArray(x) && x.length
+      ? x
+      : defaultProducts;
 
-  }catch(e){
+  } catch (e) {
 
     return defaultProducts;
 
@@ -59,11 +83,11 @@ function getProducts(){
 }
 
 
-function saveProducts(x){
+function saveProducts(products) {
 
   localStorage.setItem(
     "wisamProducts",
-    JSON.stringify(x)
+    JSON.stringify(products)
   );
 
   render();
@@ -71,178 +95,266 @@ function saveProducts(x){
 }
 
 
-function esc(s){
+function esc(s) {
 
-  return String(s??"").replace(
+  return String(s ?? "").replace(
     /[&<>"']/g,
-    m=>({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#039;"
+    m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
     }[m])
   );
 
 }
 
 
-function money(n){
+function money(n) {
 
-  return Number(n||0).toLocaleString("ar-SA")+" ر.س";
+  return Number(n || 0).toLocaleString("ar-SA") + " ر.س";
 
 }
+
+
+/* =========================
+   IMAGE ELEMENTS
+========================= */
+
+const imageFileInput =
+  document.getElementById("imageFile");
+
+const imagePreview =
+  document.getElementById("imagePreview");
+
+const imageUrlInput =
+  document.getElementById("image");
 
 
 /* =========================
    IMAGE UPLOAD
 ========================= */
 
-const imageFileInput=
-  document.getElementById("imageFile");
+if (imageFileInput) {
 
-const imagePreview=
-  document.getElementById("imagePreview");
+  imageFileInput.addEventListener(
+    "change",
+    function () {
 
-const imageUrlInput=
-  document.getElementById("image");
+      const file = this.files[0];
 
+      if (!file) {
 
-imageFileInput.addEventListener(
-  "change",
-  function(){
+        selectedImageData = "";
 
-    const file=this.files[0];
+        imagePreview.innerHTML =
+          "<span>ستظهر معاينة الصورة هنا</span>";
 
-    if(!file){
+        return;
 
-      selectedImageData="";
-
-      imagePreview.innerHTML=
-        "<span>ستظهر معاينة الصورة هنا</span>";
-
-      return;
-
-    }
+      }
 
 
-    if(!file.type.startsWith("image/")){
+      if (!file.type.startsWith("image/")) {
 
-      alert("من فضلك اختر ملف صورة فقط.");
+        alert("من فضلك اختر ملف صورة فقط.");
 
-      this.value="";
+        this.value = "";
 
-      return;
+        return;
 
-    }
-
-
-    const reader=new FileReader();
+      }
 
 
-    reader.onload=function(e){
-
-      selectedImageData=e.target.result;
-
-      imagePreview.innerHTML=
-        `<img src="${selectedImageData}" alt="معاينة الصورة">`;
-
-    };
+      const reader = new FileReader();
 
 
-    reader.readAsDataURL(file);
+      reader.onload = function (e) {
 
-  }
-);
+        selectedImageData = e.target.result;
+
+        imagePreview.innerHTML = `
+          <img
+            src="${selectedImageData}"
+            alt="معاينة الصورة"
+          >
+        `;
+
+      };
 
 
-/* إذا وضع رابط صورة */
-
-imageUrlInput.addEventListener(
-  "input",
-  function(){
-
-    if(
-      this.value.trim() &&
-      !selectedImageData
-    ){
-
-      imagePreview.innerHTML=
-        `<img src="${esc(this.value.trim())}" alt="معاينة الصورة"
-        onerror="this.parentElement.innerHTML='<span>تعذر تحميل الصورة</span>'">`;
+      reader.readAsDataURL(file);
 
     }
+  );
 
-  }
-);
+}
 
 
 /* =========================
-   RENDER
+   IMAGE URL PREVIEW
 ========================= */
 
-function render(){
+if (imageUrlInput) {
 
-  const products=getProducts();
+  imageUrlInput.addEventListener(
+    "input",
+    function () {
 
-  document.getElementById(
-    "totalProducts"
-  ).textContent=products.length;
+      if (
+        this.value.trim() &&
+        !selectedImageData
+      ) {
+
+        imagePreview.innerHTML = `
+          <img
+            src="${esc(this.value.trim())}"
+            alt="معاينة الصورة"
+            onerror="this.parentElement.innerHTML='<span>تعذر تحميل الصورة</span>'"
+          >
+        `;
+
+      }
+
+      if (!this.value.trim() && !selectedImageData) {
+
+        imagePreview.innerHTML =
+          "<span>ستظهر معاينة الصورة هنا</span>";
+
+      }
+
+    }
+  );
+
+}
 
 
-  document.getElementById(
-    "ownerProducts"
-  ).innerHTML=products.map(p=>`
+/* =========================
+   RENDER PRODUCTS
+========================= */
 
-    <div class="product-row">
+function render() {
 
-      <div style="display:flex;align-items:center;gap:12px">
+  const products = getProducts();
 
-        ${
-          p.image
-          ?
-          `<img
-            src="${esc(p.image)}"
+
+  const totalProducts =
+    document.getElementById("totalProducts");
+
+  if (totalProducts) {
+    totalProducts.textContent =
+      products.length;
+  }
+
+
+  const ownerProducts =
+    document.getElementById("ownerProducts");
+
+
+  if (ownerProducts) {
+
+    ownerProducts.innerHTML =
+      products.map(p => `
+
+        <div class="product-row">
+
+          <div
             style="
-              width:55px;
-              height:55px;
-              object-fit:contain;
-              border-radius:10px;
-              background:#f5f5f1;
-              padding:5px
+              display:flex;
+              align-items:center;
+              gap:12px
             "
-          >`
-          :
-          `<span style="font-size:30px">
-            ${esc(p.icon||"📦")}
-          </span>`
-        }
+          >
 
-        <div>
+            ${
+              p.image
+                ? `
+                  <img
+                    src="${esc(p.image)}"
+                    alt="${esc(p.name)}"
+                    style="
+                      width:60px;
+                      height:60px;
+                      object-fit:contain;
+                      border-radius:12px;
+                      background:#f5f5f1;
+                      padding:5px
+                    "
+                  >
+                `
+                : `
+                  <span style="font-size:30px">
+                    ${esc(p.icon || "📦")}
+                  </span>
+                `
+            }
 
-          <b>
-            ${esc(p.name)}
-          </b>
 
-          <br>
+            <div>
 
-          <small>
-            ${money(p.price)}
-          </small>
+              <b>
+                ${esc(p.name)}
+              </b>
+
+              <br>
+
+              <small>
+                ${money(p.price)}
+              </small>
+
+              ${
+                p.brand
+                  ? `
+                    <br>
+                    <small>
+                      🏷️ ${esc(p.brand)}
+                    </small>
+                  `
+                  : ""
+              }
+
+            </div>
+
+          </div>
+
+
+          <div
+            style="
+              display:flex;
+              gap:7px;
+              align-items:center
+            "
+          >
+
+            <button
+              onclick="editProduct(${p.id})"
+              style="
+                border:1px solid #c99a3f;
+                background:#fff8e8;
+                color:#8b681f;
+                border-radius:9px;
+                padding:8px 12px;
+                cursor:pointer
+              "
+            >
+              ✏️ تعديل
+            </button>
+
+
+            <button
+              onclick="deleteProduct(${p.id})"
+            >
+              حذف
+            </button>
+
+          </div>
 
         </div>
 
-      </div>
+      `).join("");
 
-      <button
-        onclick="deleteProduct(${p.id})"
-      >
-        حذف
-      </button>
-
-    </div>
-
-  `).join("");
+  }
 
 
   renderOrders();
@@ -254,109 +366,132 @@ function render(){
    ORDERS
 ========================= */
 
-function getOrders(){
+function getOrders() {
 
-  try{
+  try {
 
-    const x=JSON.parse(
+    const x = JSON.parse(
       localStorage.getItem("wisamOrders")
     );
 
     return Array.isArray(x)
-      ?x
-      :[];
+      ? x
+      : [];
 
-  }catch(e){
+  } catch (e) {
 
-    return[];
+    return [];
 
   }
 
 }
 
 
-function statusText(s){
+function statusText(s) {
 
-  return({
-    new:"جديد",
-    processing:"قيد التجهيز",
-    delivered:"تم التسليم",
-    cancelled:"ملغى"
-  })[s]||"جديد";
+  return {
+    new: "جديد",
+    processing: "قيد التجهيز",
+    delivered: "تم التسليم",
+    cancelled: "ملغى"
+  }[s] || "جديد";
 
 }
 
 
-function formatDate(d){
+function formatDate(d) {
 
-  try{
+  try {
 
     return new Date(d).toLocaleString(
       "ar-SA",
       {
-        dateStyle:"medium",
-        timeStyle:"short"
+        dateStyle: "medium",
+        timeStyle: "short"
       }
     );
 
-  }catch(e){
+  } catch (e) {
 
-    return"";
+    return "";
 
   }
 
 }
 
 
-function renderOrders(){
+/* =========================
+   RENDER ORDERS
+========================= */
 
-  const orders=getOrders();
+function renderOrders() {
 
-  const newCount=
+  const orders = getOrders();
+
+
+  const newCount =
     orders.filter(
-      o=>o.status==="new"
+      o => o.status === "new"
     ).length;
 
 
-  document.getElementById(
-    "totalOrders"
-  ).textContent=orders.length;
+  const totalOrders =
+    document.getElementById("totalOrders");
+
+  if (totalOrders) {
+    totalOrders.textContent =
+      orders.length;
+  }
 
 
-  document.getElementById(
-    "navOrderCount"
-  ).textContent=newCount;
+  const navOrderCount =
+    document.getElementById("navOrderCount");
+
+  if (navOrderCount) {
+    navOrderCount.textContent =
+      newCount;
+  }
 
 
-  document.getElementById(
-    "totalSales"
-  ).textContent=money(
-    orders
-      .filter(o=>o.status!=="cancelled")
-      .reduce(
-        (s,o)=>s+Number(o.total||0),
-        0
-      )
-  );
+  const totalSales =
+    document.getElementById("totalSales");
 
+  if (totalSales) {
 
-  const filtered=
-    currentFilter==="all"
-      ?orders
-      :orders.filter(
-        o=>o.status===currentFilter
+    totalSales.textContent =
+      money(
+        orders
+          .filter(
+            o => o.status !== "cancelled"
+          )
+          .reduce(
+            (sum, o) =>
+              sum + Number(o.total || 0),
+            0
+          )
       );
 
-
-  const box=
-    document.getElementById(
-      "ordersList"
-    );
+  }
 
 
-  if(!filtered.length){
+  const filtered =
+    currentFilter === "all"
+      ? orders
+      : orders.filter(
+          o => o.status === currentFilter
+        );
 
-    box.innerHTML=`
+
+  const box =
+    document.getElementById("ordersList");
+
+
+  if (!box) return;
+
+
+  if (!filtered.length) {
+
+    box.innerHTML = `
       <div class="empty-orders">
 
         <strong>
@@ -364,7 +499,8 @@ function renderOrders(){
         </strong>
 
         <span>
-          عندما يرسل الزبائن طلباتهم ستظهر في هذا القسم.
+          عندما يرسل الزبائن طلباتهم
+          ستظهر في هذا القسم.
         </span>
 
       </div>
@@ -375,125 +511,163 @@ function renderOrders(){
   }
 
 
-  box.innerHTML=filtered.map(o=>`
+  box.innerHTML =
+    filtered.map(o => `
 
-    <div class="order-card">
+      <div class="order-card">
 
-      <div>
+        <div>
 
-        <div class="order-number">
-          ${esc(o.id)}
-        </div>
+          <div class="order-number">
+            ${esc(o.id)}
+          </div>
 
-        <div class="order-customer">
-          👤 ${esc(o.customer?.name||"بدون اسم")}
-          ·
-          📱 ${esc(o.customer?.phone||"")}
-        </div>
+          <div class="order-customer">
+            👤 ${esc(
+              o.customer?.name ||
+              "بدون اسم"
+            )}
 
-        <div class="order-date">
-          ${formatDate(o.createdAt)}
-        </div>
+            ·
 
-      </div>
+            📱 ${esc(
+              o.customer?.phone ||
+              ""
+            )}
+          </div>
 
-
-      <div>
-
-        <span class="status status-${esc(o.status||"new")}">
-          ${statusText(o.status)}
-        </span>
-
-        <div class="order-customer">
-
-          ${
-            (o.items||[]).reduce(
-              (s,x)=>s+Number(x.qty||0),
-              0
-            )
-          }
-
-          قطعة
-
-          ·
-
-          ${
-            o.payment==="online"
-            ?"💳 إلكتروني"
-            :"💵 عند الاستلام"
-          }
+          <div class="order-date">
+            ${formatDate(o.createdAt)}
+          </div>
 
         </div>
 
-      </div>
 
+        <div>
 
-      <div>
-
-        <div class="order-total">
-          ${money(o.total)}
-        </div>
-
-        <div class="order-actions">
-
-          <button
-            onclick="openOrder('${o.id}')"
+          <span
+            class="
+              status
+              status-${esc(
+                o.status || "new"
+              )}
+            "
           >
-            التفاصيل
-          </button>
+            ${statusText(o.status)}
+          </span>
 
-          <button
-            onclick="quickStatus('${o.id}')"
-          >
-            تغيير الحالة
-          </button>
+
+          <div class="order-customer">
+
+            ${
+              (o.items || []).reduce(
+                (sum, item) =>
+                  sum +
+                  Number(item.qty || 0),
+                0
+              )
+            }
+
+            قطعة
+
+            ·
+
+            ${
+              o.payment === "online"
+                ? "💳 إلكتروني"
+                : "💵 عند الاستلام"
+            }
+
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="order-total">
+            ${money(o.total)}
+          </div>
+
+
+          <div class="order-actions">
+
+            <button
+              onclick="openOrder('${o.id}')"
+            >
+              التفاصيل
+            </button>
+
+
+            <button
+              onclick="quickStatus('${o.id}')"
+            >
+              تغيير الحالة
+            </button>
+
+          </div>
 
         </div>
 
       </div>
 
-    </div>
-
-  `).join("");
+    `).join("");
 
 }
 
 
-function filterOrders(filter,btn){
+/* =========================
+   FILTER ORDERS
+========================= */
 
-  currentFilter=filter;
+function filterOrders(filter, btn) {
+
+  currentFilter = filter;
+
 
   document
     .querySelectorAll(".filter")
     .forEach(
-      x=>x.classList.remove("active")
+      x => x.classList.remove("active")
     );
 
-  if(btn){
+
+  if (btn) {
     btn.classList.add("active");
   }
+
 
   renderOrders();
 
 }
 
 
-function updateOrder(id,status){
+/* =========================
+   UPDATE ORDER
+========================= */
 
-  const orders=getOrders();
+function updateOrder(id, status) {
 
-  const o=orders.find(
-    x=>x.id===id
-  );
+  const orders = getOrders();
 
-  if(!o)return;
 
-  o.status=status;
+  const order =
+    orders.find(
+      x => x.id === id
+    );
+
+
+  if (!order) return;
+
+
+  order.status = status;
+
 
   localStorage.setItem(
     "wisamOrders",
     JSON.stringify(orders)
   );
+
 
   renderOrders();
 
@@ -502,22 +676,40 @@ function updateOrder(id,status){
 }
 
 
-function quickStatus(id){
+/* =========================
+   QUICK STATUS
+========================= */
 
-  const o=getOrders().find(
-    x=>x.id===id
+function quickStatus(id) {
+
+  const order =
+    getOrders().find(
+      x => x.id === id
+    );
+
+
+  if (!order) return;
+
+
+  const next = {
+
+    new: "processing",
+
+    processing: "delivered",
+
+    delivered: "delivered",
+
+    cancelled: "new"
+
+  }[
+    order.status || "new"
+  ];
+
+
+  updateOrder(
+    id,
+    next
   );
-
-  if(!o)return;
-
-  const next={
-    new:"processing",
-    processing:"delivered",
-    delivered:"delivered",
-    cancelled:"new"
-  }[o.status||"new"];
-
-  updateOrder(id,next);
 
 }
 
@@ -526,46 +718,61 @@ function quickStatus(id){
    ORDER DETAILS
 ========================= */
 
-function openOrder(id){
+function openOrder(id) {
 
-  const o=getOrders().find(
-    x=>x.id===id
-  );
+  const order =
+    getOrders().find(
+      x => x.id === id
+    );
 
-  if(!o)return;
+
+  if (!order) return;
 
 
-  const phone=
+  const phone =
     String(
-      o.customer?.phone||""
+      order.customer?.phone || ""
     ).replace(
       /[^\d+]/g,
       ""
     );
 
 
-  const message=
+  const message =
     encodeURIComponent(
-      `مرحباً ${o.customer?.name||""}، معك وسام ستور بخصوص طلبك رقم ${o.id}. إجمالي الطلب ${money(o.total)}.`
+      `مرحباً ${order.customer?.name || ""}، معك وسام ستور بخصوص طلبك رقم ${order.id}. إجمالي الطلب ${money(order.total)}.`
     );
 
 
-  document.getElementById(
-    "orderDetails"
-  ).innerHTML=`
+  const orderDetails =
+    document.getElementById(
+      "orderDetails"
+    );
+
+
+  orderDetails.innerHTML = `
 
     <div class="detail-head">
 
       <span class="eyebrow">
-        ORDER ${esc(o.id)}
+        ORDER ${esc(order.id)}
       </span>
+
 
       <h2>
         تفاصيل الطلب
       </h2>
 
-      <span class="status status-${esc(o.status||"new")}">
-        ${statusText(o.status)}
+
+      <span
+        class="
+          status
+          status-${esc(
+            order.status || "new"
+          )}
+        "
+      >
+        ${statusText(order.status)}
       </span>
 
     </div>
@@ -574,54 +781,100 @@ function openOrder(id){
     <div class="detail-grid">
 
       <div class="detail-box">
-        <small>اسم العميل</small>
+
+        <small>
+          اسم العميل
+        </small>
+
         <strong>
-          ${esc(o.customer?.name||"—")}
+          ${esc(
+            order.customer?.name ||
+            "—"
+          )}
         </strong>
+
       </div>
 
 
       <div class="detail-box">
-        <small>رقم الجوال</small>
+
+        <small>
+          رقم الجوال
+        </small>
+
         <strong>
-          ${esc(o.customer?.phone||"—")}
+          ${esc(
+            order.customer?.phone ||
+            "—"
+          )}
         </strong>
+
       </div>
 
 
       <div class="detail-box">
-        <small>المدينة</small>
+
+        <small>
+          المدينة
+        </small>
+
         <strong>
-          ${esc(o.customer?.city||"—")}
+          ${esc(
+            order.customer?.city ||
+            "—"
+          )}
         </strong>
+
       </div>
 
 
       <div class="detail-box">
-        <small>العنوان</small>
+
+        <small>
+          العنوان
+        </small>
+
         <strong>
-          ${esc(o.customer?.address||"—")}
+          ${esc(
+            order.customer?.address ||
+            "—"
+          )}
         </strong>
+
       </div>
 
 
       <div class="detail-box">
-        <small>طريقة الدفع</small>
+
+        <small>
+          طريقة الدفع
+        </small>
+
         <strong>
+
           ${
-            o.payment==="online"
-            ?"💳 الدفع الإلكتروني"
-            :"💵 الدفع عند الاستلام"
+            order.payment === "online"
+              ? "💳 الدفع الإلكتروني"
+              : "💵 الدفع عند الاستلام"
           }
+
         </strong>
+
       </div>
 
 
       <div class="detail-box">
-        <small>تاريخ الطلب</small>
+
+        <small>
+          تاريخ الطلب
+        </small>
+
         <strong>
-          ${formatDate(o.createdAt)}
+          ${formatDate(
+            order.createdAt
+          )}
         </strong>
+
       </div>
 
     </div>
@@ -633,70 +886,114 @@ function openOrder(id){
         المنتجات
       </h3>
 
+
       ${
-        (o.items||[]).map(x=>`
+        (order.items || [])
+          .map(item => `
 
-          <div class="item-line">
+            <div class="item-line">
 
-            <span>
-              ${esc(x.name)}
-              ×
-              ${x.qty}
-            </span>
+              <span>
 
-            <strong>
-              ${money(x.price*x.qty)}
-            </strong>
+                ${esc(item.name)}
 
-          </div>
+                ×
 
-        `).join("")
+                ${item.qty}
+
+              </span>
+
+
+              <strong>
+
+                ${money(
+                  item.price *
+                  item.qty
+                )}
+
+              </strong>
+
+            </div>
+
+          `)
+          .join("")
       }
 
     </div>
 
 
     <div class="order-total-large">
+
       الإجمالي:
-      ${money(o.total)}
+
+      ${money(order.total)}
+
     </div>
 
 
     <label
-      style="display:block;margin-top:20px"
+      style="
+        display:block;
+        margin-top:20px
+      "
     >
 
       حالة الطلب
 
+
       <select
         class="status-select"
-        onchange="updateOrder('${o.id}',this.value)"
+        onchange="
+          updateOrder(
+            '${order.id}',
+            this.value
+          )
+        "
       >
 
         <option
           value="new"
-          ${o.status==="new"?"selected":""}
+          ${
+            order.status === "new"
+              ? "selected"
+              : ""
+          }
         >
           جديد
         </option>
 
+
         <option
           value="processing"
-          ${o.status==="processing"?"selected":""}
+          ${
+            order.status === "processing"
+              ? "selected"
+              : ""
+          }
         >
           قيد التجهيز
         </option>
 
+
         <option
           value="delivered"
-          ${o.status==="delivered"?"selected":""}
+          ${
+            order.status === "delivered"
+              ? "selected"
+              : ""
+          }
         >
           تم التسليم
         </option>
 
+
         <option
           value="cancelled"
-          ${o.status==="cancelled"?"selected":""}
+          ${
+            order.status === "cancelled"
+              ? "selected"
+              : ""
+          }
         >
           ملغى
         </option>
@@ -708,18 +1005,22 @@ function openOrder(id){
 
     ${
       phone
-      ?
-      `
-      <a
-        class="wa-btn"
-        target="_blank"
-        rel="noopener"
-        href="https://wa.me/${phone.replace(/^0/,"966")}?text=${message}"
-      >
-        💬 التواصل عبر WhatsApp
-      </a>
-      `
-      :""
+        ? `
+          <a
+            class="wa-btn"
+            target="_blank"
+            rel="noopener"
+            href="
+              https://wa.me/${phone.replace(
+                /^0/,
+                "966"
+              )}?text=${message}
+            "
+          >
+            💬 التواصل عبر WhatsApp
+          </a>
+        `
+        : ""
     }
 
   `;
@@ -732,7 +1033,11 @@ function openOrder(id){
 }
 
 
-function closeOrder(){
+/* =========================
+   CLOSE ORDER
+========================= */
+
+function closeOrder() {
 
   document
     .getElementById("orderModal")
@@ -741,26 +1046,43 @@ function closeOrder(){
 }
 
 
-document
-  .getElementById("orderModal")
-  .addEventListener(
+const orderModal =
+  document.getElementById(
+    "orderModal"
+  );
+
+
+if (orderModal) {
+
+  orderModal.addEventListener(
     "click",
-    e=>{
-      if(
-        e.target.id==="orderModal"
-      ){
+    e => {
+
+      if (
+        e.target.id ===
+        "orderModal"
+      ) {
+
         closeOrder();
+
       }
+
     }
   );
+
+}
 
 
 document.addEventListener(
   "keydown",
-  e=>{
-    if(e.key==="Escape"){
+  e => {
+
+    if (e.key === "Escape") {
+
       closeOrder();
+
     }
+
   }
 );
 
@@ -769,17 +1091,20 @@ document.addEventListener(
    DELETE PRODUCT
 ========================= */
 
-function deleteProduct(id){
+function deleteProduct(id) {
 
-  if(
+  if (
     !confirm(
       "هل تريد حذف هذا المنتج؟"
     )
-  )return;
+  ) {
+    return;
+  }
+
 
   saveProducts(
     getProducts().filter(
-      p=>p.id!=id
+      p => p.id != id
     )
   );
 
@@ -787,109 +1112,606 @@ function deleteProduct(id){
 
 
 /* =========================
-   ADD PRODUCT
+   EDIT PRODUCT
 ========================= */
 
-document
-  .getElementById("productForm")
-  .addEventListener(
+function editProduct(id) {
+
+  const product =
+    getProducts().find(
+      p => p.id === id
+    );
+
+
+  if (!product) return;
+
+
+  editingProductId = id;
+
+
+  document.getElementById(
+    "productFormTitle"
+  ).textContent =
+    "تعديل المنتج";
+
+
+  document.getElementById(
+    "saveProductButton"
+  ).textContent =
+    "💾 حفظ التعديلات";
+
+
+  document.getElementById(
+    "cancelEditButton"
+  ).style.display =
+    "inline-block";
+
+
+  document.getElementById(
+    "category"
+  ).value =
+    product.category ||
+    "other";
+
+
+  document.getElementById(
+    "brand"
+  ).value =
+    product.brand ||
+    "";
+
+
+  document.getElementById(
+    "name"
+  ).value =
+    product.name ||
+    "";
+
+
+  document.getElementById(
+    "price"
+  ).value =
+    product.price ||
+    "";
+
+
+  document.getElementById(
+    "battery"
+  ).value =
+    product.battery ||
+    "";
+
+
+  document.getElementById(
+    "screen"
+  ).value =
+    product.screen ||
+    "";
+
+
+  document.getElementById(
+    "storage"
+  ).value =
+    product.storage ||
+    "";
+
+
+  document.getElementById(
+    "colors"
+  ).value =
+    product.colors ||
+    "";
+
+
+  document.getElementById(
+    "description"
+  ).value =
+    product.description ||
+    "";
+
+
+  document.getElementById(
+    "icon"
+  ).value =
+    product.icon ||
+    "";
+
+
+  const existingImage =
+    product.image ||
+    "";
+
+
+  document.getElementById(
+    "image"
+  ).value =
+    existingImage.startsWith(
+      "data:image"
+    )
+      ? ""
+      : existingImage;
+
+
+  selectedImageData =
+    existingImage.startsWith(
+      "data:image"
+    )
+      ? existingImage
+      : "";
+
+
+  if (existingImage) {
+
+    imagePreview.innerHTML = `
+      <img
+        src="${esc(existingImage)}"
+        alt="صورة المنتج"
+      >
+    `;
+
+  } else {
+
+    imagePreview.innerHTML =
+      "<span>ستظهر معاينة الصورة هنا</span>";
+
+  }
+
+
+  showSection("add");
+
+}
+
+
+/* =========================
+   CANCEL EDIT
+========================= */
+
+function cancelEdit() {
+
+  resetProductForm();
+
+  showSection("products");
+
+}
+
+
+/* =========================
+   RESET PRODUCT FORM
+========================= */
+
+function resetProductForm() {
+
+  const form =
+    document.getElementById(
+      "productForm"
+    );
+
+
+  if (form) {
+    form.reset();
+  }
+
+
+  editingProductId = null;
+
+  selectedImageData = "";
+
+
+  document.getElementById(
+    "productFormTitle"
+  ).textContent =
+    "إضافة منتج جديد";
+
+
+  document.getElementById(
+    "saveProductButton"
+  ).textContent =
+    "حفظ المنتج";
+
+
+  document.getElementById(
+    "cancelEditButton"
+  ).style.display =
+    "none";
+
+
+  if (imagePreview) {
+
+    imagePreview.innerHTML =
+      "<span>ستظهر معاينة الصورة هنا</span>";
+
+  }
+
+}
+
+
+/* =========================
+   ADD / EDIT PRODUCT FORM
+========================= */
+
+const productForm =
+  document.getElementById(
+    "productForm"
+  );
+
+
+if (productForm) {
+
+  productForm.addEventListener(
     "submit",
-    e=>{
+    function (e) {
 
       e.preventDefault();
 
 
-      const name=
-        document
-          .getElementById("name")
-          .value
-          .trim();
+      const name =
+        document.getElementById(
+          "name"
+        ).value.trim();
 
 
-      const price=
+      const price =
         Number(
-          document
-            .getElementById("price")
-            .value
+          document.getElementById(
+            "price"
+          ).value
         );
 
 
-      const description=
-        document
-          .getElementById("description")
-          .value
-          .trim();
+      const description =
+        document.getElementById(
+          "description"
+        ).value.trim();
 
 
-      const icon=
-        document
-          .getElementById("icon")
-          .value
-          .trim() ||
+      const icon =
+        document.getElementById(
+          "icon"
+        ).value.trim() ||
         "📦";
 
 
-      const imageUrl=
-        document
-          .getElementById("image")
-          .value
-          .trim();
+      const category =
+        document.getElementById(
+          "category"
+        ).value;
 
 
-      /*
-        إذا اختار المستخدم صورة من الجهاز
-        نستخدمها أولاً.
-        وإذا لم يختر صورة نستخدم الرابط.
-      */
+      const brand =
+        document.getElementById(
+          "brand"
+        ).value.trim();
 
-      const finalImage=
+
+      const battery =
+        document.getElementById(
+          "battery"
+        ).value.trim();
+
+
+      const screen =
+        document.getElementById(
+          "screen"
+        ).value.trim();
+
+
+      const storage =
+        document.getElementById(
+          "storage"
+        ).value.trim();
+
+
+      const colors =
+        document.getElementById(
+          "colors"
+        ).value.trim();
+
+
+      const imageUrl =
+        document.getElementById(
+          "image"
+        ).value.trim();
+
+
+      const finalImage =
         selectedImageData ||
         imageUrl;
 
 
-      const products=
+      const products =
         getProducts();
 
 
-      products.push({
+      /* =========================
+         EDIT EXISTING PRODUCT
+      ========================= */
 
-        id:Date.now(),
+      if (editingProductId) {
 
-        name,
-
-        price,
-
-        description,
-
-        icon,
-
-        image:finalImage
-
-      });
+        const index =
+          products.findIndex(
+            p =>
+              p.id ===
+              editingProductId
+          );
 
 
-      saveProducts(products);
+        if (index !== -1) {
+
+          products[index] = {
+
+            ...products[index],
+
+            name,
+
+            price,
+
+            description,
+
+            icon,
+
+            category,
+
+            brand,
+
+            battery,
+
+            screen,
+
+            storage,
+
+            colors,
+
+            image:
+              finalImage ||
+              products[index].image ||
+              ""
+
+          };
+
+        }
 
 
-      e.target.reset();
-
-      selectedImageData="";
+        saveProducts(products);
 
 
-      imagePreview.innerHTML=
-        "<span>ستظهر معاينة الصورة هنا</span>";
+        alert(
+          "تم تعديل المنتج بنجاح ✅"
+        );
+
+      }
 
 
-      alert(
-        "تم حفظ المنتج بنجاح ✅"
+      /* =========================
+         ADD NEW PRODUCT
+      ========================= */
+
+      else {
+
+        products.push({
+
+          id: Date.now(),
+
+          name,
+
+          price,
+
+          description,
+
+          icon,
+
+          category,
+
+          brand,
+
+          battery,
+
+          screen,
+
+          storage,
+
+          colors,
+
+          image: finalImage
+
+        });
+
+
+        saveProducts(products);
+
+
+        alert(
+          "تم حفظ المنتج بنجاح ✅"
+        );
+
+      }
+
+
+      resetProductForm();
+
+
+      showSection(
+        "products"
       );
-
-
-      window.location.hash=
-        "products";
 
     }
   );
+
+}
+
+
+/* =========================
+   DASHBOARD NAVIGATION
+========================= */
+
+function showSection(sectionId) {
+
+  document
+    .querySelectorAll(
+      ".dashboard-section"
+    )
+    .forEach(
+      section => {
+
+        section.classList.remove(
+          "active-section"
+        );
+
+      }
+    );
+
+
+  const section =
+    document.getElementById(
+      sectionId
+    );
+
+
+  if (section) {
+
+    section.classList.add(
+      "active-section"
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".nav-tab"
+    )
+    .forEach(tab => {
+
+      tab.classList.remove(
+        "active"
+      );
+
+
+      if (
+        tab.dataset.section ===
+        sectionId
+      ) {
+
+        tab.classList.add(
+          "active"
+        );
+
+      }
+
+    });
+
+
+  if (
+    sectionId ===
+    "orders"
+  ) {
+
+    renderOrders();
+
+  }
+
+
+  if (
+    sectionId ===
+    "dashboard"
+  ) {
+
+    render();
+
+  }
+
+
+  if (
+    sectionId ===
+    "products"
+  ) {
+
+    render();
+
+  }
+
+
+  if (
+    sectionId ===
+    "add"
+  ) {
+
+    /* لا نعمل reset هنا
+       حتى لا نخسر بيانات التعديل */
+
+  }
+
+
+  window.location.hash =
+    sectionId;
+
+}
+
+
+/* =========================
+   NAVIGATION LINKS
+========================= */
+
+document
+  .querySelectorAll(
+    ".nav-tab"
+  )
+  .forEach(tab => {
+
+    tab.addEventListener(
+      "click",
+      function (e) {
+
+        e.preventDefault();
+
+        showSection(
+          this.dataset.section
+        );
+
+      }
+    );
+
+  });
+
+
+/* =========================
+   HASH NAVIGATION
+========================= */
+
+function loadSectionFromHash() {
+
+  const hash =
+    window.location.hash
+      .replace("#", "");
+
+
+  const allowed = [
+    "dashboard",
+    "orders",
+    "products",
+    "add"
+  ];
+
+
+  if (
+    allowed.includes(hash)
+  ) {
+
+    showSection(hash);
+
+  } else {
+
+    showSection("dashboard");
+
+  }
+
+}
+
+
+window.addEventListener(
+  "hashchange",
+  loadSectionFromHash
+);
 
 
 /* =========================
@@ -897,3 +1719,5 @@ document
 ========================= */
 
 render();
+
+loadSectionFromHash();
