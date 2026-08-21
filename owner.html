@@ -6,71 +6,412 @@
   <title>وسام ستور | لوحة التحكم</title>
   <link rel="stylesheet" href="owner.css">
 </head>
+
 <body>
+
   <aside class="sidebar">
-    <div class="owner-brand"><span>W</span><div><b>وسام ستور</b><small>OWNER PANEL</small></div></div>
-    <div class="owner-name"><strong>مدير المتجر</strong><small>وسام ستور</small></div>
+
+    <div class="owner-brand">
+      <span>W</span>
+      <div>
+        <b>وسام ستور</b>
+        <small>OWNER PANEL</small>
+      </div>
+    </div>
+
+    <div class="owner-name">
+      <strong>مدير المتجر</strong>
+      <small>وسام ستور</small>
+    </div>
+
     <nav>
-      <a class="active" href="#dashboard">الرئيسية</a>
-      <a href="#products">المنتجات</a>
-      <a href="#orders">الطلبات <span id="navOrderCount" class="nav-badge">0</span></a>
-      <a href="#add">إضافة منتج</a>
+      <a class="active" href="#dashboard">
+        <span>الرئيسية</span>
+      </a>
+
+      <a href="#orders">
+        <span>الطلبات</span>
+        <span id="navOrderCount" class="nav-badge">0</span>
+      </a>
+
+      <a href="#products">
+        <span>المنتجات</span>
+      </a>
+
+      <a href="#add">
+        <span>إضافة منتج</span>
+      </a>
     </nav>
-    <a class="back-store" href="index.html">← العودة للمتجر</a>
+
+    <a class="back-store" href="index.html">
+      ← العودة للمتجر
+    </a>
+
   </aside>
 
+
   <main class="owner-main">
+
     <header class="top">
-      <div><span class="eyebrow">WISAM STORE</span><h1>لوحة التحكم</h1></div>
-      <a href="index.html" class="preview">↗ معاينة المتجر</a>
+
+      <div>
+        <span class="eyebrow">WISAM STORE</span>
+        <h1>لوحة التحكم</h1>
+        <p class="top-subtitle">إدارة المنتجات والطلبات بسهولة.</p>
+      </div>
+
+      <a href="index.html" class="preview">
+        ↗ معاينة المتجر
+      </a>
+
     </header>
 
+
+    <!-- Dashboard -->
+
     <section id="dashboard" class="stats">
-      <div><span>إجمالي المنتجات</span><b id="totalProducts">0</b><small>منتج</small></div>
-      <div><span>إجمالي الطلبات</span><b id="totalOrders">0</b><small>طلب</small></div>
-      <div><span>إجمالي المبيعات</span><b id="totalSales">0 ر.س</b><small>حسب الطلبات</small></div>
+
+      <div class="stat-card">
+        <span>إجمالي المنتجات</span>
+        <b id="totalProducts">0</b>
+        <small>منتج</small>
+      </div>
+
+      <div class="stat-card">
+        <span>إجمالي الطلبات</span>
+        <b id="totalOrders">0</b>
+        <small>طلب</small>
+      </div>
+
+      <div class="stat-card">
+        <span>إجمالي المبيعات</span>
+        <b id="totalSales">0 ر.س</b>
+        <small>باستثناء الطلبات الملغاة</small>
+      </div>
+
     </section>
+
+
+    <!-- Orders -->
 
     <section id="orders" class="panel orders-panel">
+
       <div class="panel-title">
-        <div><span class="eyebrow">ORDERS</span><h2>الطلبات</h2></div>
-        <button class="refresh" onclick="renderOrders()">↻ تحديث</button>
+
+        <div>
+          <span class="eyebrow">ORDERS</span>
+          <h2>الطلبات</h2>
+        </div>
+
+        <button class="refresh" onclick="renderOrders()">
+          ↻ تحديث
+        </button>
+
       </div>
+
+
       <div class="order-toolbar">
-        <button class="filter active" onclick="filterOrders('all',this)">الكل</button>
-        <button class="filter" onclick="filterOrders('new',this)">جديدة</button>
-        <button class="filter" onclick="filterOrders('processing',this)">قيد التجهيز</button>
-        <button class="filter" onclick="filterOrders('delivered',this)">تم التسليم</button>
-        <button class="filter" onclick="filterOrders('cancelled',this)">ملغاة</button>
+
+        <button class="filter active" onclick="filterOrders('all',this)">
+          الكل
+        </button>
+
+        <button class="filter" onclick="filterOrders('new',this)">
+          جديدة
+        </button>
+
+        <button class="filter" onclick="filterOrders('processing',this)">
+          قيد التجهيز
+        </button>
+
+        <button class="filter" onclick="filterOrders('delivered',this)">
+          تم التسليم
+        </button>
+
+        <button class="filter" onclick="filterOrders('cancelled',this)">
+          ملغاة
+        </button>
+
       </div>
+
+
       <div id="ordersList"></div>
+
     </section>
+
+
+    <!-- Products -->
 
     <section id="products" class="panel">
-      <div class="panel-title"><h2>المنتجات</h2><button onclick="document.getElementById('add').scrollIntoView()">+ إضافة منتج</button></div>
+
+      <div class="panel-title">
+
+        <div>
+          <span class="eyebrow">PRODUCTS</span>
+          <h2>المنتجات</h2>
+        </div>
+
+        <button onclick="document.getElementById('add').scrollIntoView({behavior:'smooth'})">
+          + إضافة منتج
+        </button>
+
+      </div>
+
       <div id="ownerProducts"></div>
+
     </section>
+
+
+    <!-- Add Product -->
 
     <section id="add" class="panel">
-      <div class="panel-title"><h2>إضافة منتج جديد</h2></div>
+
+      <div class="panel-title">
+
+        <div>
+          <span class="eyebrow">NEW PRODUCT</span>
+          <h2 id="formTitle">إضافة منتج جديد</h2>
+        </div>
+
+      </div>
+
+
       <form id="productForm">
-        <label>اسم المنتج<input id="name" required placeholder="مثال: iPhone 16 Pro"></label>
-        <label>السعر<input id="price" type="number" min="0" required placeholder="1299"></label>
-        <label>الوصف<input id="description" placeholder="وصف مختصر للمنتج"></label>
-        <label>رمز المنتج<input id="icon" placeholder="📱"></label>
-        <label>رابط صورة المنتج<input id="image" placeholder="https://..."></label>
-        <button class="save" type="submit">حفظ المنتج</button>
+
+        <input type="hidden" id="editId">
+
+
+        <label>
+          اسم المنتج
+          <input
+            id="name"
+            required
+            placeholder="مثال: iPhone 16 Pro"
+          >
+        </label>
+
+
+        <label>
+          السعر
+          <input
+            id="price"
+            type="number"
+            min="0"
+            required
+            placeholder="1299"
+          >
+        </label>
+
+
+        <label>
+          القسم
+
+          <select id="category" required>
+
+            <option value="">اختر القسم</option>
+
+            <option value="phones">
+              📱 الجوالات
+            </option>
+
+            <option value="watches">
+              ⌚ الساعات
+            </option>
+
+            <option value="playstation">
+              🎮 PlayStation
+            </option>
+
+            <option value="headphones">
+              🎧 السماعات
+            </option>
+
+            <option value="other">
+              📦 أخرى
+            </option>
+
+          </select>
+
+        </label>
+
+
+        <label>
+          الشركة / العلامة التجارية
+
+          <select id="brand">
+
+            <option value="">اختر الشركة</option>
+
+            <option value="Apple">Apple</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Huawei">Huawei</option>
+            <option value="Xiaomi">Xiaomi</option>
+            <option value="Redmi">Redmi</option>
+            <option value="Sony">Sony</option>
+            <option value="PlayStation">PlayStation</option>
+            <option value="JBL">JBL</option>
+            <option value="Anker">Anker</option>
+            <option value="عام">عام</option>
+
+          </select>
+
+        </label>
+
+
+        <label>
+          النوع الفرعي
+
+          <select id="subcategory">
+
+            <option value="">اختر النوع</option>
+
+            <option value="iphone">iPhone</option>
+            <option value="samsung">Samsung</option>
+            <option value="huawei">Huawei</option>
+            <option value="redmi">Redmi</option>
+            <option value="xiaomi">Xiaomi</option>
+
+            <option value="apple-watch">Apple Watch</option>
+            <option value="samsung-watch">Samsung Watch</option>
+            <option value="huawei-watch">Huawei Watch</option>
+
+            <option value="ps5">PlayStation 5</option>
+            <option value="ps4">PlayStation 4</option>
+            <option value="ps3">PlayStation 3</option>
+
+            <option value="other">أخرى</option>
+
+          </select>
+
+        </label>
+
+
+        <label>
+          الوصف
+
+          <textarea
+            id="description"
+            placeholder="اكتب وصفاً مختصراً وجذاباً للمنتج"
+          ></textarea>
+
+        </label>
+
+
+        <label>
+          البطارية
+
+          <input
+            id="battery"
+            placeholder="مثال: 5000 mAh"
+          >
+
+        </label>
+
+
+        <label>
+          التخزين
+
+          <input
+            id="storage"
+            placeholder="مثال: 256GB"
+          >
+
+        </label>
+
+
+        <label>
+          حجم الشاشة
+
+          <input
+            id="screen"
+            placeholder="مثال: 6.7 بوصة"
+          >
+
+        </label>
+
+
+        <label>
+          رمز المنتج
+
+          <input
+            id="icon"
+            placeholder="📱"
+          >
+
+        </label>
+
+
+        <label class="full-width">
+
+          صورة المنتج
+
+          <input
+            id="image"
+            type="url"
+            placeholder="https://..."
+          >
+
+          <small class="field-help">
+            ضع رابط مباشر لصورة المنتج.
+          </small>
+
+        </label>
+
+
+        <div id="imagePreview" class="image-preview full-width">
+          <span>معاينة الصورة ستظهر هنا</span>
+        </div>
+
+
+        <div class="form-actions full-width">
+
+          <button
+            class="save"
+            type="submit"
+            id="saveButton"
+          >
+            حفظ المنتج
+          </button>
+
+          <button
+            type="button"
+            class="cancel-edit"
+            id="cancelEdit"
+            onclick="cancelEdit()"
+          >
+            إلغاء
+          </button>
+
+        </div>
+
       </form>
+
     </section>
+
   </main>
 
+
+  <!-- Order Modal -->
+
   <div id="orderModal" class="order-modal">
+
     <div class="order-modal-box">
-      <button class="modal-close" onclick="closeOrder()">×</button>
+
+      <button
+        class="modal-close"
+        onclick="closeOrder()"
+      >
+        ×
+      </button>
+
       <div id="orderDetails"></div>
+
     </div>
+
   </div>
 
+
   <script src="owner.js"></script>
+
 </body>
 </html>
