@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وسام ستور | لوحة التحكم</title>
+  <link rel="stylesheet" href="owner.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="owner-brand">
+      <span>W</span>
+      <div><b>وسام ستور</b><small>OWNER PANEL</small></div>
+    </div>
+
+    <div class="owner-name">
+      <strong>مدير المتجر</strong>
+      <small>إدارة المنتجات والمتجر</small>
+    </div>
+
+    <nav>
+      <a class="active" href="#dashboard">الرئيسية</a>
+      <a href="#products">المنتجات</a>
+      <a href="#add">إضافة منتج</a>
+    </nav>
+
+    <a class="back-store" href="index.html">← العودة للمتجر</a>
+  </aside>
+
+  <main class="owner-main">
+    <header class="top">
+      <div>
+        <span class="eyebrow">WISAM STORE</span>
+        <h1>لوحة التحكم</h1>
+      </div>
+      <a href="index.html" class="preview">↗ معاينة المتجر</a>
+    </header>
+
+    <section id="dashboard" class="stats">
+      <div><span>إجمالي المنتجات</span><b id="totalProducts">0</b><small>منتج</small></div>
+      <div><span>الجوالات</span><b id="phoneCount">0</b><small>منتج</small></div>
+      <div><span>الساعات</span><b id="watchCount">0</b><small>منتج</small></div>
+      <div><span>PlayStation</span><b id="playstationCount">0</b><small>منتج</small></div>
+    </section>
+
+    <section id="products" class="panel">
+      <div class="panel-title">
+        <div>
+          <span class="eyebrow">PRODUCT MANAGEMENT</span>
+          <h2>منتجات المتجر</h2>
+        </div>
+        <button id="goAdd" class="gold">＋ إضافة منتج</button>
+      </div>
+
+      <div class="product-tools">
+        <input id="searchProducts" type="search" placeholder="ابحث باسم المنتج أو الشركة...">
+        <select id="filterCategory">
+          <option value="all">كل الأقسام</option>
+          <option value="phones">الجوالات</option>
+          <option value="watches">الساعات</option>
+          <option value="playstation">PlayStation</option>
+        </select>
+      </div>
+
+      <div id="ownerProducts" class="product-grid"></div>
+    </section>
+
+    <section id="add" class="panel">
+      <div class="panel-title">
+        <div>
+          <span class="eyebrow">PRODUCT EDITOR</span>
+          <h2 id="formTitle">إضافة منتج جديد</h2>
+        </div>
+      </div>
+
+      <form id="productForm">
+        <input type="hidden" id="editId">
+
+        <div class="image-box">
+          <label class="upload-area" for="imageFile" id="uploadArea">
+            <img id="imagePreview" alt="صورة المنتج">
+            <div id="uploadPlaceholder">
+              <span class="upload-icon">＋</span>
+              <strong>اضغط لاختيار صورة المنتج</strong>
+              <small>يمكنك اختيار صورة من الهاتف أو الكمبيوتر</small>
+            </div>
+          </label>
+          <input id="imageFile" type="file" accept="image/*" hidden>
+          <button type="button" id="removeImage" class="remove-image">إزالة الصورة</button>
+        </div>
+
+        <div class="fields">
+          <label>اسم المنتج
+            <input id="name" required placeholder="مثال: iPhone 16 Pro Max">
+          </label>
+
+          <label>الشركة / الماركة
+            <input id="brand" placeholder="مثال: Apple">
+          </label>
+
+          <label>القسم
+            <select id="category" required>
+              <option value="phones">📱 الجوالات</option>
+              <option value="watches">⌚ الساعات</option>
+              <option value="playstation">🎮 PlayStation</option>
+            </select>
+          </label>
+
+          <label>الفئة
+            <select id="subcategory">
+              <option value="iphone">iPhone</option>
+              <option value="samsung">Samsung</option>
+              <option value="huawei">Huawei</option>
+              <option value="redmi">Redmi</option>
+              <option value="xiaomi">Xiaomi</option>
+            </select>
+          </label>
+
+          <label>السعر بالريال السعودي
+            <input id="price" type="number" min="0" step="0.01" required placeholder="4999">
+          </label>
+
+          <label>حجم البطارية
+            <input id="battery" placeholder="مثال: 4685 mAh">
+          </label>
+
+          <label>التخزين
+            <input id="storage" placeholder="مثال: 256GB">
+          </label>
+
+          <label>الشاشة
+            <input id="screen" placeholder='مثال: 6.9 بوصة'>
+          </label>
+
+          <label class="full">وصف المنتج
+            <textarea id="description" rows="4" placeholder="اكتب معلومات مختصرة وجذابة عن المنتج..."></textarea>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancelEdit" class="ghost">إلغاء</button>
+          <button type="submit" class="gold">حفظ المنتج</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="owner.js"></script>
+</body>
+</html>
