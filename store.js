@@ -34,9 +34,9 @@ const defaultProducts = [
     subcategory: "apple-watch",
     price: 499,
     description: "أناقة وتقنية في معصمك",
+    battery: "18 ساعة",
     storage: "",
-    screen: "",
-    battery: "",
+    screen: "1.9 بوصة",
     colors: "أسود، فضي",
     icon: "⌚"
   },
@@ -49,9 +49,9 @@ const defaultProducts = [
     subcategory: "other",
     price: 299,
     description: "صوت نقي وتجربة مريحة",
+    battery: "24 ساعة",
     storage: "",
     screen: "",
-    battery: "",
     colors: "أبيض، أسود",
     icon: "🎧"
   },
@@ -64,9 +64,9 @@ const defaultProducts = [
     subcategory: "ps5",
     price: 1899,
     description: "تجربة ألعاب احترافية",
+    battery: "",
     storage: "1TB",
     screen: "",
-    battery: "",
     colors: "أبيض",
     icon: "🎮"
   }
@@ -208,13 +208,9 @@ function escapeHtml(value) {
       return {
 
         "&": "&amp;",
-
         "<": "&lt;",
-
         ">": "&gt;",
-
         '"': "&quot;",
-
         "'": "&#039;"
 
       }[match];
@@ -245,6 +241,266 @@ function subName(product) {
     categoryNames[product.category] ||
     "منتج"
   );
+
+}
+
+
+/* =========================================================
+   PRODUCT SPECIFICATIONS
+   تحديد المواصفات المناسبة حسب نوع المنتج
+========================================================= */
+
+function getProductSpecs(product) {
+
+  const specs = [];
+
+
+  /* =========================
+     PHONES
+  ========================= */
+
+  if (product.category === "phones") {
+
+    if (product.brand) {
+
+      specs.push({
+        icon: "🏷️",
+        label: "العلامة التجارية",
+        value: product.brand
+      });
+
+    }
+
+    if (product.battery) {
+
+      specs.push({
+        icon: "🔋",
+        label: "البطارية",
+        value: product.battery
+      });
+
+    }
+
+    if (product.screen) {
+
+      specs.push({
+        icon: "📱",
+        label: "حجم الشاشة",
+        value: product.screen
+      });
+
+    }
+
+    if (product.storage) {
+
+      specs.push({
+        icon: "💾",
+        label: "التخزين",
+        value: product.storage
+      });
+
+    }
+
+    if (product.colors) {
+
+      specs.push({
+        icon: "🎨",
+        label: "الألوان",
+        value: product.colors
+      });
+
+    }
+
+  }
+
+
+  /* =========================
+     SMART WATCHES
+  ========================= */
+
+  else if (product.category === "watches") {
+
+    if (product.brand) {
+
+      specs.push({
+        icon: "🏷️",
+        label: "العلامة التجارية",
+        value: product.brand
+      });
+
+    }
+
+    if (product.battery) {
+
+      specs.push({
+        icon: "🔋",
+        label: "البطارية",
+        value: product.battery
+      });
+
+    }
+
+    if (product.screen) {
+
+      specs.push({
+        icon: "⌚",
+        label: "حجم الشاشة",
+        value: product.screen
+      });
+
+    }
+
+    if (product.colors) {
+
+      specs.push({
+        icon: "🎨",
+        label: "الألوان",
+        value: product.colors
+      });
+
+    }
+
+  }
+
+
+  /* =========================
+     HEADPHONES
+  ========================= */
+
+  else if (product.category === "headphones") {
+
+    if (product.brand) {
+
+      specs.push({
+        icon: "🏷️",
+        label: "العلامة التجارية",
+        value: product.brand
+      });
+
+    }
+
+    if (product.battery) {
+
+      specs.push({
+        icon: "🔋",
+        label: "عمر البطارية",
+        value: product.battery
+      });
+
+    }
+
+    if (product.colors) {
+
+      specs.push({
+        icon: "🎨",
+        label: "الألوان",
+        value: product.colors
+      });
+
+    }
+
+  }
+
+
+  /* =========================
+     PLAYSTATION
+  ========================= */
+
+  else if (product.category === "playstation") {
+
+    if (product.brand) {
+
+      specs.push({
+        icon: "🏷️",
+        label: "العلامة التجارية",
+        value: product.brand
+      });
+
+    }
+
+    if (product.storage) {
+
+      specs.push({
+        icon: "💾",
+        label: "مساحة التخزين",
+        value: product.storage
+      });
+
+    }
+
+    if (product.colors) {
+
+      specs.push({
+        icon: "🎨",
+        label: "الألوان",
+        value: product.colors
+      });
+
+    }
+
+  }
+
+
+  /* =========================
+     OTHER PRODUCTS
+  ========================= */
+
+  else {
+
+    if (product.brand) {
+
+      specs.push({
+        icon: "🏷️",
+        label: "العلامة التجارية",
+        value: product.brand
+      });
+
+    }
+
+    if (product.battery) {
+
+      specs.push({
+        icon: "🔋",
+        label: "البطارية",
+        value: product.battery
+      });
+
+    }
+
+    if (product.storage) {
+
+      specs.push({
+        icon: "💾",
+        label: "التخزين",
+        value: product.storage
+      });
+
+    }
+
+    if (product.screen) {
+
+      specs.push({
+        icon: "📱",
+        label: "الشاشة",
+        value: product.screen
+      });
+
+    }
+
+    if (product.colors) {
+
+      specs.push({
+        icon: "🎨",
+        label: "الألوان",
+        value: product.colors
+      });
+
+    }
+
+  }
+
+
+  return specs;
 
 }
 
@@ -463,17 +719,11 @@ function renderSubcategories() {
     ) {
 
       available = [
-
         "iphone",
-
         "samsung",
-
         "huawei",
-
         "redmi",
-
         "xiaomi"
-
       ];
 
     }
@@ -485,13 +735,9 @@ function renderSubcategories() {
     ) {
 
       available = [
-
         "apple-watch",
-
         "samsung-watch",
-
         "huawei-watch"
-
       ];
 
     }
@@ -503,13 +749,9 @@ function renderSubcategories() {
     ) {
 
       available = [
-
         "ps5",
-
         "ps4",
-
         "ps3"
-
       ];
 
     }
@@ -629,6 +871,44 @@ function getFilteredProducts() {
 
 
   return products;
+
+}
+
+
+/* =========================================================
+   RENDER PRODUCT SPECS
+========================================================= */
+
+function renderProductSpecs(product) {
+
+  const specs =
+    getProductSpecs(product);
+
+
+  if (!specs.length) {
+
+    return "";
+
+  }
+
+
+  return specs
+    .map(
+      spec => `
+
+        <span class="spec-pill">
+
+          ${spec.icon}
+
+          ${escapeHtml(
+            spec.value
+          )}
+
+        </span>
+
+      `
+    )
+    .join("");
 
 }
 
@@ -769,90 +1049,9 @@ function renderProducts() {
 
           <div class="product-specs">
 
-
-            ${
-              product.battery
-
-                ? `
-
-                  <span class="spec-pill">
-
-                    🔋
-
-                    ${escapeHtml(
-                      product.battery
-                    )}
-
-                  </span>
-
-                `
-
-                : ""
-            }
-
-
-            ${
-              product.storage
-
-                ? `
-
-                  <span class="spec-pill">
-
-                    💾
-
-                    ${escapeHtml(
-                      product.storage
-                    )}
-
-                  </span>
-
-                `
-
-                : ""
-            }
-
-
-            ${
-              product.screen
-
-                ? `
-
-                  <span class="spec-pill">
-
-                    📱
-
-                    ${escapeHtml(
-                      product.screen
-                    )}
-
-                  </span>
-
-                `
-
-                : ""
-            }
-
-
-            ${
-              product.colors
-
-                ? `
-
-                  <span class="spec-pill">
-
-                    🎨
-
-                    ${escapeHtml(
-                      product.colors
-                    )}
-
-                  </span>
-
-                `
-
-                : ""
-            }
-
+            ${renderProductSpecs(
+              product
+            )}
 
           </div>
 
@@ -926,6 +1125,10 @@ function openProduct(id) {
 
 
   if (!details) return;
+
+
+  const specs =
+    getProductSpecs(product);
 
 
   details.innerHTML = `
@@ -1021,172 +1224,50 @@ function openProduct(id) {
         </p>
 
 
-        <div class="spec-grid">
+        ${
+          specs.length
 
+            ? `
 
-          <div class="spec-item">
+              <div class="spec-grid">
 
-            <small>
-              الفئة
-            </small>
+                ${specs
+                  .map(
+                    spec => `
 
-            <strong>
+                    <div class="spec-item">
 
-              ${escapeHtml(
-                subName(product)
-              )}
+                      <small>
 
-            </strong>
+                        ${escapeHtml(
+                          spec.label
+                        )}
 
-          </div>
+                      </small>
 
+                      <strong>
 
-          ${
-            product.brand
+                        ${spec.icon}
 
-              ? `
+                        ${escapeHtml(
+                          spec.value
+                        )}
 
-                <div class="spec-item">
+                      </strong>
 
-                  <small>
-                    العلامة التجارية
-                  </small>
+                    </div>
 
-                  <strong>
+                  `
+                  )
+                  .join("")}
 
-                    🏷️
+              </div>
 
-                    ${escapeHtml(
-                      product.brand
-                    )}
+            `
 
-                  </strong>
+            : ""
 
-                </div>
-
-              `
-
-              : ""
-          }
-
-
-          ${
-            product.battery
-
-              ? `
-
-                <div class="spec-item">
-
-                  <small>
-                    البطارية
-                  </small>
-
-                  <strong>
-
-                    🔋
-
-                    ${escapeHtml(
-                      product.battery
-                    )}
-
-                  </strong>
-
-                </div>
-
-              `
-
-              : ""
-          }
-
-
-          ${
-            product.storage
-
-              ? `
-
-                <div class="spec-item">
-
-                  <small>
-                    التخزين
-                  </small>
-
-                  <strong>
-
-                    💾
-
-                    ${escapeHtml(
-                      product.storage
-                    )}
-
-                  </strong>
-
-                </div>
-
-              `
-
-              : ""
-          }
-
-
-          ${
-            product.screen
-
-              ? `
-
-                <div class="spec-item">
-
-                  <small>
-                    الشاشة
-                  </small>
-
-                  <strong>
-
-                    📱
-
-                    ${escapeHtml(
-                      product.screen
-                    )}
-
-                  </strong>
-
-                </div>
-
-              `
-
-              : ""
-          }
-
-
-          ${
-            product.colors
-
-              ? `
-
-                <div class="spec-item">
-
-                  <small>
-                    الألوان المتوفرة
-                  </small>
-
-                  <strong>
-
-                    🎨
-
-                    ${escapeHtml(
-                      product.colors
-                    )}
-
-                  </strong>
-
-                </div>
-
-              `
-
-              : ""
-          }
-
-
-        </div>
+        }
 
 
         <button
@@ -2156,8 +2237,7 @@ function setupEvents() {
 
 
 /* =========================================================
-   ADD CATEGORY CSS
-   يتم إضافته تلقائيًا
+   CATEGORY CSS
 ========================================================= */
 
 function injectCategoryStyles() {
