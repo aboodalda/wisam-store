@@ -1,0 +1,37 @@
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,"Tahoma",sans-serif;background:#f7f7f4;color:#151515}
+button,a{font-family:inherit}
+.store-header{height:88px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid #eee;position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#171717}
+.brand-mark{width:52px;height:52px;border-radius:17px;background:#111;color:#c89a3d;display:grid;place-items:center;font-size:25px;font-weight:800}
+.brand b{font-size:24px}.brand em{font-style:normal;color:#c5963a;font-size:24px;font-weight:700}.brand small{display:block;color:#999;letter-spacing:3px;font-size:9px;margin-top:3px}
+.cart-button{border:1px solid #ddd;background:#fff;border-radius:14px;padding:13px 18px;font-size:15px;cursor:pointer;transition:.2s}.cart-button:hover{border-color:#c99a3f;transform:translateY(-2px)}
+.cart-button span{background:#111;color:#fff;border-radius:50%;padding:3px 7px;margin-right:5px}
+.hero{min-height:610px;background:#101010;color:#fff;display:flex;align-items:center;padding:70px 8%;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,#c99a40 0,transparent 65%);opacity:.16;left:5%;top:5%}
+.hero-content{max-width:720px;margin-right:auto;position:relative;z-index:1;animation:heroIn .8s ease both}
+.hero-orbit{position:absolute;border:1px solid #c99a3f22;border-radius:50%;pointer-events:none}.hero-orbit-one{width:520px;height:520px;left:4%;top:4%}.hero-orbit-two{width:330px;height:330px;left:10%;top:20%;border-color:#fff10}
+.eyebrow{color:#bd9039;font-weight:800;letter-spacing:4px;font-size:13px}
+.hero h1{font-size:clamp(48px,7vw,88px);line-height:1.05;margin:22px 0}.hero h1 strong{color:#d0a044}.hero p{font-size:19px;color:#bcbcbc;max-width:650px;line-height:1.9}
+.primary-btn{display:inline-block;border:0;border-radius:14px;background:#c99a3f;color:#111;text-decoration:none;font-weight:800;padding:16px 26px;margin-top:15px;cursor:pointer;transition:.25s}.primary-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px #c99a3f33}
+.section{padding:80px 5%;max-width:1400px;margin:auto}.section-heading h2{font-size:42px;margin:15px 0 40px}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:22px}
+.product-card{background:#fff;border:1px solid #e5e5df;border-radius:22px;overflow:hidden;box-shadow:0 8px 30px #00000008;transition:.3s;animation:cardIn .5s ease both;cursor:pointer}
+.product-card:hover{transform:translateY(-7px);box-shadow:0 18px 40px #00000012}
+.product-image{height:250px;background:linear-gradient(145deg,#f2f2ee,#e8e8e2);display:grid;place-items:center;color:#aaa;font-size:60px;overflow:hidden}
+.product-image img{width:100%;height:100%;object-fit:contain;transition:.35s}.product-card:hover .product-image img{transform:scale(1.06)}
+.product-info{padding:20px}.product-meta{color:#a47b2d;font-size:11px;font-weight:800;margin-bottom:8px}.product-info h3{margin:0 0 8px;font-size:20px}.product-info p{color:#888;min-height:40px;line-height:1.6}.price{font-weight:800;font-size:20px}
+.product-specs{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}.spec-pill{background:#f4f3ef;border-radius:8px;padding:6px 8px;color:#666;font-size:10px}
+.add-btn{width:100%;margin-top:15px;border:1px solid #c99a3f;background:#fff;border-radius:12px;padding:12px;cursor:pointer;font-weight:700;transition:.2s}.add-btn:hover{background:#c99a3f}
+.details-btn{width:100%;margin-top:8px;border:0;background:#111;color:#fff;border-radius:12px;padding:12px;cursor:pointer;font-weight:700}
+.modal{position:fixed;inset:0;background:#0009;z-index:80;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}.modal.show{display:flex;animation:fadeIn .2s ease}
+.modal-box{background:#fff;border-radius:25px;width:min(900px,96vw);max-height:92vh;overflow:auto;position:relative;box-shadow:0 30px 80px #0005;animation:modalIn .3s ease}
+.modal-close{position:absolute;left:18px;top:15px;width:42px;height:42px;border:0;border-radius:50%;background:#111;color:#fff;font-size:27px;cursor:pointer;z-index:2}
+.detail-layout{display:grid;grid-template-columns:1fr 1fr}.detail-image{min-height:460px;background:linear-gradient(145deg,#f4f4f0,#e8e8e2);display:grid;place-items:center;padding:35px}.detail-image img{max-width:100%;max-height:420px;object-fit:contain}.detail-icon{font-size:110px}.detail-content{padding:45px 35px}.detail-content .eyebrow{font-size:10px}.detail-content h2{font-size:38px;margin:15px 0 10px}.detail-brand{color:#777}.detail-price{font-size:28px;font-weight:900;margin:22px 0;color:#a87925}.detail-description{color:#666;line-height:1.9}.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0}.spec-item{border:1px solid #eee;border-radius:12px;padding:12px}.spec-item small{display:block;color:#999;margin-bottom:5px}.spec-item strong{font-size:14px}
+.drawer{position:fixed;top:0;left:-430px;width:min(430px,92vw);height:100vh;background:#fff;z-index:50;padding:25px;transition:.3s;box-shadow:10px 0 40px #0002}.drawer.open{left:0}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:15px}.drawer-head button{border:0;background:none;font-size:30px;cursor:pointer}
+.cart-items{padding:20px 0;height:calc(100vh - 210px);overflow:auto}.cart-row{display:flex;justify-content:space-between;gap:10px;padding:15px 0;border-bottom:1px solid #eee}.qty button{border:1px solid #ddd;background:#fff;border-radius:7px;margin:0 3px;cursor:pointer}.cart-footer{border-top:1px solid #eee;padding-top:20px}.cart-footer .primary-btn{width:100%}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:40}.overlay.show{display:block}
+@keyframes heroIn{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(15px)}to{opacity:1;transform:none}}
+@media(max-width:700px){.store-header{height:74px;padding:0 18px}.brand b,.brand em{font-size:19px}.hero{min-height:540px;padding:50px 25px}.hero h1{font-size:52px}.section{padding:55px 20px}.section-heading h2{font-size:34px}.detail-layout{grid-template-columns:1fr}.detail-image{min-height:280px}.detail-content{padding:30px 22px}.detail-content h2{font-size:29px}.spec-grid{grid-template-columns:1fr}.product-image{height:220px}}
