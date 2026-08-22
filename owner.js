@@ -1,4 +1,16 @@
+/* =========================================================
+   WISAM STORE
+   DASHBOARD.JS
+   Products + Subcategories + Orders
+========================================================= */
+
+
+/* =========================================================
+   DEFAULT PRODUCTS
+========================================================= */
+
 const defaultProducts = [
+
   {
     id: 1,
     name: "هاتف ذكي",
@@ -6,12 +18,14 @@ const defaultProducts = [
     description: "أداء قوي وتصميم أنيق",
     icon: "📱",
     category: "phones",
-    brand: "",
+    subcategory: "iphone",
+    brand: "عام",
     battery: "",
     screen: "",
     storage: "",
     colors: ""
   },
+
   {
     id: 2,
     name: "ساعة ذكية",
@@ -19,12 +33,14 @@ const defaultProducts = [
     description: "أناقة وتقنية في معصمك",
     icon: "⌚",
     category: "watches",
-    brand: "",
+    subcategory: "apple-watch",
+    brand: "Apple",
     battery: "",
     screen: "",
     storage: "",
     colors: ""
   },
+
   {
     id: 3,
     name: "سماعات لاسلكية",
@@ -32,12 +48,14 @@ const defaultProducts = [
     description: "صوت نقي وتجربة مريحة",
     icon: "🎧",
     category: "headphones",
-    brand: "",
+    subcategory: "other",
+    brand: "عام",
     battery: "",
     screen: "",
     storage: "",
     colors: ""
   },
+
   {
     id: 4,
     name: "جهاز ألعاب",
@@ -45,34 +63,164 @@ const defaultProducts = [
     description: "تجربة ألعاب احترافية",
     icon: "🎮",
     category: "playstation",
-    brand: "",
+    subcategory: "ps5",
+    brand: "PlayStation",
     battery: "",
     screen: "",
-    storage: "",
+    storage: "1TB",
     colors: ""
   }
+
 ];
 
+
+/* =========================================================
+   SUBCATEGORY OPTIONS
+========================================================= */
+
+const subcategoryOptions = {
+
+  phones: [
+
+    ["iphone", "iPhone"],
+
+    ["samsung", "Samsung"],
+
+    ["xiaomi", "Xiaomi"],
+
+    ["redmi", "Redmi"],
+
+    ["huawei", "Huawei"],
+
+    ["other", "أخرى"]
+
+  ],
+
+
+  watches: [
+
+    ["apple-watch", "Apple Watch"],
+
+    ["samsung-watch", "Samsung Watch"],
+
+    ["huawei-watch", "Huawei Watch"],
+
+    ["other", "أخرى"]
+
+  ],
+
+
+  headphones: [
+
+    ["airpods", "AirPods"],
+
+    ["sony", "Sony"],
+
+    ["jbl", "JBL"],
+
+    ["other", "أخرى"]
+
+  ],
+
+
+  playstation: [
+
+    ["ps5", "PlayStation 5"],
+
+    ["ps4", "PlayStation 4"],
+
+    ["ps3", "PlayStation 3"],
+
+    ["other", "أخرى"]
+
+  ],
+
+
+  other: [
+
+    ["other", "أخرى"]
+
+  ]
+
+};
+
+
+/* =========================================================
+   SUBCATEGORY NAMES
+========================================================= */
+
+const subcategoryNames = {
+
+  iphone: "iPhone",
+
+  samsung: "Samsung",
+
+  xiaomi: "Xiaomi",
+
+  redmi: "Redmi",
+
+  huawei: "Huawei",
+
+  "apple-watch": "Apple Watch",
+
+  "samsung-watch": "Samsung Watch",
+
+  "huawei-watch": "Huawei Watch",
+
+  airpods: "AirPods",
+
+  sony: "Sony",
+
+  jbl: "JBL",
+
+  ps5: "PlayStation 5",
+
+  ps4: "PlayStation 4",
+
+  ps3: "PlayStation 3",
+
+  other: "أخرى"
+
+};
+
+
+/* =========================================================
+   CURRENT STATE
+========================================================= */
+
 let currentFilter = "all";
+
 let selectedImageData = "";
+
 let editingProductId = null;
 
 
-/* =========================
+/* =========================================================
    PRODUCTS
-========================= */
+========================================================= */
 
 function getProducts() {
 
   try {
 
     const x = JSON.parse(
-      localStorage.getItem("wisamProducts")
+      localStorage.getItem(
+        "wisamProducts"
+      )
     );
 
-    return Array.isArray(x) && x.length
-      ? x
-      : defaultProducts;
+
+    if (
+      Array.isArray(x) &&
+      x.length
+    ) {
+
+      return x;
+
+    }
+
+
+    return defaultProducts;
 
   } catch (e) {
 
@@ -83,6 +231,10 @@ function getProducts() {
 }
 
 
+/* =========================================================
+   SAVE PRODUCTS
+========================================================= */
+
 function saveProducts(products) {
 
   localStorage.setItem(
@@ -90,116 +242,178 @@ function saveProducts(products) {
     JSON.stringify(products)
   );
 
+
   render();
 
 }
 
 
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
 function esc(s) {
 
-  return String(s ?? "").replace(
+  return String(
+    s ?? ""
+  ).replace(
     /[&<>"']/g,
+
     m => ({
+
       "&": "&amp;",
+
       "<": "&lt;",
+
       ">": "&gt;",
+
       '"': "&quot;",
+
       "'": "&#039;"
+
     }[m])
+
   );
 
 }
 
 
+/* =========================================================
+   MONEY
+========================================================= */
+
 function money(n) {
 
-  return Number(n || 0).toLocaleString("ar-SA") + " ر.س";
+  return (
+    Number(n || 0)
+      .toLocaleString("ar-SA") +
+    " ر.س"
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    IMAGE ELEMENTS
-========================= */
+========================================================= */
 
 const imageFileInput =
-  document.getElementById("imageFile");
+  document.getElementById(
+    "imageFile"
+  );
+
 
 const imagePreview =
-  document.getElementById("imagePreview");
+  document.getElementById(
+    "imagePreview"
+  );
+
 
 const imageUrlInput =
-  document.getElementById("image");
+  document.getElementById(
+    "image"
+  );
 
 
-/* =========================
+/* =========================================================
    IMAGE UPLOAD
-========================= */
+========================================================= */
 
 if (imageFileInput) {
 
   imageFileInput.addEventListener(
     "change",
+
     function () {
 
-      const file = this.files[0];
+      const file =
+        this.files[0];
+
 
       if (!file) {
 
         selectedImageData = "";
 
-        imagePreview.innerHTML =
-          "<span>ستظهر معاينة الصورة هنا</span>";
+
+        if (imagePreview) {
+
+          imagePreview.innerHTML =
+            "<span>ستظهر معاينة الصورة هنا</span>";
+
+        }
+
 
         return;
 
       }
 
 
-      if (!file.type.startsWith("image/")) {
+      if (
+        !file.type.startsWith(
+          "image/"
+        )
+      ) {
 
-        alert("من فضلك اختر ملف صورة فقط.");
+        alert(
+          "من فضلك اختر ملف صورة فقط."
+        );
+
 
         this.value = "";
 
+
         return;
 
       }
 
 
-      const reader = new FileReader();
+      const reader =
+        new FileReader();
 
 
-      reader.onload = function (e) {
+      reader.onload =
+        function (e) {
 
-        selectedImageData = e.target.result;
-
-        imagePreview.innerHTML = `
-          <img
-            src="${selectedImageData}"
-            alt="معاينة الصورة"
-          >
-        `;
-
-      };
+          selectedImageData =
+            e.target.result;
 
 
-      reader.readAsDataURL(file);
+          if (imagePreview) {
+
+            imagePreview.innerHTML = `
+
+              <img
+                src="${selectedImageData}"
+                alt="معاينة الصورة"
+              >
+
+            `;
+
+          }
+
+        };
+
+
+      reader.readAsDataURL(
+        file
+      );
 
     }
+
   );
 
 }
 
 
-/* =========================
+/* =========================================================
    IMAGE URL PREVIEW
-========================= */
+========================================================= */
 
 if (imageUrlInput) {
 
   imageUrlInput.addEventListener(
     "input",
+
     function () {
 
       if (
@@ -207,57 +421,277 @@ if (imageUrlInput) {
         !selectedImageData
       ) {
 
-        imagePreview.innerHTML = `
-          <img
-            src="${esc(this.value.trim())}"
-            alt="معاينة الصورة"
-            onerror="this.parentElement.innerHTML='<span>تعذر تحميل الصورة</span>'"
-          >
-        `;
+        if (imagePreview) {
+
+          imagePreview.innerHTML = `
+
+            <img
+              src="${esc(
+                this.value.trim()
+              )}"
+              alt="معاينة الصورة"
+              onerror="
+                this.parentElement.innerHTML=
+                '<span>تعذر تحميل الصورة</span>'
+              "
+            >
+
+          `;
+
+        }
 
       }
 
-      if (!this.value.trim() && !selectedImageData) {
 
-        imagePreview.innerHTML =
-          "<span>ستظهر معاينة الصورة هنا</span>";
+      if (
+        !this.value.trim() &&
+        !selectedImageData
+      ) {
+
+        if (imagePreview) {
+
+          imagePreview.innerHTML =
+            "<span>ستظهر معاينة الصورة هنا</span>";
+
+        }
 
       }
 
     }
+
   );
 
 }
 
 
-/* =========================
+/* =========================================================
+   SUBCATEGORY FIELD
+========================================================= */
+
+function setupSubcategoryField() {
+
+  const category =
+    document.getElementById(
+      "category"
+    );
+
+
+  if (!category) return;
+
+
+  let subcategory =
+    document.getElementById(
+      "subcategory"
+    );
+
+
+  /*
+   * إذا كان الحقل موجودًا في HTML
+   * نستخدمه.
+   *
+   * إذا لم يكن موجودًا،
+   * نقوم بإنشائه تلقائيًا.
+   */
+
+  if (!subcategory) {
+
+    const wrapper =
+      document.createElement(
+        "div"
+      );
+
+
+    wrapper.id =
+      "subcategoryWrapper";
+
+
+    wrapper.style.marginTop =
+      "14px";
+
+
+    wrapper.innerHTML = `
+
+      <label
+        for="subcategory"
+        style="
+          display:block;
+          margin-bottom:7px;
+          font-weight:700;
+        "
+      >
+
+        القسم الفرعي
+
+      </label>
+
+
+      <select
+        id="subcategory"
+        name="subcategory"
+        style="
+          width:100%;
+          padding:12px;
+          border:1px solid #ddd;
+          border-radius:10px;
+          font-family:inherit;
+          background:#fff;
+          box-sizing:border-box;
+        "
+      >
+
+      </select>
+
+    `;
+
+
+    category.parentNode.insertBefore(
+      wrapper,
+      category.nextSibling
+    );
+
+
+    subcategory =
+      document.getElementById(
+        "subcategory"
+      );
+
+  }
+
+
+  function updateSubcategories() {
+
+    const selectedCategory =
+      category.value ||
+      "other";
+
+
+    const options =
+      subcategoryOptions[
+        selectedCategory
+      ] ||
+      subcategoryOptions.other;
+
+
+    const currentValue =
+      subcategory.value;
+
+
+    subcategory.innerHTML = `
+
+      <option value="">
+
+        اختر القسم الفرعي
+
+      </option>
+
+
+      ${
+        options
+          .map(
+            option => `
+
+              <option
+                value="${esc(
+                  option[0]
+                )}"
+              >
+
+                ${esc(
+                  option[1]
+                )}
+
+              </option>
+
+            `
+          )
+          .join("")
+      }
+
+    `;
+
+
+    if (
+      options.some(
+        option =>
+          option[0] ===
+          currentValue
+      )
+    ) {
+
+      subcategory.value =
+        currentValue;
+
+    }
+
+  }
+
+
+  /*
+   * منع تكرار event listener
+   */
+
+  if (
+    !category.dataset.subcategoryReady
+  ) {
+
+    category.addEventListener(
+      "change",
+
+      updateSubcategories
+    );
+
+
+    category.dataset.subcategoryReady =
+      "true";
+
+  }
+
+
+  updateSubcategories();
+
+}
+
+
+/* =========================================================
    RENDER PRODUCTS
-========================= */
+========================================================= */
 
 function render() {
 
-  const products = getProducts();
+  const products =
+    getProducts();
 
 
   const totalProducts =
-    document.getElementById("totalProducts");
+    document.getElementById(
+      "totalProducts"
+    );
+
 
   if (totalProducts) {
+
     totalProducts.textContent =
       products.length;
+
   }
 
 
   const ownerProducts =
-    document.getElementById("ownerProducts");
+    document.getElementById(
+      "ownerProducts"
+    );
 
 
   if (ownerProducts) {
 
     ownerProducts.innerHTML =
-      products.map(p => `
+
+      products
+        .map(
+          p => `
 
         <div class="product-row">
+
 
           <div
             style="
@@ -267,12 +701,19 @@ function render() {
             "
           >
 
+
             ${
               p.image
+
                 ? `
+
                   <img
-                    src="${esc(p.image)}"
-                    alt="${esc(p.name)}"
+                    src="${esc(
+                      p.image
+                    )}"
+                    alt="${esc(
+                      p.name
+                    )}"
                     style="
                       width:60px;
                       height:60px;
@@ -282,11 +723,24 @@ function render() {
                       padding:5px
                     "
                   >
+
                 `
+
                 : `
-                  <span style="font-size:30px">
-                    ${esc(p.icon || "📦")}
+
+                  <span
+                    style="
+                      font-size:30px
+                    "
+                  >
+
+                    ${esc(
+                      p.icon ||
+                      "📦"
+                    )}
+
                   </span>
+
                 `
             }
 
@@ -294,23 +748,96 @@ function render() {
             <div>
 
               <b>
-                ${esc(p.name)}
+
+                ${esc(
+                  p.name
+                )}
+
               </b>
+
 
               <br>
 
+
               <small>
-                ${money(p.price)}
+
+                ${money(
+                  p.price
+                )}
+
               </small>
+
+
+              ${
+                p.category
+
+                  ? `
+
+                    <br>
+
+                    <small>
+
+                      📂
+
+                      ${esc(
+                        getCategoryName(
+                          p.category
+                        )
+                      )}
+
+                    </small>
+
+                  `
+
+                  : ""
+              }
+
+
+              ${
+                p.subcategory
+
+                  ? `
+
+                    <br>
+
+                    <small>
+
+                      ▸
+
+                      ${esc(
+                        subcategoryNames[
+                          p.subcategory
+                        ] ||
+                        p.subcategory
+                      )}
+
+                    </small>
+
+                  `
+
+                  : ""
+              }
+
 
               ${
                 p.brand
+
                   ? `
+
                     <br>
+
                     <small>
-                      🏷️ ${esc(p.brand)}
+
+                      🏷️
+
+                      ${esc(
+                        p.brand
+                      )}
+
                     </small>
+
                   `
+
                   : ""
               }
 
@@ -323,12 +850,16 @@ function render() {
             style="
               display:flex;
               gap:7px;
-              align-items:center
+              align-items:center;
+              flex-wrap:wrap
             "
           >
 
+
             <button
-              onclick="editProduct(${p.id})"
+              onclick="
+                editProduct(${p.id})
+              "
               style="
                 border:1px solid #c99a3f;
                 background:#fff8e8;
@@ -338,21 +869,31 @@ function render() {
                 cursor:pointer
               "
             >
+
               ✏️ تعديل
+
             </button>
 
 
             <button
-              onclick="deleteProduct(${p.id})"
+              onclick="
+                deleteProduct(${p.id})
+              "
             >
+
               حذف
+
             </button>
+
 
           </div>
 
+
         </div>
 
-      `).join("");
+      `
+        )
+        .join("");
 
   }
 
@@ -362,17 +903,50 @@ function render() {
 }
 
 
-/* =========================
+/* =========================================================
+   CATEGORY NAMES
+========================================================= */
+
+function getCategoryName(category) {
+
+  const names = {
+
+    phones: "الجوالات",
+
+    watches: "الساعات الذكية",
+
+    headphones: "السماعات",
+
+    playstation: "PlayStation",
+
+    other: "منتجات أخرى"
+
+  };
+
+
+  return (
+    names[category] ||
+    category ||
+    "منتج"
+  );
+
+}
+
+
+/* =========================================================
    ORDERS
-========================= */
+========================================================= */
 
 function getOrders() {
 
   try {
 
     const x = JSON.parse(
-      localStorage.getItem("wisamOrders")
+      localStorage.getItem(
+        "wisamOrders"
+      )
     );
+
 
     return Array.isArray(x)
       ? x
@@ -387,27 +961,47 @@ function getOrders() {
 }
 
 
+/* =========================================================
+   ORDER STATUS TEXT
+========================================================= */
+
 function statusText(s) {
 
   return {
+
     new: "جديد",
+
     processing: "قيد التجهيز",
+
     delivered: "تم التسليم",
+
     cancelled: "ملغى"
-  }[s] || "جديد";
+
+  }[
+    s
+  ] || "جديد";
 
 }
 
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
 
 function formatDate(d) {
 
   try {
 
-    return new Date(d).toLocaleString(
+    return new Date(
+      d
+    ).toLocaleString(
       "ar-SA",
       {
-        dateStyle: "medium",
-        timeStyle: "short"
+        dateStyle:
+          "medium",
+
+        timeStyle:
+          "short"
       }
     );
 
@@ -420,70 +1014,109 @@ function formatDate(d) {
 }
 
 
-/* =========================
+/* =========================================================
    RENDER ORDERS
-========================= */
+========================================================= */
 
 function renderOrders() {
 
-  const orders = getOrders();
+  const orders =
+    getOrders();
 
 
   const newCount =
     orders.filter(
-      o => o.status === "new"
+      o =>
+        o.status ===
+        "new"
     ).length;
 
 
   const totalOrders =
-    document.getElementById("totalOrders");
+    document.getElementById(
+      "totalOrders"
+    );
+
 
   if (totalOrders) {
+
     totalOrders.textContent =
       orders.length;
+
   }
 
 
   const navOrderCount =
-    document.getElementById("navOrderCount");
+    document.getElementById(
+      "navOrderCount"
+    );
+
 
   if (navOrderCount) {
+
     navOrderCount.textContent =
       newCount;
+
   }
 
 
   const totalSales =
-    document.getElementById("totalSales");
+    document.getElementById(
+      "totalSales"
+    );
+
 
   if (totalSales) {
 
     totalSales.textContent =
+
       money(
+
         orders
+
           .filter(
-            o => o.status !== "cancelled"
+            o =>
+              o.status !==
+              "cancelled"
           )
+
           .reduce(
-            (sum, o) =>
-              sum + Number(o.total || 0),
+            (
+              sum,
+              o
+            ) =>
+
+              sum +
+              Number(
+                o.total ||
+                0
+              ),
+
             0
           )
+
       );
 
   }
 
 
   const filtered =
-    currentFilter === "all"
+    currentFilter ===
+    "all"
+
       ? orders
+
       : orders.filter(
-          o => o.status === currentFilter
+          o =>
+            o.status ===
+            currentFilter
         );
 
 
   const box =
-    document.getElementById("ordersList");
+    document.getElementById(
+      "ordersList"
+    );
 
 
   if (!box) return;
@@ -492,19 +1125,29 @@ function renderOrders() {
   if (!filtered.length) {
 
     box.innerHTML = `
-      <div class="empty-orders">
+
+      <div
+        class="empty-orders"
+      >
 
         <strong>
+
           لا توجد طلبات هنا
+
         </strong>
 
+
         <span>
-          عندما يرسل الزبائن طلباتهم
-          ستظهر في هذا القسم.
+
+          عندما يرسل الزبائن
+          طلباتهم ستظهر في هذا القسم.
+
         </span>
 
       </div>
+
     `;
+
 
     return;
 
@@ -512,58 +1155,108 @@ function renderOrders() {
 
 
   box.innerHTML =
-    filtered.map(o => `
 
-      <div class="order-card">
+    filtered
+
+      .map(
+        o => `
+
+      <div
+        class="order-card"
+      >
+
 
         <div>
 
-          <div class="order-number">
-            ${esc(o.id)}
+
+          <div
+            class="order-number"
+          >
+
+            ${esc(
+              o.id
+            )}
+
           </div>
 
-          <div class="order-customer">
-            👤 ${esc(
+
+          <div
+            class="order-customer"
+          >
+
+            👤
+
+            ${esc(
               o.customer?.name ||
               "بدون اسم"
             )}
 
             ·
 
-            📱 ${esc(
+            📱
+
+            ${esc(
               o.customer?.phone ||
               ""
             )}
+
           </div>
 
-          <div class="order-date">
-            ${formatDate(o.createdAt)}
+
+          <div
+            class="order-date"
+          >
+
+            ${formatDate(
+              o.createdAt
+            )}
+
           </div>
+
 
         </div>
 
 
         <div>
 
+
           <span
             class="
               status
               status-${esc(
-                o.status || "new"
+                o.status ||
+                "new"
               )}
             "
           >
-            ${statusText(o.status)}
+
+            ${statusText(
+              o.status
+            )}
+
           </span>
 
 
-          <div class="order-customer">
+          <div
+            class="order-customer"
+          >
 
             ${
-              (o.items || []).reduce(
-                (sum, item) =>
+              (
+                o.items ||
+                []
+              ).reduce(
+                (
+                  sum,
+                  item
+                ) =>
+
                   sum +
-                  Number(item.qty || 0),
+                  Number(
+                    item.qty ||
+                    0
+                  ),
+
                 0
               )
             }
@@ -573,67 +1266,111 @@ function renderOrders() {
             ·
 
             ${
-              o.payment === "online"
+              o.payment ===
+              "online"
+
                 ? "💳 إلكتروني"
+
                 : "💵 عند الاستلام"
             }
 
           </div>
+
 
         </div>
 
 
         <div>
 
-          <div class="order-total">
-            ${money(o.total)}
+
+          <div
+            class="order-total"
+          >
+
+            ${money(
+              o.total
+            )}
+
           </div>
 
 
-          <div class="order-actions">
+          <div
+            class="order-actions"
+          >
+
 
             <button
-              onclick="openOrder('${o.id}')"
+              onclick="
+                openOrder('${esc(
+                  o.id
+                )}')
+              "
             >
+
               التفاصيل
+
             </button>
 
 
             <button
-              onclick="quickStatus('${o.id}')"
+              onclick="
+                quickStatus('${esc(
+                  o.id
+                )}')
+              "
             >
+
               تغيير الحالة
+
             </button>
 
+
           </div>
+
 
         </div>
 
+
       </div>
 
-    `).join("");
+    `
+      )
+      .join("");
 
 }
 
 
-/* =========================
+/* =========================================================
    FILTER ORDERS
-========================= */
+========================================================= */
 
-function filterOrders(filter, btn) {
+function filterOrders(
+  filter,
+  btn
+) {
 
-  currentFilter = filter;
+  currentFilter =
+    filter;
 
 
   document
-    .querySelectorAll(".filter")
+    .querySelectorAll(
+      ".filter"
+    )
     .forEach(
-      x => x.classList.remove("active")
+      x =>
+        x.classList.remove(
+          "active"
+        )
     );
 
 
   if (btn) {
-    btn.classList.add("active");
+
+    btn.classList.add(
+      "active"
+    );
+
   }
 
 
@@ -642,49 +1379,61 @@ function filterOrders(filter, btn) {
 }
 
 
-/* =========================
+/* =========================================================
    UPDATE ORDER
-========================= */
+========================================================= */
 
-function updateOrder(id, status) {
+function updateOrder(
+  id,
+  status
+) {
 
-  const orders = getOrders();
+  const orders =
+    getOrders();
 
 
   const order =
     orders.find(
-      x => x.id === id
+      x =>
+        x.id ===
+        id
     );
 
 
   if (!order) return;
 
 
-  order.status = status;
+  order.status =
+    status;
 
 
   localStorage.setItem(
     "wisamOrders",
-    JSON.stringify(orders)
+    JSON.stringify(
+      orders
+    )
   );
 
 
   renderOrders();
+
 
   openOrder(id);
 
 }
 
 
-/* =========================
+/* =========================================================
    QUICK STATUS
-========================= */
+========================================================= */
 
 function quickStatus(id) {
 
   const order =
     getOrders().find(
-      x => x.id === id
+      x =>
+        x.id ===
+        id
     );
 
 
@@ -693,16 +1442,21 @@ function quickStatus(id) {
 
   const next = {
 
-    new: "processing",
+    new:
+      "processing",
 
-    processing: "delivered",
+    processing:
+      "delivered",
 
-    delivered: "delivered",
+    delivered:
+      "delivered",
 
-    cancelled: "new"
+    cancelled:
+      "new"
 
   }[
-    order.status || "new"
+    order.status ||
+    "new"
   ];
 
 
@@ -714,15 +1468,17 @@ function quickStatus(id) {
 }
 
 
-/* =========================
+/* =========================================================
    ORDER DETAILS
-========================= */
+========================================================= */
 
 function openOrder(id) {
 
   const order =
     getOrders().find(
-      x => x.id === id
+      x =>
+        x.id ===
+        id
     );
 
 
@@ -731,7 +1487,8 @@ function openOrder(id) {
 
   const phone =
     String(
-      order.customer?.phone || ""
+      order.customer?.phone ||
+      ""
     ).replace(
       /[^\d+]/g,
       ""
@@ -740,7 +1497,18 @@ function openOrder(id) {
 
   const message =
     encodeURIComponent(
-      `مرحباً ${order.customer?.name || ""}، معك وسام ستور بخصوص طلبك رقم ${order.id}. إجمالي الطلب ${money(order.total)}.`
+
+      `مرحباً ${
+        order.customer?.name ||
+        ""
+      }، معك وسام ستور بخصوص طلبك رقم ${
+        order.id
+      }. إجمالي الطلب ${
+        money(
+          order.total
+        )
+      }.`
+
     );
 
 
@@ -750,17 +1518,33 @@ function openOrder(id) {
     );
 
 
+  if (!orderDetails) return;
+
+
   orderDetails.innerHTML = `
 
-    <div class="detail-head">
+    <div
+      class="detail-head"
+    >
 
-      <span class="eyebrow">
-        ORDER ${esc(order.id)}
+
+      <span
+        class="eyebrow"
+      >
+
+        ORDER
+
+        ${esc(
+          order.id
+        )}
+
       </span>
 
 
       <h2>
+
         تفاصيل الطلب
+
       </h2>
 
 
@@ -768,93 +1552,128 @@ function openOrder(id) {
         class="
           status
           status-${esc(
-            order.status || "new"
+            order.status ||
+            "new"
           )}
         "
       >
-        ${statusText(order.status)}
+
+        ${statusText(
+          order.status
+        )}
+
       </span>
+
 
     </div>
 
 
-    <div class="detail-grid">
+    <div
+      class="detail-grid"
+    >
 
-      <div class="detail-box">
+
+      <div
+        class="detail-box"
+      >
 
         <small>
           اسم العميل
         </small>
 
+
         <strong>
+
           ${esc(
             order.customer?.name ||
             "—"
           )}
+
         </strong>
 
       </div>
 
 
-      <div class="detail-box">
+      <div
+        class="detail-box"
+      >
 
         <small>
           رقم الجوال
         </small>
 
+
         <strong>
+
           ${esc(
             order.customer?.phone ||
             "—"
           )}
+
         </strong>
 
       </div>
 
 
-      <div class="detail-box">
+      <div
+        class="detail-box"
+      >
 
         <small>
           المدينة
         </small>
 
+
         <strong>
+
           ${esc(
             order.customer?.city ||
             "—"
           )}
+
         </strong>
 
       </div>
 
 
-      <div class="detail-box">
+      <div
+        class="detail-box"
+      >
 
         <small>
           العنوان
         </small>
 
+
         <strong>
+
           ${esc(
             order.customer?.address ||
             "—"
           )}
+
         </strong>
 
       </div>
 
 
-      <div class="detail-box">
+      <div
+        class="detail-box"
+      >
 
         <small>
           طريقة الدفع
         </small>
 
+
         <strong>
 
           ${
-            order.payment === "online"
+            order.payment ===
+            "online"
+
               ? "💳 الدفع الإلكتروني"
+
               : "💵 الدفع عند الاستلام"
           }
 
@@ -863,24 +1682,32 @@ function openOrder(id) {
       </div>
 
 
-      <div class="detail-box">
+      <div
+        class="detail-box"
+      >
 
         <small>
           تاريخ الطلب
         </small>
 
+
         <strong>
+
           ${formatDate(
             order.createdAt
           )}
+
         </strong>
 
       </div>
 
+
     </div>
 
 
-    <div class="items-list">
+    <div
+      class="items-list"
+    >
 
       <h3>
         المنتجات
@@ -888,14 +1715,22 @@ function openOrder(id) {
 
 
       ${
-        (order.items || [])
-          .map(item => `
+        (
+          order.items ||
+          []
+        )
+        .map(
+          item => `
 
-            <div class="item-line">
+            <div
+              class="item-line"
+            >
 
               <span>
 
-                ${esc(item.name)}
+                ${esc(
+                  item.name
+                )}
 
                 ×
 
@@ -915,18 +1750,23 @@ function openOrder(id) {
 
             </div>
 
-          `)
-          .join("")
+          `
+        )
+        .join("")
       }
 
     </div>
 
 
-    <div class="order-total-large">
+    <div
+      class="order-total-large"
+    >
 
       الإجمالي:
 
-      ${money(order.total)}
+      ${money(
+        order.total
+      )}
 
     </div>
 
@@ -945,58 +1785,74 @@ function openOrder(id) {
         class="status-select"
         onchange="
           updateOrder(
-            '${order.id}',
+            '${esc(
+              order.id
+            )}',
             this.value
           )
         "
       >
 
+
         <option
           value="new"
           ${
-            order.status === "new"
+            order.status ===
+            "new"
               ? "selected"
               : ""
           }
         >
+
           جديد
+
         </option>
 
 
         <option
           value="processing"
           ${
-            order.status === "processing"
+            order.status ===
+            "processing"
               ? "selected"
               : ""
           }
         >
+
           قيد التجهيز
+
         </option>
 
 
         <option
           value="delivered"
           ${
-            order.status === "delivered"
+            order.status ===
+            "delivered"
               ? "selected"
               : ""
           }
         >
+
           تم التسليم
+
         </option>
 
 
         <option
           value="cancelled"
           ${
-            order.status === "cancelled"
+            order.status ===
+            "cancelled"
               ? "selected"
               : ""
           }
         >
+
           ملغى
+
         </option>
+
 
       </select>
 
@@ -1005,7 +1861,9 @@ function openOrder(id) {
 
     ${
       phone
+
         ? `
+
           <a
             class="wa-btn"
             target="_blank"
@@ -1017,34 +1875,62 @@ function openOrder(id) {
               )}?text=${message}
             "
           >
+
             💬 التواصل عبر WhatsApp
+
           </a>
+
         `
+
         : ""
     }
 
   `;
 
 
-  document
-    .getElementById("orderModal")
-    .classList.add("show");
+  const modal =
+    document.getElementById(
+      "orderModal"
+    );
+
+
+  if (modal) {
+
+    modal.classList.add(
+      "show"
+    );
+
+  }
 
 }
 
 
-/* =========================
+/* =========================================================
    CLOSE ORDER
-========================= */
+========================================================= */
 
 function closeOrder() {
 
-  document
-    .getElementById("orderModal")
-    .classList.remove("show");
+  const modal =
+    document.getElementById(
+      "orderModal"
+    );
+
+
+  if (modal) {
+
+    modal.classList.remove(
+      "show"
+    );
+
+  }
 
 }
 
+
+/* =========================================================
+   ORDER MODAL EVENTS
+========================================================= */
 
 const orderModal =
   document.getElementById(
@@ -1056,6 +1942,7 @@ if (orderModal) {
 
   orderModal.addEventListener(
     "click",
+
     e => {
 
       if (
@@ -1068,6 +1955,7 @@ if (orderModal) {
       }
 
     }
+
   );
 
 }
@@ -1075,21 +1963,26 @@ if (orderModal) {
 
 document.addEventListener(
   "keydown",
+
   e => {
 
-    if (e.key === "Escape") {
+    if (
+      e.key ===
+      "Escape"
+    ) {
 
       closeOrder();
 
     }
 
   }
+
 );
 
 
-/* =========================
+/* =========================================================
    DELETE PRODUCT
-========================= */
+========================================================= */
 
 function deleteProduct(id) {
 
@@ -1098,123 +1991,256 @@ function deleteProduct(id) {
       "هل تريد حذف هذا المنتج؟"
     )
   ) {
+
     return;
+
   }
 
 
   saveProducts(
+
     getProducts().filter(
-      p => p.id != id
+      p =>
+        p.id != id
     )
+
   );
 
 }
 
 
-/* =========================
+/* =========================================================
    EDIT PRODUCT
-========================= */
+========================================================= */
 
 function editProduct(id) {
 
   const product =
     getProducts().find(
-      p => p.id === id
+      p =>
+        p.id === id
     );
 
 
   if (!product) return;
 
 
-  editingProductId = id;
+  editingProductId =
+    id;
 
 
-  document.getElementById(
-    "productFormTitle"
-  ).textContent =
-    "تعديل المنتج";
+  const title =
+    document.getElementById(
+      "productFormTitle"
+    );
 
 
-  document.getElementById(
-    "saveProductButton"
-  ).textContent =
-    "💾 حفظ التعديلات";
+  if (title) {
+
+    title.textContent =
+      "تعديل المنتج";
+
+  }
 
 
-  document.getElementById(
-    "cancelEditButton"
-  ).style.display =
-    "inline-block";
+  const saveButton =
+    document.getElementById(
+      "saveProductButton"
+    );
 
 
-  document.getElementById(
-    "category"
-  ).value =
-    product.category ||
-    "other";
+  if (saveButton) {
+
+    saveButton.textContent =
+      "💾 حفظ التعديلات";
+
+  }
 
 
-  document.getElementById(
-    "brand"
-  ).value =
-    product.brand ||
-    "";
+  const cancelButton =
+    document.getElementById(
+      "cancelEditButton"
+    );
 
 
-  document.getElementById(
-    "name"
-  ).value =
-    product.name ||
-    "";
+  if (cancelButton) {
+
+    cancelButton.style.display =
+      "inline-block";
+
+  }
 
 
-  document.getElementById(
-    "price"
-  ).value =
-    product.price ||
-    "";
+  const category =
+    document.getElementById(
+      "category"
+    );
 
 
-  document.getElementById(
-    "battery"
-  ).value =
-    product.battery ||
-    "";
+  if (category) {
+
+    category.value =
+      product.category ||
+      "other";
+
+  }
 
 
-  document.getElementById(
-    "screen"
-  ).value =
-    product.screen ||
-    "";
+  /*
+   * تجهيز الأقسام الفرعية
+   */
+
+  setupSubcategoryField();
 
 
-  document.getElementById(
-    "storage"
-  ).value =
-    product.storage ||
-    "";
+  const subcategory =
+    document.getElementById(
+      "subcategory"
+    );
 
 
-  document.getElementById(
-    "colors"
-  ).value =
-    product.colors ||
-    "";
+  if (subcategory) {
+
+    subcategory.value =
+      product.subcategory ||
+      "";
+
+  }
 
 
-  document.getElementById(
-    "description"
-  ).value =
-    product.description ||
-    "";
+  const brand =
+    document.getElementById(
+      "brand"
+    );
 
 
-  document.getElementById(
-    "icon"
-  ).value =
-    product.icon ||
-    "";
+  if (brand) {
+
+    brand.value =
+      product.brand ||
+      "";
+
+  }
+
+
+  const name =
+    document.getElementById(
+      "name"
+    );
+
+
+  if (name) {
+
+    name.value =
+      product.name ||
+      "";
+
+  }
+
+
+  const price =
+    document.getElementById(
+      "price"
+    );
+
+
+  if (price) {
+
+    price.value =
+      product.price ||
+      "";
+
+  }
+
+
+  const battery =
+    document.getElementById(
+      "battery"
+    );
+
+
+  if (battery) {
+
+    battery.value =
+      product.battery ||
+      "";
+
+  }
+
+
+  const screen =
+    document.getElementById(
+      "screen"
+    );
+
+
+  if (screen) {
+
+    screen.value =
+      product.screen ||
+      "";
+
+  }
+
+
+  const storage =
+    document.getElementById(
+      "storage"
+    );
+
+
+  if (storage) {
+
+    storage.value =
+      product.storage ||
+      "";
+
+  }
+
+
+  const colors =
+    document.getElementById(
+      "colors"
+    );
+
+
+  if (colors) {
+
+    colors.value =
+      product.colors ||
+      "";
+
+  }
+
+
+  const description =
+    document.getElementById(
+      "description"
+    );
+
+
+  if (description) {
+
+    description.value =
+      product.description ||
+      "";
+
+  }
+
+
+  const icon =
+    document.getElementById(
+      "icon"
+    );
+
+
+  if (icon) {
+
+    icon.value =
+      product.icon ||
+      "";
+
+  }
 
 
   const existingImage =
@@ -1222,14 +2248,22 @@ function editProduct(id) {
     "";
 
 
-  document.getElementById(
-    "image"
-  ).value =
-    existingImage.startsWith(
-      "data:image"
-    )
-      ? ""
-      : existingImage;
+  const image =
+    document.getElementById(
+      "image"
+    );
+
+
+  if (image) {
+
+    image.value =
+      existingImage.startsWith(
+        "data:image"
+      )
+        ? ""
+        : existingImage;
+
+  }
 
 
   selectedImageData =
@@ -1240,44 +2274,59 @@ function editProduct(id) {
       : "";
 
 
-  if (existingImage) {
+  if (
+    imagePreview
+  ) {
 
-    imagePreview.innerHTML = `
-      <img
-        src="${esc(existingImage)}"
-        alt="صورة المنتج"
-      >
-    `;
+    if (existingImage) {
 
-  } else {
+      imagePreview.innerHTML = `
 
-    imagePreview.innerHTML =
-      "<span>ستظهر معاينة الصورة هنا</span>";
+        <img
+          src="${esc(
+            existingImage
+          )}"
+          alt="صورة المنتج"
+        >
+
+      `;
+
+    } else {
+
+      imagePreview.innerHTML =
+        "<span>ستظهر معاينة الصورة هنا</span>";
+
+    }
 
   }
 
 
-  showSection("add");
+  showSection(
+    "add"
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    CANCEL EDIT
-========================= */
+========================================================= */
 
 function cancelEdit() {
 
   resetProductForm();
 
-  showSection("products");
+
+  showSection(
+    "products"
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    RESET PRODUCT FORM
-========================= */
+========================================================= */
 
 function resetProductForm() {
 
@@ -1288,46 +2337,98 @@ function resetProductForm() {
 
 
   if (form) {
+
     form.reset();
+
   }
 
 
-  editingProductId = null;
-
-  selectedImageData = "";
-
-
-  document.getElementById(
-    "productFormTitle"
-  ).textContent =
-    "إضافة منتج جديد";
+  editingProductId =
+    null;
 
 
-  document.getElementById(
-    "saveProductButton"
-  ).textContent =
-    "حفظ المنتج";
+  selectedImageData =
+    "";
 
 
-  document.getElementById(
-    "cancelEditButton"
-  ).style.display =
-    "none";
+  const title =
+    document.getElementById(
+      "productFormTitle"
+    );
 
 
-  if (imagePreview) {
+  if (title) {
+
+    title.textContent =
+      "إضافة منتج جديد";
+
+  }
+
+
+  const saveButton =
+    document.getElementById(
+      "saveProductButton"
+    );
+
+
+  if (saveButton) {
+
+    saveButton.textContent =
+      "حفظ المنتج";
+
+  }
+
+
+  const cancelButton =
+    document.getElementById(
+      "cancelEditButton"
+    );
+
+
+  if (cancelButton) {
+
+    cancelButton.style.display =
+      "none";
+
+  }
+
+
+  if (
+    imagePreview
+  ) {
 
     imagePreview.innerHTML =
       "<span>ستظهر معاينة الصورة هنا</span>";
 
   }
 
+
+  /*
+   * إعادة ضبط القسم الفرعي
+   */
+
+  const subcategory =
+    document.getElementById(
+      "subcategory"
+    );
+
+
+  if (subcategory) {
+
+    subcategory.value =
+      "";
+
+  }
+
+
+  setupSubcategoryField();
+
 }
 
 
-/* =========================
+/* =========================================================
    ADD / EDIT PRODUCT FORM
-========================= */
+========================================================= */
 
 const productForm =
   document.getElementById(
@@ -1338,79 +2439,123 @@ const productForm =
 if (productForm) {
 
   productForm.addEventListener(
+
     "submit",
+
     function (e) {
 
       e.preventDefault();
 
 
       const name =
-        document.getElementById(
-          "name"
-        ).value.trim();
+        document
+          .getElementById(
+            "name"
+          )
+          .value
+          .trim();
 
 
       const price =
         Number(
-          document.getElementById(
-            "price"
-          ).value
+          document
+            .getElementById(
+              "price"
+            )
+            .value
         );
 
 
       const description =
-        document.getElementById(
-          "description"
-        ).value.trim();
+        document
+          .getElementById(
+            "description"
+          )
+          .value
+          .trim();
 
 
       const icon =
-        document.getElementById(
-          "icon"
-        ).value.trim() ||
+        document
+          .getElementById(
+            "icon"
+          )
+          .value
+          .trim() ||
         "📦";
 
 
       const category =
+        document
+          .getElementById(
+            "category"
+          )
+          .value;
+
+
+      /*
+       * القسم الفرعي
+       */
+
+      const subcategory =
         document.getElementById(
-          "category"
-        ).value;
+          "subcategory"
+        )?.value ||
+        "";
 
 
       const brand =
-        document.getElementById(
-          "brand"
-        ).value.trim();
+        document
+          .getElementById(
+            "brand"
+          )
+          .value
+          .trim();
 
 
       const battery =
-        document.getElementById(
-          "battery"
-        ).value.trim();
+        document
+          .getElementById(
+            "battery"
+          )
+          .value
+          .trim();
 
 
       const screen =
-        document.getElementById(
-          "screen"
-        ).value.trim();
+        document
+          .getElementById(
+            "screen"
+          )
+          .value
+          .trim();
 
 
       const storage =
-        document.getElementById(
-          "storage"
-        ).value.trim();
+        document
+          .getElementById(
+            "storage"
+          )
+          .value
+          .trim();
 
 
       const colors =
-        document.getElementById(
-          "colors"
-        ).value.trim();
+        document
+          .getElementById(
+            "colors"
+          )
+          .value
+          .trim();
 
 
       const imageUrl =
-        document.getElementById(
-          "image"
-        ).value.trim();
+        document
+          .getElementById(
+            "image"
+          )
+          .value
+          .trim();
 
 
       const finalImage =
@@ -1422,11 +2567,13 @@ if (productForm) {
         getProducts();
 
 
-      /* =========================
-         EDIT EXISTING PRODUCT
-      ========================= */
+      /*
+       * EDIT EXISTING PRODUCT
+       */
 
-      if (editingProductId) {
+      if (
+        editingProductId
+      ) {
 
         const index =
           products.findIndex(
@@ -1436,7 +2583,9 @@ if (productForm) {
           );
 
 
-        if (index !== -1) {
+        if (
+          index !== -1
+        ) {
 
           products[index] = {
 
@@ -1451,6 +2600,8 @@ if (productForm) {
             icon,
 
             category,
+
+            subcategory,
 
             brand,
 
@@ -1472,7 +2623,9 @@ if (productForm) {
         }
 
 
-        saveProducts(products);
+        saveProducts(
+          products
+        );
 
 
         alert(
@@ -1482,15 +2635,16 @@ if (productForm) {
       }
 
 
-      /* =========================
-         ADD NEW PRODUCT
-      ========================= */
+      /*
+       * ADD NEW PRODUCT
+       */
 
       else {
 
         products.push({
 
-          id: Date.now(),
+          id:
+            Date.now(),
 
           name,
 
@@ -1502,6 +2656,8 @@ if (productForm) {
 
           category,
 
+          subcategory,
+
           brand,
 
           battery,
@@ -1512,12 +2668,15 @@ if (productForm) {
 
           colors,
 
-          image: finalImage
+          image:
+            finalImage
 
         });
 
 
-        saveProducts(products);
+        saveProducts(
+          products
+        );
 
 
         alert(
@@ -1535,16 +2694,19 @@ if (productForm) {
       );
 
     }
+
   );
 
 }
 
 
-/* =========================
+/* =========================================================
    DASHBOARD NAVIGATION
-========================= */
+========================================================= */
 
-function showSection(sectionId) {
+function showSection(
+  sectionId
+) {
 
   document
     .querySelectorAll(
@@ -1580,25 +2742,27 @@ function showSection(sectionId) {
     .querySelectorAll(
       ".nav-tab"
     )
-    .forEach(tab => {
+    .forEach(
+      tab => {
 
-      tab.classList.remove(
-        "active"
-      );
-
-
-      if (
-        tab.dataset.section ===
-        sectionId
-      ) {
-
-        tab.classList.add(
+        tab.classList.remove(
           "active"
         );
 
-      }
 
-    });
+        if (
+          tab.dataset.section ===
+          sectionId
+        ) {
+
+          tab.classList.add(
+            "active"
+          );
+
+        }
+
+      }
+    );
 
 
   if (
@@ -1636,8 +2800,12 @@ function showSection(sectionId) {
     "add"
   ) {
 
-    /* لا نعمل reset هنا
-       حتى لا نخسر بيانات التعديل */
+    /*
+     * لا نعمل reset هنا
+     * حتى لا نخسر بيانات التعديل.
+     */
+
+    setupSubcategoryField();
 
   }
 
@@ -1648,75 +2816,91 @@ function showSection(sectionId) {
 }
 
 
-/* =========================
+/* =========================================================
    NAVIGATION LINKS
-========================= */
+========================================================= */
 
 document
   .querySelectorAll(
     ".nav-tab"
   )
-  .forEach(tab => {
+  .forEach(
+    tab => {
 
-    tab.addEventListener(
-      "click",
-      function (e) {
+      tab.addEventListener(
 
-        e.preventDefault();
+        "click",
 
-        showSection(
-          this.dataset.section
-        );
+        function (e) {
 
-      }
-    );
-
-  });
+          e.preventDefault();
 
 
-/* =========================
+          showSection(
+            this.dataset.section
+          );
+
+        }
+
+      );
+
+    }
+  );
+
+
+/* =========================================================
    HASH NAVIGATION
-========================= */
+========================================================= */
 
 function loadSectionFromHash() {
 
   const hash =
     window.location.hash
-      .replace("#", "");
+      .replace(
+        "#",
+        ""
+      );
 
 
   const allowed = [
+
     "dashboard",
+
     "orders",
+
     "products",
+
     "add"
+
   ];
 
 
   if (
-    allowed.includes(hash)
+    allowed.includes(
+      hash
+    )
   ) {
 
-    showSection(hash);
+    showSection(
+      hash
+    );
 
   } else {
 
-    showSection("dashboard");
+    showSection(
+      "dashboard"
+    );
 
   }
 
 }
 
 
-window.addEventListener(
-  "hashchange",
-  loadSectionFromHash
-);
-
-
-/* =========================
+/* =========================================================
    START
-========================= */
+========================================================= */
+
+setupSubcategoryField();
 
 render();
 
