@@ -1,338 +1,72 @@
 /* =========================================================
    WISAM STORE
    STORE.JS
-   VERSION 2.0
-   20 PRODUCTS + CATEGORIES + CART + CHECKOUT
+   Search + Discounts + Product Details + Cart + WhatsApp
 ========================================================= */
 
-const WISAM_PRODUCTS_VERSION = "2.0";
-
-
-/* =========================================================
-   PRODUCTS
-========================================================= */
+const WHATSAPP_NUMBER = "970592936150";
 
 const defaultProducts = [
-
-  /* =========================
-     PHONES
-  ========================= */
-
   {
-    id: 101,
-    name: "iPhone 16 Pro Max",
-    brand: "Apple",
+    id: 1,
+    name: "هاتف ذكي",
+    brand: "عام",
     category: "phones",
     subcategory: "iphone",
-    price: 5299,
-    description: "أداء احترافي وشريحة A18 Pro مع شاشة Super Retina XDR.",
-    battery: "حتى 33 ساعة فيديو",
-    storage: "256GB",
-    screen: "6.9 بوصة",
-    colors: "تيتانيوم أسود، طبيعي، أبيض، رملي",
-    icon: "📱"
-  },
-
-  {
-    id: 102,
-    name: "iPhone 16 Pro",
-    brand: "Apple",
-    category: "phones",
-    subcategory: "iphone",
-    price: 4699,
-    description: "هاتف احترافي بتصميم تيتانيوم وكاميرات متطورة.",
-    battery: "حتى 27 ساعة فيديو",
-    storage: "128GB",
-    screen: "6.3 بوصة",
-    colors: "تيتانيوم أسود، طبيعي، أبيض",
-    icon: "📱"
-  },
-
-  {
-    id: 103,
-    name: "iPhone 16",
-    brand: "Apple",
-    category: "phones",
-    subcategory: "iphone",
-    price: 3299,
-    description: "تصميم عصري وأداء سريع وتجربة تصوير مميزة.",
-    battery: "حتى 22 ساعة فيديو",
-    storage: "128GB",
-    screen: "6.1 بوصة",
-    colors: "أسود، أبيض، وردي، أزرق",
-    icon: "📱"
-  },
-
-  {
-    id: 104,
-    name: "Galaxy S25 Ultra",
-    brand: "Samsung",
-    category: "phones",
-    subcategory: "samsung",
-    price: 4899,
-    description: "قوة Ultra مع كاميرا احترافية وتجربة Galaxy متطورة.",
+    price: 1299,
+    oldPrice: 1499,
+    description: "هاتف ذكي بأداء قوي وتصميم أنيق.",
     battery: "5000 mAh",
-    storage: "256GB",
-    screen: "6.9 بوصة",
-    colors: "أسود، رمادي، فضي، أزرق",
-    icon: "📱"
-  },
-
-  {
-    id: 105,
-    name: "Galaxy S25",
-    brand: "Samsung",
-    category: "phones",
-    subcategory: "samsung",
-    price: 2999,
-    description: "هاتف رائد بحجم عملي وأداء قوي للاستخدام اليومي.",
-    battery: "4000 mAh",
     storage: "128GB",
-    screen: "6.2 بوصة",
-    colors: "كحلي، فضي، أزرق، أخضر",
+    screen: "6.6 بوصة",
+    colors: "أسود، أبيض، أزرق",
     icon: "📱"
   },
-
   {
-    id: 106,
-    name: "Galaxy A56 5G",
-    brand: "Samsung",
-    category: "phones",
-    subcategory: "samsung",
-    price: 1599,
-    description: "خيار ممتاز يجمع بين الشاشة الرائعة والأداء المتوازن.",
-    battery: "5000 mAh",
-    storage: "256GB",
-    screen: "6.7 بوصة",
-    colors: "رمادي، وردي، أخضر",
-    icon: "📱"
-  },
-
-  {
-    id: 107,
-    name: "Xiaomi 15 Ultra",
-    brand: "Xiaomi",
-    category: "phones",
-    subcategory: "xiaomi",
-    price: 4299,
-    description: "تصوير احترافي وأداء قوي لعشاق التقنية.",
-    battery: "5410 mAh",
-    storage: "512GB",
-    screen: "6.73 بوصة",
-    colors: "أسود، أبيض",
-    icon: "📱"
-  },
-
-  {
-    id: 108,
-    name: "Redmi Note 14 Pro",
-    brand: "Redmi",
-    category: "phones",
-    subcategory: "redmi",
-    price: 1199,
-    description: "شاشة AMOLED وكاميرا عالية الدقة وتجربة يومية ممتازة.",
-    battery: "5500 mAh",
-    storage: "256GB",
-    screen: "6.67 بوصة",
-    colors: "أسود، أزرق، بنفسجي",
-    icon: "📱"
-  },
-
-
-  /* =========================
-     SMART WATCHES
-  ========================= */
-
-  {
-    id: 201,
-    name: "Apple Watch Series 10",
+    id: 2,
+    name: "ساعة ذكية",
     brand: "Apple",
     category: "watches",
     subcategory: "apple-watch",
-    price: 1699,
-    description: "ساعة أنيقة وخفيفة مع شاشة واسعة ومزايا صحية متقدمة.",
-    battery: "حتى 18 ساعة",
-    storage: "64GB",
-    screen: "46mm",
-    colors: "أسود، فضي، ذهبي",
-    icon: "⌚"
-  },
-
-  {
-    id: 202,
-    name: "Apple Watch Ultra 2",
-    brand: "Apple",
-    category: "watches",
-    subcategory: "apple-watch",
-    price: 3199,
-    description: "ساعة مصممة للمغامرات والرياضة والاستخدام الاحترافي.",
-    battery: "حتى 36 ساعة",
-    storage: "64GB",
-    screen: "49mm",
-    colors: "تيتانيوم طبيعي، أسود",
-    icon: "⌚"
-  },
-
-  {
-    id: 203,
-    name: "Galaxy Watch 7",
-    brand: "Samsung",
-    category: "watches",
-    subcategory: "samsung-watch",
-    price: 999,
-    description: "ساعة ذكية متطورة لمتابعة النشاط والصحة والإشعارات.",
-    battery: "حتى 40 ساعة",
-    storage: "32GB",
-    screen: "44mm",
-    colors: "فضي، أخضر",
-    icon: "⌚"
-  },
-
-  {
-    id: 204,
-    name: "Huawei Watch GT 5",
-    brand: "Huawei",
-    category: "watches",
-    subcategory: "huawei-watch",
-    price: 899,
-    description: "تصميم فاخر وبطارية طويلة ومزايا رياضية متعددة.",
-    battery: "حتى 14 يومًا",
-    storage: "4GB",
-    screen: "46mm",
+    price: 499,
+    oldPrice: 599,
+    description: "أناقة وتقنية متطورة في معصمك.",
+    battery: "18 ساعة",
+    storage: "",
+    screen: "1.9 بوصة",
     colors: "أسود، فضي",
     icon: "⌚"
   },
-
-
-  /* =========================
-     HEADPHONES
-  ========================= */
-
   {
-    id: 301,
-    name: "AirPods Pro 2",
-    brand: "Apple",
+    id: 3,
+    name: "سماعات لاسلكية",
+    brand: "عام",
     category: "headphones",
-    subcategory: "airpods",
-    price: 899,
-    description: "صوت غامر مع إلغاء ضوضاء نشط وتجربة لاسلكية مميزة.",
-    battery: "حتى 6 ساعات",
-    storage: "",
-    screen: "",
-    colors: "أبيض",
-    icon: "🎧"
-  },
-
-  {
-    id: 302,
-    name: "AirPods 4",
-    brand: "Apple",
-    category: "headphones",
-    subcategory: "airpods",
-    price: 649,
-    description: "تصميم مريح وصوت واضح واتصال سريع بأجهزة Apple.",
-    battery: "حتى 5 ساعات",
-    storage: "",
-    screen: "",
-    colors: "أبيض",
-    icon: "🎧"
-  },
-
-  {
-    id: 303,
-    name: "Galaxy Buds3 Pro",
-    brand: "Samsung",
-    category: "headphones",
-    subcategory: "samsung-buds",
-    price: 699,
-    description: "صوت عالي الجودة وتصميم عصري مع مزايا ذكية.",
-    battery: "حتى 6 ساعات",
-    storage: "",
-    screen: "",
-    colors: "فضي، أبيض",
-    icon: "🎧"
-  },
-
-  {
-    id: 304,
-    name: "Sony WH-1000XM5",
-    brand: "Sony",
-    category: "headphones",
-    subcategory: "sony",
-    price: 1399,
-    description: "سماعة احترافية مع إلغاء ضوضاء رائد وصوت غني.",
-    battery: "حتى 30 ساعة",
-    storage: "",
-    screen: "",
-    colors: "أسود، فضي",
-    icon: "🎧"
-  },
-
-
-  /* =========================
-     PLAYSTATION
-  ========================= */
-
-  {
-    id: 401,
-    name: "PlayStation 5 Slim",
-    brand: "PlayStation",
-    category: "playstation",
-    subcategory: "ps5",
-    price: 2099,
-    description: "جهاز ألعاب الجيل الجديد بحجم أصغر وتجربة ألعاب مذهلة.",
-    battery: "",
-    storage: "1TB SSD",
-    screen: "",
-    colors: "أبيض",
-    icon: "🎮"
-  },
-
-  {
-    id: 402,
-    name: "PlayStation 5 Pro",
-    brand: "PlayStation",
-    category: "playstation",
-    subcategory: "ps5",
-    price: 3199,
-    description: "أقوى تجربة PlayStation لعشاق الأداء والجودة العالية.",
-    battery: "",
-    storage: "2TB SSD",
-    screen: "",
-    colors: "أبيض",
-    icon: "🎮"
-  },
-
-  {
-    id: 403,
-    name: "DualSense Controller",
-    brand: "PlayStation",
-    category: "playstation",
-    subcategory: "accessories",
+    subcategory: "other",
     price: 299,
-    description: "يد تحكم لاسلكية مع اهتزاز متقدم ومشغلات تكيفية.",
-    battery: "مدمج",
+    oldPrice: 349,
+    description: "صوت نقي وتجربة استماع مريحة.",
+    battery: "24 ساعة",
     storage: "",
     screen: "",
     colors: "أبيض، أسود",
-    icon: "🎮"
+    icon: "🎧"
   },
-
   {
-    id: 404,
-    name: "PlayStation Portal",
+    id: 4,
+    name: "جهاز ألعاب",
     brand: "PlayStation",
     category: "playstation",
-    subcategory: "accessories",
-    price: 899,
-    description: "تجربة لعب عن بُعد مع جهاز PlayStation 5.",
-    battery: "حتى 7 ساعات",
-    storage: "",
-    screen: "8 بوصة",
+    subcategory: "ps5",
+    price: 1899,
+    oldPrice: 2099,
+    description: "تجربة ألعاب احترافية وأداء قوي.",
+    battery: "",
+    storage: "1TB",
+    screen: "",
     colors: "أبيض",
     icon: "🎮"
   }
-
 ];
 
 
@@ -341,19 +75,12 @@ const defaultProducts = [
 ========================================================= */
 
 const categoryNames = {
-
   all: "الكل",
-
   phones: "الجوالات",
-
   watches: "الساعات الذكية",
-
   headphones: "السماعات",
-
   playstation: "PlayStation",
-
   other: "منتجات أخرى"
-
 };
 
 
@@ -362,135 +89,48 @@ const categoryNames = {
 ========================================================= */
 
 const subcategoryNames = {
-
   iphone: "iPhone",
-
   samsung: "Samsung",
-
   huawei: "Huawei",
-
   redmi: "Redmi",
-
   xiaomi: "Xiaomi",
+  other: "أخرى",
 
   "apple-watch": "Apple Watch",
-
   "samsung-watch": "Samsung Watch",
-
   "huawei-watch": "Huawei Watch",
 
-  airpods: "AirPods",
-
-  "samsung-buds": "Samsung Buds",
-
-  sony: "Sony",
-
   ps5: "PlayStation 5",
-
   ps4: "PlayStation 4",
-
-  ps3: "PlayStation 3",
-
-  accessories: "إكسسوارات PlayStation",
-
-  other: "أخرى"
-
+  ps3: "PlayStation 3"
 };
 
 
 /* =========================================================
-   CURRENT FILTER
+   STATE
 ========================================================= */
 
 let currentCategory = "all";
 let currentSubcategory = "all";
-
-
-/* =========================================================
-   PRODUCT STORAGE
-   مهم:
-   يتم تحديث المنتجات تلقائيًا عند تغيير الإصدار.
-========================================================= */
-
-function getProducts() {
-
-  try {
-
-    const savedVersion =
-      localStorage.getItem(
-        "wisamProductsVersion"
-      );
-
-    const saved =
-      JSON.parse(
-        localStorage.getItem(
-          "wisamProducts"
-        ) || "null"
-      );
-
-
-    if (
-      savedVersion ===
-      WISAM_PRODUCTS_VERSION &&
-      Array.isArray(saved) &&
-      saved.length
-    ) {
-
-      return saved;
-
-    }
-
-
-    localStorage.setItem(
-      "wisamProducts",
-      JSON.stringify(
-        defaultProducts
-      )
-    );
-
-
-    localStorage.setItem(
-      "wisamProductsVersion",
-      WISAM_PRODUCTS_VERSION
-    );
-
-
-    return defaultProducts;
-
-  } catch (error) {
-
-    return defaultProducts;
-
-  }
-
-}
-
-
-/* =========================================================
-   CART
-========================================================= */
+let searchQuery = "";
 
 let cart = [];
 
-try {
 
-  cart =
-    JSON.parse(
-      localStorage.getItem(
-        "wisamCart"
-      ) || "[]"
-    );
+/* =========================================================
+   CART LOAD
+========================================================= */
+
+try {
+  cart = JSON.parse(
+    localStorage.getItem("wisamCart") || "[]"
+  );
 
   if (!Array.isArray(cart)) {
-
     cart = [];
-
   }
-
 } catch (error) {
-
   cart = [];
-
 }
 
 
@@ -499,154 +139,209 @@ try {
 ========================================================= */
 
 function escapeHtml(value) {
-
-  return String(
-    value ?? ""
-  ).replace(
+  return String(value ?? "").replace(
     /[&<>"']/g,
     function (match) {
-
       return {
-
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#039;"
-
       }[match];
-
     }
   );
-
 }
 
 
 function money(number) {
-
   return (
-    Number(number || 0)
-      .toLocaleString("ar-SA") +
+    Number(number || 0).toLocaleString("ar-SA") +
     " ر.س"
   );
+}
 
+
+function getDiscount(product) {
+  const price = Number(product.price || 0);
+
+  const oldPrice = Number(
+    product.oldPrice ||
+    product.originalPrice ||
+    product.comparePrice ||
+    0
+  );
+
+  if (oldPrice > price && price > 0) {
+    return Math.round(
+      ((oldPrice - price) / oldPrice) * 100
+    );
+  }
+
+  return Number(product.discount || 0);
+}
+
+
+function getOldPrice(product) {
+  const oldPrice = Number(
+    product.oldPrice ||
+    product.originalPrice ||
+    product.comparePrice ||
+    0
+  );
+
+  return oldPrice > Number(product.price || 0)
+    ? oldPrice
+    : 0;
 }
 
 
 function subName(product) {
-
   return (
-    subcategoryNames[
-      product.subcategory
-    ] ||
+    subcategoryNames[product.subcategory] ||
     product.brand ||
-    categoryNames[
-      product.category
-    ] ||
+    categoryNames[product.category] ||
     "منتج"
   );
-
 }
 
 
 /* =========================================================
-   PRODUCT SPECS
+   PRODUCTS
 ========================================================= */
 
-function getProductSpecs(product) {
+function getProducts() {
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem("wisamProducts")
+    );
 
-  const specs = [];
+    if (Array.isArray(saved) && saved.length) {
+      return saved;
+    }
+
+    return defaultProducts;
+  } catch (error) {
+    return defaultProducts;
+  }
+}
 
 
-  if (product.brand) {
+/* =========================================================
+   SEARCH + CATEGORY UI
+========================================================= */
 
-    specs.push({
+function createStoreTools() {
 
-      icon: "🏷️",
+  const grid =
+    document.getElementById("productGrid");
 
-      label: "العلامة التجارية",
+  if (!grid) return;
 
-      value: product.brand
+  if (
+    document.getElementById(
+      "wisamStoreTools"
+    )
+  ) {
+    return;
+  }
 
-    });
+
+  const tools =
+    document.createElement("div");
+
+  tools.id = "wisamStoreTools";
+
+
+  tools.innerHTML = `
+
+    <div class="wisam-search-box">
+
+      <span class="wisam-search-icon">
+        🔎
+      </span>
+
+      <input
+        id="wisamSearch"
+        type="search"
+        placeholder="ابحث عن منتج، شركة، أو قسم..."
+        autocomplete="off"
+      >
+
+      <button
+        id="clearWisamSearch"
+        type="button"
+        aria-label="مسح البحث"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="wisam-search-result">
+      <span id="wisamSearchResult">
+        جميع المنتجات
+      </span>
+    </div>
+
+  `;
+
+
+  grid.parentNode.insertBefore(
+    tools,
+    grid
+  );
+
+
+  const searchInput =
+    document.getElementById(
+      "wisamSearch"
+    );
+
+
+  const clearButton =
+    document.getElementById(
+      "clearWisamSearch"
+    );
+
+
+  if (searchInput) {
+
+    searchInput.addEventListener(
+      "input",
+      function () {
+
+        searchQuery =
+          this.value.trim().toLowerCase();
+
+        renderProducts();
+
+      }
+    );
 
   }
 
 
-  if (product.battery) {
+  if (clearButton) {
 
-    specs.push({
+    clearButton.addEventListener(
+      "click",
+      function () {
 
-      icon: "🔋",
+        searchQuery = "";
 
-      label:
-        product.category === "headphones"
-          ? "عمر البطارية"
-          : "البطارية",
+        if (searchInput) {
+          searchInput.value = "";
+          searchInput.focus();
+        }
 
-      value: product.battery
+        renderProducts();
 
-    });
-
-  }
-
-
-  if (product.screen) {
-
-    specs.push({
-
-      icon:
-        product.category === "watches"
-          ? "⌚"
-          : "📱",
-
-      label:
-        product.category === "watches"
-          ? "حجم الساعة"
-          : "الشاشة",
-
-      value: product.screen
-
-    });
+      }
+    );
 
   }
-
-
-  if (product.storage) {
-
-    specs.push({
-
-      icon: "💾",
-
-      label:
-        product.category === "playstation"
-          ? "التخزين"
-          : "مساحة التخزين",
-
-      value: product.storage
-
-    });
-
-  }
-
-
-  if (product.colors) {
-
-    specs.push({
-
-      icon: "🎨",
-
-      label: "الألوان",
-
-      value: product.colors
-
-    });
-
-  }
-
-
-  return specs;
-
 }
 
 
@@ -669,16 +364,12 @@ function createCategoryNavigation() {
       "storeCategoryNavigation"
     )
   ) {
-
     return;
-
   }
 
 
   const wrapper =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
 
   wrapper.id =
@@ -735,6 +426,7 @@ function createCategoryNavigation() {
 
     </div>
 
+
     <div
       id="subcategoryNavigation"
       class="subcategory-navigation"
@@ -770,13 +462,11 @@ function createCategoryNavigation() {
             .querySelectorAll(
               ".category-main-btn"
             )
-            .forEach(btn => {
-
+            .forEach(btn =>
               btn.classList.remove(
                 "active"
-              );
-
-            });
+              )
+            );
 
 
           this.classList.add(
@@ -785,7 +475,6 @@ function createCategoryNavigation() {
 
 
           renderSubcategories();
-
           renderProducts();
 
         }
@@ -795,7 +484,6 @@ function createCategoryNavigation() {
 
 
   renderSubcategories();
-
 }
 
 
@@ -810,17 +498,12 @@ function renderSubcategories() {
       "subcategoryNavigation"
     );
 
-
   if (!box) return;
 
 
-  if (
-    currentCategory ===
-    "all"
-  ) {
+  if (currentCategory === "all") {
 
     box.innerHTML = "";
-
     return;
 
   }
@@ -830,34 +513,74 @@ function renderSubcategories() {
     getProducts();
 
 
-  const available = [];
+  let available = [];
 
 
-  products.forEach(
-    product => {
+  products.forEach(product => {
+
+    if (
+      product.category ===
+      currentCategory
+    ) {
 
       if (
-        product.category ===
-        currentCategory
+        product.subcategory &&
+        !available.includes(
+          product.subcategory
+        )
       ) {
 
-        if (
-          product.subcategory &&
-          !available.includes(
-            product.subcategory
-          )
-        ) {
-
-          available.push(
-            product.subcategory
-          );
-
-        }
+        available.push(
+          product.subcategory
+        );
 
       }
 
     }
-  );
+
+  });
+
+
+  if (!available.length) {
+
+    if (currentCategory === "phones") {
+
+      available = [
+        "iphone",
+        "samsung",
+        "huawei",
+        "redmi",
+        "xiaomi"
+      ];
+
+    }
+
+
+    if (currentCategory === "watches") {
+
+      available = [
+        "apple-watch",
+        "samsung-watch",
+        "huawei-watch"
+      ];
+
+    }
+
+
+    if (
+      currentCategory ===
+      "playstation"
+    ) {
+
+      available = [
+        "ps5",
+        "ps4",
+        "ps3"
+      ];
+
+    }
+
+  }
 
 
   box.innerHTML = `
@@ -870,26 +593,19 @@ function renderSubcategories() {
       الكل
     </button>
 
-    ${available
-      .map(
-        item => `
+    ${available.map(item => `
 
-        <button
-          class="subcategory-btn"
-          data-subcategory="${escapeHtml(
-            item
-          )}"
-          type="button"
-        >
-          ${escapeHtml(
-            subcategoryNames[item] ||
-            item
-          )}
-        </button>
+      <button
+        class="subcategory-btn"
+        data-subcategory="${escapeHtml(item)}"
+        type="button"
+      >
+        ${escapeHtml(
+          subcategoryNames[item] || item
+        )}
+      </button>
 
-      `
-      )
-      .join("")}
+    `).join("")}
 
   `;
 
@@ -912,13 +628,11 @@ function renderSubcategories() {
             .querySelectorAll(
               ".subcategory-btn"
             )
-            .forEach(btn => {
-
+            .forEach(btn =>
               btn.classList.remove(
                 "active"
-              );
-
-            });
+              )
+            );
 
 
           this.classList.add(
@@ -932,12 +646,11 @@ function renderSubcategories() {
       );
 
     });
-
 }
 
 
 /* =========================================================
-   FILTER
+   FILTER PRODUCTS
 ========================================================= */
 
 function getFilteredProducts() {
@@ -947,8 +660,7 @@ function getFilteredProducts() {
 
 
   if (
-    currentCategory !==
-    "all"
+    currentCategory !== "all"
   ) {
 
     products =
@@ -962,8 +674,7 @@ function getFilteredProducts() {
 
 
   if (
-    currentSubcategory !==
-    "all"
+    currentSubcategory !== "all"
   ) {
 
     products =
@@ -976,13 +687,125 @@ function getFilteredProducts() {
   }
 
 
-  return products;
+  if (searchQuery) {
 
+    products =
+      products.filter(
+        product => {
+
+          const text = [
+
+            product.name,
+
+            product.brand,
+
+            product.category,
+
+            product.subcategory,
+
+            categoryNames[
+              product.category
+            ],
+
+            subcategoryNames[
+              product.subcategory
+            ],
+
+            product.description
+
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+
+          return text.includes(
+            searchQuery
+          );
+
+        }
+      );
+
+  }
+
+
+  return products;
 }
 
 
 /* =========================================================
-   PRODUCT SPECS HTML
+   PRODUCT SPECS
+========================================================= */
+
+function getProductSpecs(product) {
+
+  const specs = [];
+
+
+  if (product.brand) {
+
+    specs.push({
+      icon: "🏷️",
+      label: "العلامة التجارية",
+      value: product.brand
+    });
+
+  }
+
+
+  if (product.battery) {
+
+    specs.push({
+      icon: "🔋",
+      label:
+        product.category === "headphones"
+          ? "عمر البطارية"
+          : "البطارية",
+      value: product.battery
+    });
+
+  }
+
+
+  if (product.screen) {
+
+    specs.push({
+      icon: "📱",
+      label: "حجم الشاشة",
+      value: product.screen
+    });
+
+  }
+
+
+  if (product.storage) {
+
+    specs.push({
+      icon: "💾",
+      label: "التخزين",
+      value: product.storage
+    });
+
+  }
+
+
+  if (product.colors) {
+
+    specs.push({
+      icon: "🎨",
+      label: "الألوان",
+      value: product.colors
+    });
+
+  }
+
+
+  return specs;
+}
+
+
+/* =========================================================
+   PRODUCT SPECS ON CARD
 ========================================================= */
 
 function renderProductSpecs(product) {
@@ -992,7 +815,7 @@ function renderProductSpecs(product) {
 
 
   return specs
-    .slice(0, 4)
+    .slice(0, 3)
     .map(
       spec => `
 
@@ -1009,7 +832,70 @@ function renderProductSpecs(product) {
       `
     )
     .join("");
+}
 
+
+/* =========================================================
+   PRICE HTML
+========================================================= */
+
+function renderPrice(product) {
+
+  const price =
+    Number(product.price || 0);
+
+  const oldPrice =
+    getOldPrice(product);
+
+  const discount =
+    getDiscount(product);
+
+
+  if (
+    oldPrice &&
+    oldPrice > price
+  ) {
+
+    return `
+
+      <div class="price-box">
+
+        <span class="old-price">
+          ${money(oldPrice)}
+        </span>
+
+        <span class="price">
+          ${money(price)}
+        </span>
+
+      </div>
+
+      ${
+        discount
+          ? `
+            <span class="discount-badge">
+              خصم ${discount}%
+            </span>
+          `
+          : ""
+      }
+
+    `;
+
+  }
+
+
+  return `
+
+    <div class="price-box">
+
+      <span class="price">
+        ${money(price)}
+      </span>
+
+    </div>
+
+  `;
 }
 
 
@@ -1024,12 +910,34 @@ function renderProducts() {
       "productGrid"
     );
 
-
   if (!grid) return;
 
 
   const products =
     getFilteredProducts();
+
+
+  const result =
+    document.getElementById(
+      "wisamSearchResult"
+    );
+
+
+  if (result) {
+
+    if (searchQuery) {
+
+      result.textContent =
+        `نتائج البحث عن "${searchQuery}" · ${products.length} منتج`;
+
+    } else {
+
+      result.textContent =
+        `${products.length} منتج متوفر`;
+
+    }
+
+  }
 
 
   if (!products.length) {
@@ -1038,146 +946,178 @@ function renderProducts() {
 
       <div class="empty-products">
 
-        <div>📦</div>
+        <div>
+          🔎
+        </div>
 
         <h3>
-          لا توجد منتجات هنا حاليًا
+          لم نجد المنتج الذي تبحث عنه
         </h3>
 
         <p>
-          سيتم إضافة منتجات هذا القسم قريبًا.
+          جرّب كلمة بحث أخرى أو اختر قسمًا مختلفًا.
         </p>
+
+        <button
+          class="primary-btn"
+          type="button"
+          onclick="
+            searchQuery='';
+            const s=document.getElementById('wisamSearch');
+            if(s)s.value='';
+            renderProducts();
+          "
+        >
+          عرض جميع المنتجات
+        </button>
 
       </div>
 
     `;
 
     return;
-
   }
 
 
   grid.innerHTML =
-    products
-      .map(
-        (product, index) => `
+    products.map(
+      (product, index) => {
 
-      <article
-        class="product-card"
-        style="
-          animation-delay:${Math.min(
-            index * 60,
-            400
-          )}ms
-        "
-        onclick="openProduct(${product.id})"
-      >
+        const discount =
+          getDiscount(product);
 
-        <div class="product-image">
+        const oldPrice =
+          getOldPrice(product);
 
-          <span
+
+        return `
+
+          <article
+            class="product-card"
             style="
-              font-size:82px;
-              filter:drop-shadow(0 15px 20px #0002);
+              animation-delay:${Math.min(
+                index * 60,
+                400
+              )}ms
             "
+            onclick="openProduct(${product.id})"
           >
-            ${escapeHtml(
-              product.icon ||
-              "📦"
-            )}
-          </span>
 
-        </div>
+            <div class="product-image">
 
+              ${
+                discount
+                  ? `
+                    <span class="card-discount">
+                      -${discount}%
+                    </span>
+                  `
+                  : ""
+              }
 
-        <div class="product-info">
+              ${
+                product.image
+                  ? `
+                    <img
+                      src="${escapeHtml(
+                        product.image
+                      )}"
+                      alt="${escapeHtml(
+                        product.name
+                      )}"
+                      loading="lazy"
+                    >
+                  `
+                  : `
+                    <span class="product-placeholder">
+                      ${escapeHtml(
+                        product.icon ||
+                        "📦"
+                      )}
+                    </span>
+                  `
+              }
 
-          <div class="product-meta">
-
-            ${escapeHtml(
-              categoryNames[
-                product.category
-              ] ||
-              "منتج"
-            )}
-
-            ·
-
-            ${escapeHtml(
-              subName(product)
-            )}
-
-          </div>
-
-
-          <h3>
-
-            ${escapeHtml(
-              product.name
-            )}
-
-          </h3>
-
-
-          <p>
-
-            ${escapeHtml(
-              product.description ||
-              "منتج مميز من وسام ستور"
-            )}
-
-          </p>
+            </div>
 
 
-          <div class="product-specs">
+            <div class="product-info">
 
-            ${renderProductSpecs(
-              product
-            )}
+              <div class="product-meta">
 
-          </div>
+                ${escapeHtml(
+                  categoryNames[
+                    product.category
+                  ] || "منتج"
+                )}
 
+                ·
 
-          <span class="price">
+                ${escapeHtml(
+                  subName(product)
+                )}
 
-            ${money(
-              product.price
-            )}
-
-          </span>
-
-
-          <button
-            class="add-btn"
-            type="button"
-            onclick="
-              event.stopPropagation();
-              addToCart(${product.id})
-            "
-          >
-            أضف إلى السلة
-          </button>
+              </div>
 
 
-          <button
-            class="details-btn"
-            type="button"
-            onclick="
-              event.stopPropagation();
-              openProduct(${product.id})
-            "
-          >
-            عرض التفاصيل
-          </button>
+              <h3>
+                ${escapeHtml(
+                  product.name
+                )}
+              </h3>
 
-        </div>
 
-      </article>
+              <p>
+                ${escapeHtml(
+                  product.description ||
+                  "منتج مميز من وسام ستور"
+                )}
+              </p>
 
-    `
-      )
-      .join("");
 
+              <div class="product-specs">
+
+                ${renderProductSpecs(
+                  product
+                )}
+
+              </div>
+
+
+              ${renderPrice(product)}
+
+
+              <button
+                class="add-btn"
+                type="button"
+                onclick="
+                  event.stopPropagation();
+                  addToCart(${product.id});
+                "
+              >
+                أضف إلى السلة
+              </button>
+
+
+              <button
+                class="details-btn"
+                type="button"
+                onclick="
+                  event.stopPropagation();
+                  openProduct(${product.id});
+                "
+              >
+                عرض التفاصيل
+              </button>
+
+            </div>
+
+          </article>
+
+        `;
+
+      }
+    ).join("");
 }
 
 
@@ -1189,8 +1129,7 @@ function openProduct(id) {
 
   const product =
     getProducts().find(
-      item =>
-        item.id == id
+      item => item.id == id
     );
 
 
@@ -1202,14 +1141,19 @@ function openProduct(id) {
       "productDetails"
     );
 
-
   if (!details) return;
 
 
   const specs =
-    getProductSpecs(
-      product
-    );
+    getProductSpecs(product);
+
+
+  const discount =
+    getDiscount(product);
+
+
+  const oldPrice =
+    getOldPrice(product);
 
 
   details.innerHTML = `
@@ -1218,17 +1162,38 @@ function openProduct(id) {
 
       <div class="detail-image">
 
-        <span
-          class="detail-icon"
-          style="
-            filter:drop-shadow(0 20px 25px #0002);
-          "
-        >
-          ${escapeHtml(
-            product.icon ||
-            "📦"
-          )}
-        </span>
+        ${
+          discount
+            ? `
+              <span class="detail-discount">
+                خصم ${discount}%
+              </span>
+            `
+            : ""
+        }
+
+
+        ${
+          product.image
+            ? `
+              <img
+                src="${escapeHtml(
+                  product.image
+                )}"
+                alt="${escapeHtml(
+                  product.name
+                )}"
+              >
+            `
+            : `
+              <span class="detail-icon">
+                ${escapeHtml(
+                  product.icon ||
+                  "📦"
+                )}
+              </span>
+            `
+        }
 
       </div>
 
@@ -1236,52 +1201,64 @@ function openProduct(id) {
       <div class="detail-content">
 
         <span class="eyebrow">
-
           ${escapeHtml(
             categoryNames[
               product.category
             ] ||
             "WISAM STORE"
           )}
-
         </span>
 
 
         <h2>
-
           ${escapeHtml(
             product.name
           )}
-
         </h2>
 
 
         <div class="detail-brand">
-
           ${escapeHtml(
             product.brand ||
             subName(product)
           )}
-
         </div>
 
 
-        <div class="detail-price">
+        <div class="detail-price-box">
 
-          ${money(
-            product.price
-          )}
+          ${
+            oldPrice
+              ? `
+                <span class="detail-old-price">
+                  ${money(oldPrice)}
+                </span>
+              `
+              : ""
+          }
+
+          <strong class="detail-price">
+            ${money(product.price)}
+          </strong>
+
+          ${
+            discount
+              ? `
+                <span class="detail-discount-text">
+                  خصم ${discount}%
+                </span>
+              `
+              : ""
+          }
 
         </div>
 
 
         <p class="detail-description">
-
           ${escapeHtml(
             product.description ||
             "منتج مميز من وسام ستور."
           )}
-
         </p>
 
 
@@ -1295,27 +1272,27 @@ function openProduct(id) {
                   .map(
                     spec => `
 
-                    <div class="spec-item">
+                      <div class="spec-item">
 
-                      <small>
-                        ${escapeHtml(
-                          spec.label
-                        )}
-                      </small>
+                        <small>
+                          ${escapeHtml(
+                            spec.label
+                          )}
+                        </small>
 
-                      <strong>
+                        <strong>
 
-                        ${spec.icon}
+                          ${spec.icon}
 
-                        ${escapeHtml(
-                          spec.value
-                        )}
+                          ${escapeHtml(
+                            spec.value
+                          )}
 
-                      </strong>
+                        </strong>
 
-                    </div>
+                      </div>
 
-                  `
+                    `
                   )
                   .join("")}
 
@@ -1326,22 +1303,36 @@ function openProduct(id) {
         }
 
 
-        <button
-          class="primary-btn"
-          style="
-            width:100%;
-            margin-top:5px
-          "
-          type="button"
-          onclick="
-            addToCart(${product.id});
-            closeProduct();
-          "
-        >
+        <div class="detail-actions">
 
-          أضف إلى السلة 🛒
+          <button
+            class="primary-btn"
+            type="button"
+            onclick="
+              addToCart(${product.id});
+              closeProduct();
+            "
+          >
+            أضف إلى السلة 🛒
+          </button>
 
-        </button>
+
+          <button
+            class="whatsapp-product-btn"
+            type="button"
+            onclick="
+              orderProductWhatsApp(${product.id});
+            "
+          >
+            💬 اطلب عبر واتساب
+          </button>
+
+        </div>
+
+
+        <div class="secure-note">
+          🔒 طلبك يتم تجهيزه بعناية من وسام ستور
+        </div>
 
       </div>
 
@@ -1366,7 +1357,6 @@ function openProduct(id) {
 
   document.body.style.overflow =
     "hidden";
-
 }
 
 
@@ -1392,7 +1382,6 @@ function closeProduct() {
 
   document.body.style.overflow =
     "";
-
 }
 
 
@@ -1404,8 +1393,7 @@ function addToCart(id) {
 
   const product =
     getProducts().find(
-      item =>
-        item.id == id
+      item => item.id == id
     );
 
 
@@ -1414,8 +1402,7 @@ function addToCart(id) {
 
   const existing =
     cart.find(
-      item =>
-        item.id == id
+      item => item.id == id
     );
 
 
@@ -1432,9 +1419,7 @@ function addToCart(id) {
       name: product.name,
 
       price:
-        Number(
-          product.price
-        ) || 0,
+        Number(product.price) || 0,
 
       qty: 1
 
@@ -1446,7 +1431,6 @@ function addToCart(id) {
   saveCart();
 
   openCart();
-
 }
 
 
@@ -1458,14 +1442,10 @@ function saveCart() {
 
   localStorage.setItem(
     "wisamCart",
-    JSON.stringify(
-      cart
-    )
+    JSON.stringify(cart)
   );
 
-
   renderCart();
-
 }
 
 
@@ -1493,24 +1473,15 @@ function renderCart() {
     );
 
 
-  if (
-    !count ||
-    !box ||
-    !total
-  ) {
-
+  if (!count || !box || !total) {
     return;
-
   }
 
 
   count.textContent =
     cart.reduce(
       (sum, item) =>
-        sum +
-        Number(
-          item.qty || 0
-        ),
+        sum + Number(item.qty || 0),
       0
     );
 
@@ -1556,9 +1527,8 @@ function renderCart() {
   } else {
 
     box.innerHTML =
-      cart
-        .map(
-          item => `
+      cart.map(
+        item => `
 
           <div class="cart-row">
 
@@ -1573,9 +1543,7 @@ function renderCart() {
               <br>
 
               <span>
-                ${money(
-                  item.price
-                )}
+                ${money(item.price)}
               </span>
 
             </div>
@@ -1614,40 +1582,33 @@ function renderCart() {
           </div>
 
         `
-        )
-        .join("");
+      ).join("");
 
   }
 
 
-  total.textContent =
-    cart
-      .reduce(
-        (sum, item) =>
-          sum +
-          Number(
-            item.price
-          ) *
-          Number(
-            item.qty
-          ),
-        0
-      )
-      .toLocaleString(
-        "ar-SA"
-      );
+  const cartTotal =
+    cart.reduce(
+      (sum, item) =>
+        sum +
+        Number(item.price || 0) *
+        Number(item.qty || 0),
+      0
+    );
 
+
+  total.textContent =
+    cartTotal.toLocaleString(
+      "ar-SA"
+    );
 }
 
 
 /* =========================================================
-   QUANTITY
+   CHANGE QUANTITY
 ========================================================= */
 
-function changeQty(
-  id,
-  amount
-) {
+function changeQty(id, amount) {
 
   const item =
     cart.find(
@@ -1659,12 +1620,12 @@ function changeQty(
   if (!item) return;
 
 
-  item.qty += amount;
+  item.qty =
+    Number(item.qty || 0) +
+    amount;
 
 
-  if (
-    item.qty <= 0
-  ) {
+  if (item.qty <= 0) {
 
     cart =
       cart.filter(
@@ -1676,7 +1637,6 @@ function changeQty(
 
 
   saveCart();
-
 }
 
 
@@ -1698,25 +1658,16 @@ function openCart() {
     );
 
 
-  if (
-    !drawer ||
-    !overlay
-  ) {
-
-    return;
-
-  }
+  if (!drawer || !overlay) return;
 
 
   drawer.classList.add(
     "open"
   );
 
-
   overlay.classList.add(
     "show"
   );
-
 }
 
 
@@ -1738,25 +1689,155 @@ function closeCart() {
     );
 
 
-  if (
-    !drawer ||
-    !overlay
-  ) {
-
-    return;
-
-  }
+  if (!drawer || !overlay) return;
 
 
   drawer.classList.remove(
     "open"
   );
 
-
   overlay.classList.remove(
     "show"
   );
+}
 
+
+/* =========================================================
+   WHATSAPP - PRODUCT
+========================================================= */
+
+function orderProductWhatsApp(id) {
+
+  const product =
+    getProducts().find(
+      item => item.id == id
+    );
+
+
+  if (!product) return;
+
+
+  const discount =
+    getDiscount(product);
+
+
+  const message = [
+
+    "🛍️ طلب جديد من وسام ستور",
+
+    "",
+
+    "📦 المنتج:",
+    product.name,
+
+    product.brand
+      ? `🏷️ الشركة: ${product.brand}`
+      : "",
+
+    `💰 السعر: ${money(product.price)}`,
+
+    discount
+      ? `🔥 الخصم: ${discount}%`
+      : "",
+
+    "",
+
+    "أرغب بطلب هذا المنتج.",
+
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+
+  const url =
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(
+      message
+    );
+
+
+  window.open(
+    url,
+    "_blank"
+  );
+}
+
+
+/* =========================================================
+   WHATSAPP - CART
+========================================================= */
+
+function orderCartWhatsApp() {
+
+  if (!cart.length) {
+
+    alert(
+      "السلة فارغة."
+    );
+
+    return;
+  }
+
+
+  const total =
+    cart.reduce(
+      (sum, item) =>
+        sum +
+        Number(item.price || 0) *
+        Number(item.qty || 0),
+      0
+    );
+
+
+  const productsText =
+    cart
+      .map(
+        item =>
+          `• ${item.name} × ${item.qty} — ${money(
+            item.price * item.qty
+          )}`
+      )
+      .join("\n");
+
+
+  const message = [
+
+    "🛍️ طلب جديد من وسام ستور",
+
+    "",
+
+    "📦 المنتجات:",
+
+    productsText,
+
+    "",
+
+    `💰 الإجمالي: ${money(total)}`,
+
+    "",
+
+    "أرغب بتأكيد هذا الطلب.",
+
+    "يرجى التواصل معي لإتمام الطلب."
+
+  ].join("\n");
+
+
+  const url =
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(
+      message
+    );
+
+
+  window.open(
+    url,
+    "_blank"
+  );
 }
 
 
@@ -1773,7 +1854,6 @@ function openCheckout() {
     );
 
     return;
-
   }
 
 
@@ -1781,8 +1861,8 @@ function openCheckout() {
     cart.reduce(
       (sum, item) =>
         sum +
-        item.price *
-        item.qty,
+        Number(item.price || 0) *
+        Number(item.qty || 0),
       0
     );
 
@@ -1798,8 +1878,7 @@ function openCheckout() {
     checkoutTotal.textContent =
       total.toLocaleString(
         "ar-SA"
-      ) +
-      " ر.س";
+      ) + " ر.س";
 
   }
 
@@ -1824,7 +1903,6 @@ function openCheckout() {
 
 
   closeCart();
-
 }
 
 
@@ -1851,12 +1929,11 @@ function closeCheckout() {
 
   document.body.style.overflow =
     "";
-
 }
 
 
 /* =========================================================
-   CLOSE SUCCESS
+   SUCCESS
 ========================================================= */
 
 function closeSuccess() {
@@ -1878,7 +1955,6 @@ function closeSuccess() {
 
   document.body.style.overflow =
     "";
-
 }
 
 
@@ -1909,55 +1985,47 @@ function setupCheckout() {
         closeCheckout();
 
         return;
-
       }
 
 
       const payment =
         document.querySelector(
           'input[name="payment"]:checked'
-        )?.value ||
-        "cod";
+        )?.value || "cod";
 
 
-      const name =
-        document
-          .getElementById(
-            "customerName"
-          )
-          ?.value
-          .trim() ||
-        "";
+      const customerName =
+        document.getElementById(
+          "customerName"
+        )?.value.trim() || "";
 
 
-      const phone =
-        document
-          .getElementById(
-            "customerPhone"
-          )
-          ?.value
-          .trim() ||
-        "";
+      const customerPhone =
+        document.getElementById(
+          "customerPhone"
+        )?.value.trim() || "";
 
 
-      const city =
-        document
-          .getElementById(
-            "customerCity"
-          )
-          ?.value
-          .trim() ||
-        "";
+      const customerCity =
+        document.getElementById(
+          "customerCity"
+        )?.value.trim() || "";
 
 
-      const address =
-        document
-          .getElementById(
-            "customerAddress"
-          )
-          ?.value
-          .trim() ||
-        "";
+      const customerAddress =
+        document.getElementById(
+          "customerAddress"
+        )?.value.trim() || "";
+
+
+      const total =
+        cart.reduce(
+          (sum, item) =>
+            sum +
+            Number(item.price || 0) *
+            Number(item.qty || 0),
+          0
+        );
 
 
       const order = {
@@ -1968,22 +2036,23 @@ function setupCheckout() {
             .toString()
             .slice(-8),
 
-
         customer: {
 
-          name,
+          name:
+            customerName,
 
-          phone,
+          phone:
+            customerPhone,
 
-          city,
+          city:
+            customerCity,
 
-          address
+          address:
+            customerAddress
 
         },
 
-
         payment,
-
 
         items:
           cart.map(
@@ -1992,24 +2061,13 @@ function setupCheckout() {
             })
           ),
 
-
-        total:
-          cart.reduce(
-            (sum, item) =>
-              sum +
-              item.price *
-              item.qty,
-            0
-          ),
-
+        total,
 
         status:
           "new",
 
-
         createdAt:
-          new Date()
-            .toISOString()
+          new Date().toISOString()
 
       };
 
@@ -2023,19 +2081,12 @@ function setupCheckout() {
           JSON.parse(
             localStorage.getItem(
               "wisamOrders"
-            ) ||
-            "[]"
+            ) || "[]"
           );
 
 
-        if (
-          !Array.isArray(
-            orders
-          )
-        ) {
-
+        if (!Array.isArray(orders)) {
           orders = [];
-
         }
 
       } catch (error) {
@@ -2058,8 +2109,84 @@ function setupCheckout() {
       );
 
 
-      cart = [];
+      /* ==========================================
+         SEND ORDER TO WHATSAPP
+      ========================================== */
 
+      const productsText =
+        cart
+          .map(
+            item =>
+              `• ${item.name} × ${item.qty} — ${money(
+                item.price * item.qty
+              )}`
+          )
+          .join("\n");
+
+
+      const whatsappMessage = [
+
+        "🛍️ *طلب جديد من وسام ستور*",
+
+        "",
+
+        `🆔 رقم الطلب: ${order.id}`,
+
+        "",
+
+        "👤 *بيانات العميل*",
+
+        `الاسم: ${customerName}`,
+
+        `الجوال: ${customerPhone}`,
+
+        `المدينة: ${customerCity}`,
+
+        `العنوان: ${customerAddress}`,
+
+        "",
+
+        "📦 *المنتجات*",
+
+        productsText,
+
+        "",
+
+        `💰 *الإجمالي: ${money(total)}*`,
+
+        `💳 طريقة الدفع: ${
+          payment === "cod"
+            ? "الدفع عند الاستلام"
+            : "الدفع الإلكتروني"
+        }`,
+
+        "",
+
+        "أرغب بتأكيد هذا الطلب."
+
+      ].join("\n");
+
+
+      const whatsappUrl =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(
+          whatsappMessage
+        );
+
+
+      window.open(
+        whatsappUrl,
+        "_blank"
+      );
+
+
+      /* ==========================================
+         CLEAR CART
+      ========================================== */
+
+      cart = [];
 
       saveCart();
 
@@ -2104,7 +2231,6 @@ function setupCheckout() {
 
     }
   );
-
 }
 
 
@@ -2157,58 +2283,44 @@ function setupEvents() {
 
 
   if (cartButton) {
-
     cartButton.onclick =
       openCart;
-
   }
 
 
   if (closeCartButton) {
-
     closeCartButton.onclick =
       closeCart;
-
   }
 
 
   if (overlay) {
-
     overlay.onclick =
       closeCart;
-
   }
 
 
   if (closeProductButton) {
-
     closeProductButton.onclick =
       closeProduct;
-
   }
 
 
   if (checkoutButton) {
-
     checkoutButton.onclick =
       openCheckout;
-
   }
 
 
   if (closeCheckoutButton) {
-
     closeCheckoutButton.onclick =
       closeCheckout;
-
   }
 
 
   if (closeSuccessButton) {
-
     closeSuccessButton.onclick =
       closeSuccess;
-
   }
 
 
@@ -2303,35 +2415,29 @@ function setupEvents() {
       ) {
 
         closeProduct();
-
         closeCart();
-
         closeCheckout();
-
         closeSuccess();
 
       }
 
     }
   );
-
 }
 
 
 /* =========================================================
-   CATEGORY CSS
+   CSS
 ========================================================= */
 
-function injectCategoryStyles() {
+function injectStoreStyles() {
 
   if (
     document.getElementById(
-      "wisamCategoryStyles"
+      "wisamStoreStyles"
     )
   ) {
-
     return;
-
   }
 
 
@@ -2342,13 +2448,82 @@ function injectCategoryStyles() {
 
 
   style.id =
-    "wisamCategoryStyles";
+    "wisamStoreStyles";
 
 
   style.textContent = `
 
+    /* ===============================
+       SEARCH
+    =============================== */
+
+    #wisamStoreTools{
+      margin-bottom:22px;
+    }
+
+
+    .wisam-search-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#fff;
+      border:1px solid #e2e1da;
+      border-radius:16px;
+      padding:6px 10px;
+      box-shadow:0 8px 25px #00000006;
+      transition:.25s;
+    }
+
+
+    .wisam-search-box:focus-within{
+      border-color:#c99a3f;
+      box-shadow:0 0 0 4px #c99a3f12;
+    }
+
+
+    .wisam-search-icon{
+      font-size:20px;
+      padding:0 6px;
+    }
+
+
+    #wisamSearch{
+      width:100%;
+      border:0;
+      outline:0;
+      background:transparent;
+      padding:13px 5px;
+      font:inherit;
+      font-size:15px;
+    }
+
+
+    #clearWisamSearch{
+      border:0;
+      background:#f3f2ee;
+      width:34px;
+      height:34px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:20px;
+      color:#777;
+    }
+
+
+    .wisam-search-result{
+      margin-top:9px;
+      color:#999;
+      font-size:12px;
+      font-weight:700;
+    }
+
+
+    /* ===============================
+       CATEGORY
+    =============================== */
+
     .store-category-navigation{
-      margin-bottom:32px;
+      margin-bottom:25px;
     }
 
 
@@ -2356,7 +2531,7 @@ function injectCategoryStyles() {
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-bottom:14px;
+      margin-bottom:13px;
     }
 
 
@@ -2383,7 +2558,6 @@ function injectCategoryStyles() {
       background:#111;
       color:#fff;
       border-color:#111;
-      box-shadow:0 8px 20px #00000014;
     }
 
 
@@ -2391,7 +2565,6 @@ function injectCategoryStyles() {
       display:flex;
       flex-wrap:wrap;
       gap:8px;
-      min-height:0;
     }
 
 
@@ -2422,6 +2595,163 @@ function injectCategoryStyles() {
     }
 
 
+    /* ===============================
+       PRODUCT CARD
+    =============================== */
+
+    .product-image{
+      position:relative;
+    }
+
+
+    .product-placeholder{
+      font-size:65px;
+    }
+
+
+    .card-discount{
+      position:absolute;
+      top:12px;
+      right:12px;
+      z-index:2;
+      background:#111;
+      color:#fff;
+      border-radius:10px;
+      padding:7px 10px;
+      font-size:12px;
+      font-weight:900;
+    }
+
+
+    .price-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+
+    .old-price{
+      color:#aaa;
+      text-decoration:line-through;
+      font-size:14px;
+    }
+
+
+    .discount-badge{
+      display:inline-block;
+      margin-top:7px;
+      background:#fff2d8;
+      color:#9b6d1f;
+      border-radius:8px;
+      padding:5px 8px;
+      font-size:10px;
+      font-weight:900;
+    }
+
+
+    /* ===============================
+       PRODUCT DETAILS
+    =============================== */
+
+    .detail-image{
+      position:relative;
+    }
+
+
+    .detail-discount{
+      position:absolute;
+      top:20px;
+      right:20px;
+      background:#111;
+      color:#fff;
+      border-radius:12px;
+      padding:9px 13px;
+      font-weight:900;
+      z-index:2;
+    }
+
+
+    .detail-price-box{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:20px 0;
+    }
+
+
+    .detail-old-price{
+      color:#aaa;
+      text-decoration:line-through;
+      font-size:18px;
+    }
+
+
+    .detail-price{
+      font-size:30px;
+      font-weight:900;
+      color:#a87925;
+    }
+
+
+    .detail-discount-text{
+      background:#fff2d8;
+      color:#9b6d1f;
+      padding:7px 10px;
+      border-radius:9px;
+      font-size:12px;
+      font-weight:900;
+    }
+
+
+    .detail-actions{
+      display:grid;
+      gap:10px;
+      margin-top:18px;
+    }
+
+
+    .detail-actions .primary-btn{
+      width:100%;
+      margin-top:0;
+      text-align:center;
+    }
+
+
+    .whatsapp-product-btn{
+      width:100%;
+      border:0;
+      background:#25D366;
+      color:#fff;
+      border-radius:14px;
+      padding:15px;
+      font:inherit;
+      font-weight:900;
+      cursor:pointer;
+      transition:.25s;
+    }
+
+
+    .whatsapp-product-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 25px #25D36633;
+    }
+
+
+    .secure-note{
+      text-align:center;
+      color:#999;
+      font-size:11px;
+      margin-top:18px;
+    }
+
+
+    /* ===============================
+       EMPTY
+    =============================== */
+
     .empty-products{
       grid-column:1/-1;
       text-align:center;
@@ -2450,74 +2780,27 @@ function injectCategoryStyles() {
     }
 
 
-    .product-card{
-      position:relative;
-    }
+    /* ===============================
+       CART WHATSAPP
+    =============================== */
 
-
-    .product-card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:22px;
-      pointer-events:none;
-      border:1px solid transparent;
-      transition:.25s;
-    }
-
-
-    .product-card:hover::after{
-      border-color:#c99a3f33;
-    }
-
-
-    .product-image{
-      background:
-        radial-gradient(
-          circle at center,
-          #ffffff 0,
-          #f1f0eb 70%
-        );
-    }
-
-
-    .detail-icon{
-      font-size:120px;
-    }
-
-
-    .cart-checkout-area{
-      border-top:1px solid #eee;
-      padding-top:18px;
-    }
-
-
-    .checkout-cart-btn{
+    .cart-whatsapp-btn{
       width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:10px;
-      margin-top:0;
+      border:0;
+      background:#25D366;
+      color:#fff;
+      border-radius:14px;
+      padding:14px;
+      margin-top:10px;
+      font:inherit;
+      font-weight:900;
+      cursor:pointer;
     }
 
 
-    .cart-total-line{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-top:15px;
-      padding-top:15px;
-      border-top:1px solid #f0f0f0;
-      font-size:17px;
-    }
-
-
-    .cart-total-line strong{
-      color:#a87925;
-      font-size:20px;
-    }
-
+    /* ===============================
+       MOBILE
+    =============================== */
 
     @media(max-width:600px){
 
@@ -2544,6 +2827,16 @@ function injectCategoryStyles() {
         white-space:nowrap;
       }
 
+
+      .wisam-search-box{
+        border-radius:13px;
+      }
+
+
+      .detail-price{
+        font-size:25px;
+      }
+
     }
 
   `;
@@ -2552,41 +2845,86 @@ function injectCategoryStyles() {
   document.head.appendChild(
     style
   );
-
 }
 
 
 /* =========================================================
-   START STORE
+   ADD WHATSAPP BUTTON TO CART
+========================================================= */
+
+function createCartWhatsAppButton() {
+
+  const checkoutArea =
+    document.querySelector(
+      ".cart-checkout-area"
+    );
+
+
+  if (
+    !checkoutArea ||
+    document.getElementById(
+      "cartWhatsAppButton"
+    )
+  ) {
+    return;
+  }
+
+
+  const button =
+    document.createElement(
+      "button"
+    );
+
+
+  button.id =
+    "cartWhatsAppButton";
+
+
+  button.className =
+    "cart-whatsapp-btn";
+
+
+  button.type =
+    "button";
+
+
+  button.innerHTML =
+    "💬 إرسال الطلب عبر واتساب";
+
+
+  button.addEventListener(
+    "click",
+    orderCartWhatsApp
+  );
+
+
+  checkoutArea.appendChild(
+    button
+  );
+}
+
+
+/* =========================================================
+   START
 ========================================================= */
 
 function initStore() {
 
-  /*
-     أول شيء:
-     تحميل النسخة الجديدة
-  */
+  injectStoreStyles();
 
-  getProducts();
-
-
-  injectCategoryStyles();
-
+  createStoreTools();
 
   createCategoryNavigation();
 
+  createCartWhatsAppButton();
 
   renderProducts();
 
-
   renderCart();
-
 
   setupEvents();
 
-
   setupCheckout();
-
 }
 
 
