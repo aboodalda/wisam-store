@@ -1,13 +1,15 @@
-```javascript
 /* =========================================================
    WISAM STORE
    STORE.JS
+   VERSION 2.0
    20 PRODUCTS + CATEGORIES + CART + CHECKOUT
 ========================================================= */
 
+const WISAM_PRODUCTS_VERSION = "2.0";
+
 
 /* =========================================================
-   PRODUCTS DATABASE
+   PRODUCTS
 ========================================================= */
 
 const defaultProducts = [
@@ -17,103 +19,103 @@ const defaultProducts = [
   ========================= */
 
   {
-    id: 1,
+    id: 101,
     name: "iPhone 16 Pro Max",
     brand: "Apple",
     category: "phones",
     subcategory: "iphone",
     price: 5299,
-    description: "هاتف رائد بتصميم فاخر وأداء استثنائي.",
-    battery: "4685 mAh",
+    description: "أداء احترافي وشريحة A18 Pro مع شاشة Super Retina XDR.",
+    battery: "حتى 33 ساعة فيديو",
     storage: "256GB",
     screen: "6.9 بوصة",
-    colors: "تيتانيوم أسود، طبيعي",
+    colors: "تيتانيوم أسود، طبيعي، أبيض، رملي",
     icon: "📱"
   },
 
   {
-    id: 2,
+    id: 102,
     name: "iPhone 16 Pro",
     brand: "Apple",
     category: "phones",
     subcategory: "iphone",
     price: 4699,
-    description: "أداء احترافي وكاميرا متقدمة في تصميم أنيق.",
-    battery: "3582 mAh",
+    description: "هاتف احترافي بتصميم تيتانيوم وكاميرات متطورة.",
+    battery: "حتى 27 ساعة فيديو",
     storage: "128GB",
     screen: "6.3 بوصة",
-    colors: "تيتانيوم أسود، أبيض",
+    colors: "تيتانيوم أسود، طبيعي، أبيض",
     icon: "📱"
   },
 
   {
-    id: 3,
+    id: 103,
     name: "iPhone 16",
     brand: "Apple",
     category: "phones",
     subcategory: "iphone",
-    price: 3499,
-    description: "تجربة iPhone متطورة للاستخدام اليومي.",
-    battery: "3561 mAh",
+    price: 3299,
+    description: "تصميم عصري وأداء سريع وتجربة تصوير مميزة.",
+    battery: "حتى 22 ساعة فيديو",
     storage: "128GB",
     screen: "6.1 بوصة",
-    colors: "أسود، أبيض، أزرق",
+    colors: "أسود، أبيض، وردي، أزرق",
     icon: "📱"
   },
 
   {
-    id: 4,
+    id: 104,
     name: "Galaxy S25 Ultra",
     brand: "Samsung",
     category: "phones",
     subcategory: "samsung",
-    price: 4999,
-    description: "هاتف Ultra بقوة أداء وكاميرا احترافية.",
+    price: 4899,
+    description: "قوة Ultra مع كاميرا احترافية وتجربة Galaxy متطورة.",
     battery: "5000 mAh",
     storage: "256GB",
     screen: "6.9 بوصة",
-    colors: "أسود، فضي، أزرق",
+    colors: "أسود، رمادي، فضي، أزرق",
     icon: "📱"
   },
 
   {
-    id: 5,
-    name: "Galaxy S25+",
-    brand: "Samsung",
-    category: "phones",
-    subcategory: "samsung",
-    price: 3999,
-    description: "شاشة مذهلة وأداء سريع وتجربة يومية مميزة.",
-    battery: "4900 mAh",
-    storage: "256GB",
-    screen: "6.7 بوصة",
-    colors: "كحلي، فضي، أزرق",
-    icon: "📱"
-  },
-
-  {
-    id: 6,
+    id: 105,
     name: "Galaxy S25",
     brand: "Samsung",
     category: "phones",
     subcategory: "samsung",
-    price: 3299,
-    description: "هاتف رائد بحجم عملي وأداء قوي.",
+    price: 2999,
+    description: "هاتف رائد بحجم عملي وأداء قوي للاستخدام اليومي.",
     battery: "4000 mAh",
     storage: "128GB",
     screen: "6.2 بوصة",
-    colors: "كحلي، أزرق، فضي",
+    colors: "كحلي، فضي، أزرق، أخضر",
     icon: "📱"
   },
 
   {
-    id: 7,
+    id: 106,
+    name: "Galaxy A56 5G",
+    brand: "Samsung",
+    category: "phones",
+    subcategory: "samsung",
+    price: 1599,
+    description: "خيار ممتاز يجمع بين الشاشة الرائعة والأداء المتوازن.",
+    battery: "5000 mAh",
+    storage: "256GB",
+    screen: "6.7 بوصة",
+    colors: "رمادي، وردي، أخضر",
+    icon: "📱"
+  },
+
+  {
+    id: 107,
     name: "Xiaomi 15 Ultra",
     brand: "Xiaomi",
     category: "phones",
     subcategory: "xiaomi",
     price: 4299,
-    description: "أداء قوي وتجربة تصوير متقدمة.",
+    description: "تصوير احترافي وأداء قوي لعشاق التقنية.",
     battery: "5410 mAh",
     storage: "512GB",
     screen: "6.73 بوصة",
@@ -122,47 +124,17 @@ const defaultProducts = [
   },
 
   {
-    id: 8,
-    name: "Xiaomi 15",
-    brand: "Xiaomi",
-    category: "phones",
-    subcategory: "xiaomi",
-    price: 2999,
-    description: "هاتف أنيق وسريع للاستخدام اليومي.",
-    battery: "5240 mAh",
-    storage: "256GB",
-    screen: "6.36 بوصة",
-    colors: "أسود، أبيض، أخضر",
-    icon: "📱"
-  },
-
-  {
-    id: 9,
-    name: "Redmi Note 14 Pro+",
+    id: 108,
+    name: "Redmi Note 14 Pro",
     brand: "Redmi",
     category: "phones",
     subcategory: "redmi",
-    price: 1699,
-    description: "مواصفات قوية وسعر مناسب.",
-    battery: "5110 mAh",
+    price: 1199,
+    description: "شاشة AMOLED وكاميرا عالية الدقة وتجربة يومية ممتازة.",
+    battery: "5500 mAh",
     storage: "256GB",
     screen: "6.67 بوصة",
-    colors: "أسود، بنفسجي، أبيض",
-    icon: "📱"
-  },
-
-  {
-    id: 10,
-    name: "Huawei Pura 70 Pro",
-    brand: "Huawei",
-    category: "phones",
-    subcategory: "huawei",
-    price: 3799,
-    description: "تصميم فاخر وتجربة تصوير مميزة.",
-    battery: "5050 mAh",
-    storage: "512GB",
-    screen: "6.8 بوصة",
-    colors: "أسود، أبيض",
+    colors: "أسود، أزرق، بنفسجي",
     icon: "📱"
   },
 
@@ -172,44 +144,44 @@ const defaultProducts = [
   ========================= */
 
   {
-    id: 11,
+    id: 201,
     name: "Apple Watch Series 10",
     brand: "Apple",
     category: "watches",
     subcategory: "apple-watch",
-    price: 1899,
-    description: "ساعة ذكية أنيقة لمتابعة صحتك ونشاطك.",
-    battery: "18 ساعة",
+    price: 1699,
+    description: "ساعة أنيقة وخفيفة مع شاشة واسعة ومزايا صحية متقدمة.",
+    battery: "حتى 18 ساعة",
     storage: "64GB",
     screen: "46mm",
-    colors: "أسود، فضي",
+    colors: "أسود، فضي، ذهبي",
     icon: "⌚"
   },
 
   {
-    id: 12,
+    id: 202,
     name: "Apple Watch Ultra 2",
     brand: "Apple",
     category: "watches",
     subcategory: "apple-watch",
-    price: 3299,
-    description: "ساعة احترافية مصممة للمغامرات والرياضة.",
-    battery: "36 ساعة",
+    price: 3199,
+    description: "ساعة مصممة للمغامرات والرياضة والاستخدام الاحترافي.",
+    battery: "حتى 36 ساعة",
     storage: "64GB",
     screen: "49mm",
-    colors: "تيتانيوم",
+    colors: "تيتانيوم طبيعي، أسود",
     icon: "⌚"
   },
 
   {
-    id: 13,
+    id: 203,
     name: "Galaxy Watch 7",
     brand: "Samsung",
     category: "watches",
     subcategory: "samsung-watch",
-    price: 1199,
-    description: "ساعة ذكية متطورة لمتابعة الصحة واللياقة.",
-    battery: "40 ساعة",
+    price: 999,
+    description: "ساعة ذكية متطورة لمتابعة النشاط والصحة والإشعارات.",
+    battery: "حتى 40 ساعة",
     storage: "32GB",
     screen: "44mm",
     colors: "فضي، أخضر",
@@ -217,14 +189,14 @@ const defaultProducts = [
   },
 
   {
-    id: 14,
+    id: 204,
     name: "Huawei Watch GT 5",
     brand: "Huawei",
     category: "watches",
     subcategory: "huawei-watch",
-    price: 999,
-    description: "أناقة كلاسيكية مع مزايا ذكية متقدمة.",
-    battery: "14 يوم",
+    price: 899,
+    description: "تصميم فاخر وبطارية طويلة ومزايا رياضية متعددة.",
+    battery: "حتى 14 يومًا",
     storage: "4GB",
     screen: "46mm",
     colors: "أسود، فضي",
@@ -237,14 +209,14 @@ const defaultProducts = [
   ========================= */
 
   {
-    id: 15,
+    id: 301,
     name: "AirPods Pro 2",
     brand: "Apple",
     category: "headphones",
-    subcategory: "apple",
+    subcategory: "airpods",
     price: 899,
-    description: "صوت غامر وإلغاء ضوضاء متقدم.",
-    battery: "حتى 30 ساعة",
+    description: "صوت غامر مع إلغاء ضوضاء نشط وتجربة لاسلكية مميزة.",
+    battery: "حتى 6 ساعات",
     storage: "",
     screen: "",
     colors: "أبيض",
@@ -252,28 +224,43 @@ const defaultProducts = [
   },
 
   {
-    id: 16,
-    name: "Galaxy Buds3 Pro",
-    brand: "Samsung",
+    id: 302,
+    name: "AirPods 4",
+    brand: "Apple",
     category: "headphones",
-    subcategory: "samsung",
-    price: 699,
-    description: "صوت عالي الجودة وتصميم مريح.",
-    battery: "حتى 30 ساعة",
+    subcategory: "airpods",
+    price: 649,
+    description: "تصميم مريح وصوت واضح واتصال سريع بأجهزة Apple.",
+    battery: "حتى 5 ساعات",
     storage: "",
     screen: "",
-    colors: "أبيض، فضي",
+    colors: "أبيض",
     icon: "🎧"
   },
 
   {
-    id: 17,
+    id: 303,
+    name: "Galaxy Buds3 Pro",
+    brand: "Samsung",
+    category: "headphones",
+    subcategory: "samsung-buds",
+    price: 699,
+    description: "صوت عالي الجودة وتصميم عصري مع مزايا ذكية.",
+    battery: "حتى 6 ساعات",
+    storage: "",
+    screen: "",
+    colors: "فضي، أبيض",
+    icon: "🎧"
+  },
+
+  {
+    id: 304,
     name: "Sony WH-1000XM5",
     brand: "Sony",
     category: "headphones",
     subcategory: "sony",
-    price: 1299,
-    description: "إلغاء ضوضاء احترافي وصوت استثنائي.",
+    price: 1399,
+    description: "سماعة احترافية مع إلغاء ضوضاء رائد وصوت غني.",
     battery: "حتى 30 ساعة",
     storage: "",
     screen: "",
@@ -287,47 +274,62 @@ const defaultProducts = [
   ========================= */
 
   {
-    id: 18,
+    id: 401,
     name: "PlayStation 5 Slim",
     brand: "PlayStation",
     category: "playstation",
     subcategory: "ps5",
-    price: 1999,
-    description: "تجربة ألعاب الجيل الجديد بحجم أنحف.",
+    price: 2099,
+    description: "جهاز ألعاب الجيل الجديد بحجم أصغر وتجربة ألعاب مذهلة.",
     battery: "",
-    storage: "1TB",
+    storage: "1TB SSD",
     screen: "",
     colors: "أبيض",
     icon: "🎮"
   },
 
   {
-    id: 19,
+    id: 402,
     name: "PlayStation 5 Pro",
     brand: "PlayStation",
     category: "playstation",
     subcategory: "ps5",
-    price: 3299,
-    description: "أقوى تجربة ألعاب PlayStation برسوميات محسنة.",
+    price: 3199,
+    description: "أقوى تجربة PlayStation لعشاق الأداء والجودة العالية.",
     battery: "",
-    storage: "2TB",
+    storage: "2TB SSD",
     screen: "",
     colors: "أبيض",
     icon: "🎮"
   },
 
   {
-    id: 20,
-    name: "DualSense Wireless Controller",
+    id: 403,
+    name: "DualSense Controller",
     brand: "PlayStation",
     category: "playstation",
     subcategory: "accessories",
     price: 299,
-    description: "يد تحكم لاسلكية بتجربة لعب غامرة.",
-    battery: "حتى 12 ساعة",
+    description: "يد تحكم لاسلكية مع اهتزاز متقدم ومشغلات تكيفية.",
+    battery: "مدمج",
     storage: "",
     screen: "",
     colors: "أبيض، أسود",
+    icon: "🎮"
+  },
+
+  {
+    id: 404,
+    name: "PlayStation Portal",
+    brand: "PlayStation",
+    category: "playstation",
+    subcategory: "accessories",
+    price: 899,
+    description: "تجربة لعب عن بُعد مع جهاز PlayStation 5.",
+    battery: "حتى 7 ساعات",
+    storage: "",
+    screen: "8 بوصة",
+    colors: "أبيض",
     icon: "🎮"
   }
 
@@ -371,17 +373,17 @@ const subcategoryNames = {
 
   xiaomi: "Xiaomi",
 
-  apple: "Apple",
-
-  sony: "Sony",
-
-  other: "أخرى",
-
   "apple-watch": "Apple Watch",
 
   "samsung-watch": "Samsung Watch",
 
   "huawei-watch": "Huawei Watch",
+
+  airpods: "AirPods",
+
+  "samsung-buds": "Samsung Buds",
+
+  sony: "Sony",
 
   ps5: "PlayStation 5",
 
@@ -389,7 +391,9 @@ const subcategoryNames = {
 
   ps3: "PlayStation 3",
 
-  accessories: "الإكسسوارات"
+  accessories: "إكسسوارات PlayStation",
+
+  other: "أخرى"
 
 };
 
@@ -403,63 +407,57 @@ let currentSubcategory = "all";
 
 
 /* =========================================================
-   GET PRODUCTS
-   IMPORTANT:
-   نستخدم نسخة جديدة من المنتجات تلقائيًا.
+   PRODUCT STORAGE
+   مهم:
+   يتم تحديث المنتجات تلقائيًا عند تغيير الإصدار.
 ========================================================= */
 
 function getProducts() {
 
-  const VERSION = "wisam-store-20-products-v1";
-
   try {
 
     const savedVersion =
-      localStorage.getItem("wisamProductsVersion");
+      localStorage.getItem(
+        "wisamProductsVersion"
+      );
 
     const saved =
       JSON.parse(
-        localStorage.getItem("wisamProducts") || "[]"
+        localStorage.getItem(
+          "wisamProducts"
+        ) || "null"
       );
 
-    /*
-      إذا كانت النسخة القديمة موجودة،
-      نستبدلها تلقائيًا بالقائمة الجديدة.
-    */
 
     if (
-      savedVersion !== VERSION ||
-      !Array.isArray(saved) ||
-      saved.length < 20
+      savedVersion ===
+      WISAM_PRODUCTS_VERSION &&
+      Array.isArray(saved) &&
+      saved.length
     ) {
 
-      localStorage.setItem(
-        "wisamProducts",
-        JSON.stringify(defaultProducts)
-      );
-
-      localStorage.setItem(
-        "wisamProductsVersion",
-        VERSION
-      );
-
-      return defaultProducts;
+      return saved;
 
     }
 
-    return saved;
-
-  } catch (error) {
 
     localStorage.setItem(
       "wisamProducts",
-      JSON.stringify(defaultProducts)
+      JSON.stringify(
+        defaultProducts
+      )
     );
+
 
     localStorage.setItem(
       "wisamProductsVersion",
-      VERSION
+      WISAM_PRODUCTS_VERSION
     );
+
+
+    return defaultProducts;
+
+  } catch (error) {
 
     return defaultProducts;
 
@@ -478,7 +476,9 @@ try {
 
   cart =
     JSON.parse(
-      localStorage.getItem("wisamCart") || "[]"
+      localStorage.getItem(
+        "wisamCart"
+      ) || "[]"
     );
 
   if (!Array.isArray(cart)) {
@@ -500,7 +500,9 @@ try {
 
 function escapeHtml(value) {
 
-  return String(value ?? "").replace(
+  return String(
+    value ?? ""
+  ).replace(
     /[&<>"']/g,
     function (match) {
 
@@ -534,9 +536,13 @@ function money(number) {
 function subName(product) {
 
   return (
-    subcategoryNames[product.subcategory] ||
+    subcategoryNames[
+      product.subcategory
+    ] ||
     product.brand ||
-    categoryNames[product.category] ||
+    categoryNames[
+      product.category
+    ] ||
     "منتج"
   );
 
@@ -555,9 +561,13 @@ function getProductSpecs(product) {
   if (product.brand) {
 
     specs.push({
+
       icon: "🏷️",
+
       label: "العلامة التجارية",
+
       value: product.brand
+
     });
 
   }
@@ -566,12 +576,16 @@ function getProductSpecs(product) {
   if (product.battery) {
 
     specs.push({
+
       icon: "🔋",
+
       label:
         product.category === "headphones"
           ? "عمر البطارية"
           : "البطارية",
+
       value: product.battery
+
     });
 
   }
@@ -580,15 +594,19 @@ function getProductSpecs(product) {
   if (product.screen) {
 
     specs.push({
+
       icon:
         product.category === "watches"
           ? "⌚"
           : "📱",
+
       label:
         product.category === "watches"
-          ? "الحجم"
-          : "حجم الشاشة",
+          ? "حجم الساعة"
+          : "الشاشة",
+
       value: product.screen
+
     });
 
   }
@@ -597,9 +615,16 @@ function getProductSpecs(product) {
   if (product.storage) {
 
     specs.push({
+
       icon: "💾",
-      label: "التخزين",
+
+      label:
+        product.category === "playstation"
+          ? "التخزين"
+          : "مساحة التخزين",
+
       value: product.storage
+
     });
 
   }
@@ -608,9 +633,13 @@ function getProductSpecs(product) {
   if (product.colors) {
 
     specs.push({
+
       icon: "🎨",
+
       label: "الألوان",
+
       value: product.colors
+
     });
 
   }
@@ -628,7 +657,9 @@ function getProductSpecs(product) {
 function createCategoryNavigation() {
 
   const grid =
-    document.getElementById("productGrid");
+    document.getElementById(
+      "productGrid"
+    );
 
   if (!grid) return;
 
@@ -645,10 +676,14 @@ function createCategoryNavigation() {
 
 
   const wrapper =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   wrapper.id =
     "storeCategoryNavigation";
+
 
   wrapper.className =
     "store-category-navigation";
@@ -661,6 +696,7 @@ function createCategoryNavigation() {
       <button
         class="category-main-btn active"
         data-category="all"
+        type="button"
       >
         ✨ الكل
       </button>
@@ -668,6 +704,7 @@ function createCategoryNavigation() {
       <button
         class="category-main-btn"
         data-category="phones"
+        type="button"
       >
         📱 الجوالات
       </button>
@@ -675,6 +712,7 @@ function createCategoryNavigation() {
       <button
         class="category-main-btn"
         data-category="watches"
+        type="button"
       >
         ⌚ الساعات الذكية
       </button>
@@ -682,6 +720,7 @@ function createCategoryNavigation() {
       <button
         class="category-main-btn"
         data-category="headphones"
+        type="button"
       >
         🎧 السماعات
       </button>
@@ -689,6 +728,7 @@ function createCategoryNavigation() {
       <button
         class="category-main-btn"
         data-category="playstation"
+        type="button"
       >
         🎮 PlayStation
       </button>
@@ -730,12 +770,18 @@ function createCategoryNavigation() {
             .querySelectorAll(
               ".category-main-btn"
             )
-            .forEach(btn =>
-              btn.classList.remove("active")
-            );
+            .forEach(btn => {
+
+              btn.classList.remove(
+                "active"
+              );
+
+            });
 
 
-          this.classList.add("active");
+          this.classList.add(
+            "active"
+          );
 
 
           renderSubcategories();
@@ -764,10 +810,14 @@ function renderSubcategories() {
       "subcategoryNavigation"
     );
 
+
   if (!box) return;
 
 
-  if (currentCategory === "all") {
+  if (
+    currentCategory ===
+    "all"
+  ) {
 
     box.innerHTML = "";
 
@@ -780,26 +830,34 @@ function renderSubcategories() {
     getProducts();
 
 
-  let available = [];
+  const available = [];
 
 
-  products.forEach(product => {
+  products.forEach(
+    product => {
 
-    if (
-      product.category === currentCategory &&
-      product.subcategory &&
-      !available.includes(
-        product.subcategory
-      )
-    ) {
+      if (
+        product.category ===
+        currentCategory
+      ) {
 
-      available.push(
-        product.subcategory
-      );
+        if (
+          product.subcategory &&
+          !available.includes(
+            product.subcategory
+          )
+        ) {
+
+          available.push(
+            product.subcategory
+          );
+
+        }
+
+      }
 
     }
-
-  });
+  );
 
 
   box.innerHTML = `
@@ -807,6 +865,7 @@ function renderSubcategories() {
     <button
       class="subcategory-btn active"
       data-subcategory="all"
+      type="button"
     >
       الكل
     </button>
@@ -817,10 +876,14 @@ function renderSubcategories() {
 
         <button
           class="subcategory-btn"
-          data-subcategory="${escapeHtml(item)}"
+          data-subcategory="${escapeHtml(
+            item
+          )}"
+          type="button"
         >
           ${escapeHtml(
-            subcategoryNames[item] || item
+            subcategoryNames[item] ||
+            item
           )}
         </button>
 
@@ -849,12 +912,18 @@ function renderSubcategories() {
             .querySelectorAll(
               ".subcategory-btn"
             )
-            .forEach(btn =>
-              btn.classList.remove("active")
-            );
+            .forEach(btn => {
+
+              btn.classList.remove(
+                "active"
+              );
+
+            });
 
 
-          this.classList.add("active");
+          this.classList.add(
+            "active"
+          );
 
 
           renderProducts();
@@ -868,7 +937,7 @@ function renderSubcategories() {
 
 
 /* =========================================================
-   FILTER PRODUCTS
+   FILTER
 ========================================================= */
 
 function getFilteredProducts() {
@@ -877,7 +946,10 @@ function getFilteredProducts() {
     getProducts();
 
 
-  if (currentCategory !== "all") {
+  if (
+    currentCategory !==
+    "all"
+  ) {
 
     products =
       products.filter(
@@ -889,7 +961,10 @@ function getFilteredProducts() {
   }
 
 
-  if (currentSubcategory !== "all") {
+  if (
+    currentSubcategory !==
+    "all"
+  ) {
 
     products =
       products.filter(
@@ -907,13 +982,17 @@ function getFilteredProducts() {
 
 
 /* =========================================================
-   PRODUCT SPECS PILLS
+   PRODUCT SPECS HTML
 ========================================================= */
 
 function renderProductSpecs(product) {
 
-  return getProductSpecs(product)
-    .slice(0, 3)
+  const specs =
+    getProductSpecs(product);
+
+
+  return specs
+    .slice(0, 4)
     .map(
       spec => `
 
@@ -921,7 +1000,9 @@ function renderProductSpecs(product) {
 
           ${spec.icon}
 
-          ${escapeHtml(spec.value)}
+          ${escapeHtml(
+            spec.value
+          )}
 
         </span>
 
@@ -942,6 +1023,7 @@ function renderProducts() {
     document.getElementById(
       "productGrid"
     );
+
 
   if (!grid) return;
 
@@ -984,7 +1066,7 @@ function renderProducts() {
         class="product-card"
         style="
           animation-delay:${Math.min(
-            index * 50,
+            index * 60,
             400
           )}ms
         "
@@ -993,28 +1075,17 @@ function renderProducts() {
 
         <div class="product-image">
 
-          ${
-            product.image
-
-              ? `
-                <img
-                  src="${escapeHtml(
-                    product.image
-                  )}"
-                  alt="${escapeHtml(
-                    product.name
-                  )}"
-                >
-              `
-
-              : `
-                <span>
-                  ${escapeHtml(
-                    product.icon || "📦"
-                  )}
-                </span>
-              `
-          }
+          <span
+            style="
+              font-size:82px;
+              filter:drop-shadow(0 15px 20px #0002);
+            "
+          >
+            ${escapeHtml(
+              product.icon ||
+              "📦"
+            )}
+          </span>
 
         </div>
 
@@ -1026,7 +1097,8 @@ function renderProducts() {
             ${escapeHtml(
               categoryNames[
                 product.category
-              ] || "منتج"
+              ] ||
+              "منتج"
             )}
 
             ·
@@ -1039,17 +1111,21 @@ function renderProducts() {
 
 
           <h3>
+
             ${escapeHtml(
               product.name
             )}
+
           </h3>
 
 
           <p>
+
             ${escapeHtml(
               product.description ||
               "منتج مميز من وسام ستور"
             )}
+
           </p>
 
 
@@ -1073,6 +1149,7 @@ function renderProducts() {
 
           <button
             class="add-btn"
+            type="button"
             onclick="
               event.stopPropagation();
               addToCart(${product.id})
@@ -1084,6 +1161,7 @@ function renderProducts() {
 
           <button
             class="details-btn"
+            type="button"
             onclick="
               event.stopPropagation();
               openProduct(${product.id})
@@ -1111,8 +1189,10 @@ function openProduct(id) {
 
   const product =
     getProducts().find(
-      item => item.id == id
+      item =>
+        item.id == id
     );
+
 
   if (!product) return;
 
@@ -1122,11 +1202,14 @@ function openProduct(id) {
       "productDetails"
     );
 
+
   if (!details) return;
 
 
   const specs =
-    getProductSpecs(product);
+    getProductSpecs(
+      product
+    );
 
 
   details.innerHTML = `
@@ -1135,28 +1218,17 @@ function openProduct(id) {
 
       <div class="detail-image">
 
-        ${
-          product.image
-
-            ? `
-              <img
-                src="${escapeHtml(
-                  product.image
-                )}"
-                alt="${escapeHtml(
-                  product.name
-                )}"
-              >
-            `
-
-            : `
-              <span class="detail-icon">
-                ${escapeHtml(
-                  product.icon || "📦"
-                )}
-              </span>
-            `
-        }
+        <span
+          class="detail-icon"
+          style="
+            filter:drop-shadow(0 20px 25px #0002);
+          "
+        >
+          ${escapeHtml(
+            product.icon ||
+            "📦"
+          )}
+        </span>
 
       </div>
 
@@ -1176,9 +1248,11 @@ function openProduct(id) {
 
 
         <h2>
+
           ${escapeHtml(
             product.name
           )}
+
         </h2>
 
 
@@ -1213,8 +1287,8 @@ function openProduct(id) {
 
         ${
           specs.length
-
             ? `
+
               <div class="spec-grid">
 
                 ${specs
@@ -1246,8 +1320,8 @@ function openProduct(id) {
                   .join("")}
 
               </div>
-            `
 
+            `
             : ""
         }
 
@@ -1258,12 +1332,15 @@ function openProduct(id) {
             width:100%;
             margin-top:5px
           "
+          type="button"
           onclick="
             addToCart(${product.id});
             closeProduct();
           "
         >
+
           أضف إلى السلة 🛒
+
         </button>
 
       </div>
@@ -1278,10 +1355,14 @@ function openProduct(id) {
       "productModal"
     );
 
+
   if (!modal) return;
 
 
-  modal.classList.add("show");
+  modal.classList.add(
+    "show"
+  );
+
 
   document.body.style.overflow =
     "hidden";
@@ -1300,10 +1381,14 @@ function closeProduct() {
       "productModal"
     );
 
+
   if (!modal) return;
 
 
-  modal.classList.remove("show");
+  modal.classList.remove(
+    "show"
+  );
+
 
   document.body.style.overflow =
     "";
@@ -1319,21 +1404,24 @@ function addToCart(id) {
 
   const product =
     getProducts().find(
-      item => item.id == id
+      item =>
+        item.id == id
     );
+
 
   if (!product) return;
 
 
-  const item =
+  const existing =
     cart.find(
-      item => item.id == id
+      item =>
+        item.id == id
     );
 
 
-  if (item) {
+  if (existing) {
 
-    item.qty++;
+    existing.qty++;
 
   } else {
 
@@ -1344,7 +1432,9 @@ function addToCart(id) {
       name: product.name,
 
       price:
-        Number(product.price) || 0,
+        Number(
+          product.price
+        ) || 0,
 
       qty: 1
 
@@ -1368,8 +1458,11 @@ function saveCart() {
 
   localStorage.setItem(
     "wisamCart",
-    JSON.stringify(cart)
+    JSON.stringify(
+      cart
+    )
   );
+
 
   renderCart();
 
@@ -1387,10 +1480,12 @@ function renderCart() {
       "cartCount"
     );
 
+
   const box =
     document.getElementById(
       "cartItems"
     );
+
 
   const total =
     document.getElementById(
@@ -1412,7 +1507,10 @@ function renderCart() {
   count.textContent =
     cart.reduce(
       (sum, item) =>
-        sum + Number(item.qty || 0),
+        sum +
+        Number(
+          item.qty || 0
+        ),
       0
     );
 
@@ -1438,7 +1536,12 @@ function renderCart() {
           🛒
         </div>
 
-        <h3 style="color:#333;">
+        <h3
+          style="
+            color:#333;
+            margin-bottom:8px;
+          "
+        >
           السلة فارغة
         </h3>
 
@@ -1470,7 +1573,9 @@ function renderCart() {
               <br>
 
               <span>
-                ${money(item.price)}
+                ${money(
+                  item.price
+                )}
               </span>
 
             </div>
@@ -1479,6 +1584,7 @@ function renderCart() {
             <div class="qty">
 
               <button
+                type="button"
                 onclick="
                   changeQty(
                     ${item.id},
@@ -1492,6 +1598,7 @@ function renderCart() {
               ${item.qty}
 
               <button
+                type="button"
                 onclick="
                   changeQty(
                     ${item.id},
@@ -1518,20 +1625,29 @@ function renderCart() {
       .reduce(
         (sum, item) =>
           sum +
-          Number(item.price || 0) *
-          Number(item.qty || 0),
+          Number(
+            item.price
+          ) *
+          Number(
+            item.qty
+          ),
         0
       )
-      .toLocaleString("ar-SA");
+      .toLocaleString(
+        "ar-SA"
+      );
 
 }
 
 
 /* =========================================================
-   CHANGE QUANTITY
+   QUANTITY
 ========================================================= */
 
-function changeQty(id, amount) {
+function changeQty(
+  id,
+  amount
+) {
 
   const item =
     cart.find(
@@ -1539,13 +1655,16 @@ function changeQty(id, amount) {
         product.id == id
     );
 
+
   if (!item) return;
 
 
   item.qty += amount;
 
 
-  if (item.qty <= 0) {
+  if (
+    item.qty <= 0
+  ) {
 
     cart =
       cart.filter(
@@ -1572,19 +1691,31 @@ function openCart() {
       "cartDrawer"
     );
 
+
   const overlay =
     document.getElementById(
       "overlay"
     );
 
 
-  if (!drawer || !overlay)
+  if (
+    !drawer ||
+    !overlay
+  ) {
+
     return;
 
+  }
 
-  drawer.classList.add("open");
 
-  overlay.classList.add("show");
+  drawer.classList.add(
+    "open"
+  );
+
+
+  overlay.classList.add(
+    "show"
+  );
 
 }
 
@@ -1600,19 +1731,31 @@ function closeCart() {
       "cartDrawer"
     );
 
+
   const overlay =
     document.getElementById(
       "overlay"
     );
 
 
-  if (!drawer || !overlay)
+  if (
+    !drawer ||
+    !overlay
+  ) {
+
     return;
 
+  }
 
-  drawer.classList.remove("open");
 
-  overlay.classList.remove("show");
+  drawer.classList.remove(
+    "open"
+  );
+
+
+  overlay.classList.remove(
+    "show"
+  );
 
 }
 
@@ -1655,7 +1798,8 @@ function openCheckout() {
     checkoutTotal.textContent =
       total.toLocaleString(
         "ar-SA"
-      ) + " ر.س";
+      ) +
+      " ر.س";
 
   }
 
@@ -1690,15 +1834,15 @@ function openCheckout() {
 
 function closeCheckout() {
 
-  const checkoutModal =
+  const modal =
     document.getElementById(
       "checkoutModal"
     );
 
 
-  if (checkoutModal) {
+  if (modal) {
 
-    checkoutModal.classList.remove(
+    modal.classList.remove(
       "show"
     );
 
@@ -1717,15 +1861,15 @@ function closeCheckout() {
 
 function closeSuccess() {
 
-  const successModal =
+  const modal =
     document.getElementById(
       "orderSuccessModal"
     );
 
 
-  if (successModal) {
+  if (modal) {
 
-    successModal.classList.remove(
+    modal.classList.remove(
       "show"
     );
 
@@ -1749,6 +1893,7 @@ function setupCheckout() {
       "checkoutForm"
     );
 
+
   if (!form) return;
 
 
@@ -1771,7 +1916,48 @@ function setupCheckout() {
       const payment =
         document.querySelector(
           'input[name="payment"]:checked'
-        )?.value || "cod";
+        )?.value ||
+        "cod";
+
+
+      const name =
+        document
+          .getElementById(
+            "customerName"
+          )
+          ?.value
+          .trim() ||
+        "";
+
+
+      const phone =
+        document
+          .getElementById(
+            "customerPhone"
+          )
+          ?.value
+          .trim() ||
+        "";
+
+
+      const city =
+        document
+          .getElementById(
+            "customerCity"
+          )
+          ?.value
+          .trim() ||
+        "";
+
+
+      const address =
+        document
+          .getElementById(
+            "customerAddress"
+          )
+          ?.value
+          .trim() ||
+        "";
 
 
       const order = {
@@ -1785,37 +1971,13 @@ function setupCheckout() {
 
         customer: {
 
-          name:
-            document
-              .getElementById(
-                "customerName"
-              )
-              .value
-              .trim(),
+          name,
 
-          phone:
-            document
-              .getElementById(
-                "customerPhone"
-              )
-              .value
-              .trim(),
+          phone,
 
-          city:
-            document
-              .getElementById(
-                "customerCity"
-              )
-              .value
-              .trim(),
+          city,
 
-          address:
-            document
-              .getElementById(
-                "customerAddress"
-              )
-              .value
-              .trim()
+          address
 
         },
 
@@ -1846,7 +2008,8 @@ function setupCheckout() {
 
 
         createdAt:
-          new Date().toISOString()
+          new Date()
+            .toISOString()
 
       };
 
@@ -1860,11 +2023,16 @@ function setupCheckout() {
           JSON.parse(
             localStorage.getItem(
               "wisamOrders"
-            ) || "[]"
+            ) ||
+            "[]"
           );
 
 
-        if (!Array.isArray(orders)) {
+        if (
+          !Array.isArray(
+            orders
+          )
+        ) {
 
           orders = [];
 
@@ -1877,20 +2045,27 @@ function setupCheckout() {
       }
 
 
-      orders.unshift(order);
+      orders.unshift(
+        order
+      );
 
 
       localStorage.setItem(
         "wisamOrders",
-        JSON.stringify(orders)
+        JSON.stringify(
+          orders
+        )
       );
 
 
       cart = [];
 
+
       saveCart();
 
+
       form.reset();
+
 
       closeCheckout();
 
@@ -1944,30 +2119,36 @@ function setupEvents() {
       "cartButton"
     );
 
+
   const closeCartButton =
     document.getElementById(
       "closeCart"
     );
+
 
   const overlay =
     document.getElementById(
       "overlay"
     );
 
+
   const closeProductButton =
     document.getElementById(
       "closeProductModal"
     );
+
 
   const checkoutButton =
     document.getElementById(
       "checkoutButton"
     );
 
+
   const closeCheckoutButton =
     document.getElementById(
       "closeCheckout"
     );
+
 
   const closeSuccessButton =
     document.getElementById(
@@ -2155,7 +2336,9 @@ function injectCategoryStyles() {
 
 
   const style =
-    document.createElement("style");
+    document.createElement(
+      "style"
+    );
 
 
   style.id =
@@ -2168,12 +2351,14 @@ function injectCategoryStyles() {
       margin-bottom:32px;
     }
 
+
     .category-main-buttons{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
       margin-bottom:14px;
     }
+
 
     .category-main-btn{
       border:1px solid #e3e1da;
@@ -2187,10 +2372,12 @@ function injectCategoryStyles() {
       transition:.25s;
     }
 
+
     .category-main-btn:hover{
       border-color:#c99a3f;
       transform:translateY(-2px);
     }
+
 
     .category-main-btn.active{
       background:#111;
@@ -2199,12 +2386,14 @@ function injectCategoryStyles() {
       box-shadow:0 8px 20px #00000014;
     }
 
+
     .subcategory-navigation{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
       min-height:0;
     }
+
 
     .subcategory-btn{
       border:1px solid #e5e3dc;
@@ -2218,10 +2407,12 @@ function injectCategoryStyles() {
       transition:.2s;
     }
 
+
     .subcategory-btn:hover{
       border-color:#c99a3f;
       color:#222;
     }
+
 
     .subcategory-btn.active{
       background:#c99a3f;
@@ -2229,6 +2420,7 @@ function injectCategoryStyles() {
       border-color:#c99a3f;
       font-weight:800;
     }
+
 
     .empty-products{
       grid-column:1/-1;
@@ -2239,20 +2431,93 @@ function injectCategoryStyles() {
       padding:70px 20px;
     }
 
+
     .empty-products div{
       font-size:55px;
       margin-bottom:15px;
     }
+
 
     .empty-products h3{
       margin:0 0 8px;
       font-size:22px;
     }
 
+
     .empty-products p{
       color:#999;
       margin:0;
     }
+
+
+    .product-card{
+      position:relative;
+    }
+
+
+    .product-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:22px;
+      pointer-events:none;
+      border:1px solid transparent;
+      transition:.25s;
+    }
+
+
+    .product-card:hover::after{
+      border-color:#c99a3f33;
+    }
+
+
+    .product-image{
+      background:
+        radial-gradient(
+          circle at center,
+          #ffffff 0,
+          #f1f0eb 70%
+        );
+    }
+
+
+    .detail-icon{
+      font-size:120px;
+    }
+
+
+    .cart-checkout-area{
+      border-top:1px solid #eee;
+      padding-top:18px;
+    }
+
+
+    .checkout-cart-btn{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin-top:0;
+    }
+
+
+    .cart-total-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:15px;
+      padding-top:15px;
+      border-top:1px solid #f0f0f0;
+      font-size:17px;
+    }
+
+
+    .cart-total-line strong{
+      color:#a87925;
+      font-size:20px;
+    }
+
 
     @media(max-width:600px){
 
@@ -2261,16 +2526,19 @@ function injectCategoryStyles() {
         grid-template-columns:1fr 1fr;
       }
 
+
       .category-main-btn{
         padding:12px 8px;
         font-size:13px;
       }
+
 
       .subcategory-navigation{
         overflow-x:auto;
         flex-wrap:nowrap;
         padding-bottom:5px;
       }
+
 
       .subcategory-btn{
         white-space:nowrap;
@@ -2295,21 +2563,27 @@ function injectCategoryStyles() {
 function initStore() {
 
   /*
-    أول شيء نحصل على المنتجات الجديدة.
-    هذا يجبر المتجر على تحديث القائمة.
+     أول شيء:
+     تحميل النسخة الجديدة
   */
 
   getProducts();
 
+
   injectCategoryStyles();
+
 
   createCategoryNavigation();
 
+
   renderProducts();
+
 
   renderCart();
 
+
   setupEvents();
+
 
   setupCheckout();
 
@@ -2335,4 +2609,3 @@ if (
   initStore();
 
 }
-```
