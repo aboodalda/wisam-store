@@ -1,12 +1,13 @@
+```javascript
 /* =========================================================
    WISAM STORE
    STORE.JS
-   Products + Categories + Cart + Checkout
+   20 PRODUCTS + CATEGORIES + CART + CHECKOUT
 ========================================================= */
 
 
 /* =========================================================
-   PRODUCTS
+   PRODUCTS DATABASE
 ========================================================= */
 
 const defaultProducts = [
@@ -17,121 +18,151 @@ const defaultProducts = [
 
   {
     id: 1,
-    name: "iPhone 15 Pro Max",
+    name: "iPhone 16 Pro Max",
     brand: "Apple",
     category: "phones",
     subcategory: "iphone",
-    price: 4299,
-    description: "هاتف رائد بتصميم فاخر وأداء احترافي.",
-    battery: "4441 mAh",
+    price: 5299,
+    description: "هاتف رائد بتصميم فاخر وأداء استثنائي.",
+    battery: "4685 mAh",
     storage: "256GB",
-    screen: "6.7 بوصة",
-    colors: "تيتانيوم طبيعي، أسود",
+    screen: "6.9 بوصة",
+    colors: "تيتانيوم أسود، طبيعي",
     icon: "📱"
   },
 
   {
     id: 2,
-    name: "iPhone 15",
+    name: "iPhone 16 Pro",
     brand: "Apple",
     category: "phones",
     subcategory: "iphone",
-    price: 2999,
-    description: "تجربة iPhone متطورة بتصميم أنيق.",
-    battery: "3349 mAh",
+    price: 4699,
+    description: "أداء احترافي وكاميرا متقدمة في تصميم أنيق.",
+    battery: "3582 mAh",
     storage: "128GB",
-    screen: "6.1 بوصة",
-    colors: "أسود، أزرق، أخضر",
+    screen: "6.3 بوصة",
+    colors: "تيتانيوم أسود، أبيض",
     icon: "📱"
   },
 
   {
     id: 3,
-    name: "Galaxy S24 Ultra",
-    brand: "Samsung",
+    name: "iPhone 16",
+    brand: "Apple",
     category: "phones",
-    subcategory: "samsung",
-    price: 3999,
-    description: "هاتف سامسونج الرائد لعشاق الأداء والتصوير.",
-    battery: "5000 mAh",
-    storage: "256GB",
-    screen: "6.8 بوصة",
-    colors: "أسود، رمادي، بنفسجي",
+    subcategory: "iphone",
+    price: 3499,
+    description: "تجربة iPhone متطورة للاستخدام اليومي.",
+    battery: "3561 mAh",
+    storage: "128GB",
+    screen: "6.1 بوصة",
+    colors: "أسود، أبيض، أزرق",
     icon: "📱"
   },
 
   {
     id: 4,
-    name: "Galaxy S24 Plus",
+    name: "Galaxy S25 Ultra",
     brand: "Samsung",
     category: "phones",
     subcategory: "samsung",
-    price: 3299,
-    description: "أداء قوي وشاشة مذهلة للاستخدام اليومي.",
-    battery: "4900 mAh",
+    price: 4999,
+    description: "هاتف Ultra بقوة أداء وكاميرا احترافية.",
+    battery: "5000 mAh",
     storage: "256GB",
-    screen: "6.7 بوصة",
-    colors: "أسود، بنفسجي",
+    screen: "6.9 بوصة",
+    colors: "أسود، فضي، أزرق",
     icon: "📱"
   },
 
   {
     id: 5,
-    name: "Huawei Pura 70",
-    brand: "Huawei",
+    name: "Galaxy S25+",
+    brand: "Samsung",
     category: "phones",
-    subcategory: "huawei",
-    price: 2799,
-    description: "تصميم أنيق وكاميرا متطورة وتجربة سلسة.",
+    subcategory: "samsung",
+    price: 3999,
+    description: "شاشة مذهلة وأداء سريع وتجربة يومية مميزة.",
     battery: "4900 mAh",
     storage: "256GB",
-    screen: "6.6 بوصة",
-    colors: "أسود، أبيض",
+    screen: "6.7 بوصة",
+    colors: "كحلي، فضي، أزرق",
     icon: "📱"
   },
 
   {
     id: 6,
-    name: "Redmi Note 13 Pro",
-    brand: "Redmi",
+    name: "Galaxy S25",
+    brand: "Samsung",
     category: "phones",
-    subcategory: "redmi",
-    price: 1199,
-    description: "خيار ممتاز يجمع بين الأداء والسعر.",
-    battery: "5000 mAh",
-    storage: "256GB",
-    screen: "6.67 بوصة",
-    colors: "أسود، أزرق",
+    subcategory: "samsung",
+    price: 3299,
+    description: "هاتف رائد بحجم عملي وأداء قوي.",
+    battery: "4000 mAh",
+    storage: "128GB",
+    screen: "6.2 بوصة",
+    colors: "كحلي، أزرق، فضي",
     icon: "📱"
   },
 
   {
     id: 7,
-    name: "Xiaomi 14",
+    name: "Xiaomi 15 Ultra",
     brand: "Xiaomi",
     category: "phones",
     subcategory: "xiaomi",
-    price: 2499,
-    description: "هاتف قوي بحجم عملي وكاميرات احترافية.",
-    battery: "4610 mAh",
+    price: 4299,
+    description: "أداء قوي وتجربة تصوير متقدمة.",
+    battery: "5410 mAh",
     storage: "512GB",
-    screen: "6.36 بوصة",
+    screen: "6.73 بوصة",
     colors: "أسود، أبيض",
     icon: "📱"
   },
 
   {
     id: 8,
-    name: "Redmi Note 13",
+    name: "Xiaomi 15",
+    brand: "Xiaomi",
+    category: "phones",
+    subcategory: "xiaomi",
+    price: 2999,
+    description: "هاتف أنيق وسريع للاستخدام اليومي.",
+    battery: "5240 mAh",
+    storage: "256GB",
+    screen: "6.36 بوصة",
+    colors: "أسود، أبيض، أخضر",
+    icon: "📱"
+  },
+
+  {
+    id: 9,
+    name: "Redmi Note 14 Pro+",
     brand: "Redmi",
     category: "phones",
     subcategory: "redmi",
-    price: 799,
-    description: "هاتف عملي للاستخدام اليومي بسعر مميز.",
-    battery: "5000 mAh",
-    storage: "128GB",
+    price: 1699,
+    description: "مواصفات قوية وسعر مناسب.",
+    battery: "5110 mAh",
+    storage: "256GB",
     screen: "6.67 بوصة",
-    colors: "أسود، أخضر",
+    colors: "أسود، بنفسجي، أبيض",
+    icon: "📱"
+  },
+
+  {
+    id: 10,
+    name: "Huawei Pura 70 Pro",
+    brand: "Huawei",
+    category: "phones",
+    subcategory: "huawei",
+    price: 3799,
+    description: "تصميم فاخر وتجربة تصوير مميزة.",
+    battery: "5050 mAh",
+    storage: "512GB",
+    screen: "6.8 بوصة",
+    colors: "أسود، أبيض",
     icon: "📱"
   },
 
@@ -141,61 +172,61 @@ const defaultProducts = [
   ========================= */
 
   {
-    id: 9,
-    name: "Apple Watch Series 9",
+    id: 11,
+    name: "Apple Watch Series 10",
     brand: "Apple",
     category: "watches",
     subcategory: "apple-watch",
-    price: 1599,
-    description: "ساعة ذكية متقدمة تجمع الصحة والأناقة.",
+    price: 1899,
+    description: "ساعة ذكية أنيقة لمتابعة صحتك ونشاطك.",
     battery: "18 ساعة",
     storage: "64GB",
-    screen: "1.9 بوصة",
-    colors: "أسود، فضي",
-    icon: "⌚"
-  },
-
-  {
-    id: 10,
-    name: "Apple Watch Ultra 2",
-    brand: "Apple",
-    category: "watches",
-    subcategory: "apple-watch",
-    price: 2999,
-    description: "ساعة احترافية مصممة للمغامرات والأداء العالي.",
-    battery: "36 ساعة",
-    storage: "64GB",
-    screen: "1.92 بوصة",
-    colors: "تيتانيوم",
-    icon: "⌚"
-  },
-
-  {
-    id: 11,
-    name: "Galaxy Watch 6",
-    brand: "Samsung",
-    category: "watches",
-    subcategory: "samsung-watch",
-    price: 999,
-    description: "ساعة أنيقة لمتابعة النشاط والصحة اليومية.",
-    battery: "40 ساعة",
-    storage: "16GB",
-    screen: "1.5 بوصة",
+    screen: "46mm",
     colors: "أسود، فضي",
     icon: "⌚"
   },
 
   {
     id: 12,
-    name: "Huawei Watch GT 4",
+    name: "Apple Watch Ultra 2",
+    brand: "Apple",
+    category: "watches",
+    subcategory: "apple-watch",
+    price: 3299,
+    description: "ساعة احترافية مصممة للمغامرات والرياضة.",
+    battery: "36 ساعة",
+    storage: "64GB",
+    screen: "49mm",
+    colors: "تيتانيوم",
+    icon: "⌚"
+  },
+
+  {
+    id: 13,
+    name: "Galaxy Watch 7",
+    brand: "Samsung",
+    category: "watches",
+    subcategory: "samsung-watch",
+    price: 1199,
+    description: "ساعة ذكية متطورة لمتابعة الصحة واللياقة.",
+    battery: "40 ساعة",
+    storage: "32GB",
+    screen: "44mm",
+    colors: "فضي، أخضر",
+    icon: "⌚"
+  },
+
+  {
+    id: 14,
+    name: "Huawei Watch GT 5",
     brand: "Huawei",
     category: "watches",
     subcategory: "huawei-watch",
-    price: 899,
-    description: "أناقة كلاسيكية مع مزايا ذكية متطورة.",
+    price: 999,
+    description: "أناقة كلاسيكية مع مزايا ذكية متقدمة.",
     battery: "14 يوم",
     storage: "4GB",
-    screen: "1.43 بوصة",
+    screen: "46mm",
     colors: "أسود، فضي",
     icon: "⌚"
   },
@@ -206,58 +237,43 @@ const defaultProducts = [
   ========================= */
 
   {
-    id: 13,
+    id: 15,
     name: "AirPods Pro 2",
     brand: "Apple",
     category: "headphones",
-    subcategory: "other",
+    subcategory: "apple",
     price: 899,
-    description: "صوت غامر وعزل ضوضاء متطور.",
+    description: "صوت غامر وإلغاء ضوضاء متقدم.",
     battery: "حتى 30 ساعة",
     storage: "",
     screen: "",
     colors: "أبيض",
-    icon: "🎧"
-  },
-
-  {
-    id: 14,
-    name: "AirPods 3",
-    brand: "Apple",
-    category: "headphones",
-    subcategory: "other",
-    price: 649,
-    description: "صوت واضح وتصميم مريح للاستخدام اليومي.",
-    battery: "حتى 30 ساعة",
-    storage: "",
-    screen: "",
-    colors: "أبيض",
-    icon: "🎧"
-  },
-
-  {
-    id: 15,
-    name: "Galaxy Buds2 Pro",
-    brand: "Samsung",
-    category: "headphones",
-    subcategory: "other",
-    price: 599,
-    description: "صوت عالي الجودة وتصميم مريح وصغير.",
-    battery: "حتى 29 ساعة",
-    storage: "",
-    screen: "",
-    colors: "أسود، أبيض",
     icon: "🎧"
   },
 
   {
     id: 16,
+    name: "Galaxy Buds3 Pro",
+    brand: "Samsung",
+    category: "headphones",
+    subcategory: "samsung",
+    price: 699,
+    description: "صوت عالي الجودة وتصميم مريح.",
+    battery: "حتى 30 ساعة",
+    storage: "",
+    screen: "",
+    colors: "أبيض، فضي",
+    icon: "🎧"
+  },
+
+  {
+    id: 17,
     name: "Sony WH-1000XM5",
     brand: "Sony",
     category: "headphones",
-    subcategory: "other",
-    price: 1399,
-    description: "عزل ضوضاء احترافي وتجربة صوتية مميزة.",
+    subcategory: "sony",
+    price: 1299,
+    description: "إلغاء ضوضاء احترافي وصوت استثنائي.",
     battery: "حتى 30 ساعة",
     storage: "",
     screen: "",
@@ -271,30 +287,15 @@ const defaultProducts = [
   ========================= */
 
   {
-    id: 17,
+    id: 18,
     name: "PlayStation 5 Slim",
-    brand: "Sony",
+    brand: "PlayStation",
     category: "playstation",
     subcategory: "ps5",
     price: 1999,
-    description: "جيل جديد من الألعاب بتصميم أنحف.",
+    description: "تجربة ألعاب الجيل الجديد بحجم أنحف.",
     battery: "",
-    storage: "1TB SSD",
-    screen: "",
-    colors: "أبيض",
-    icon: "🎮"
-  },
-
-  {
-    id: 18,
-    name: "PlayStation 5 Slim Digital",
-    brand: "Sony",
-    category: "playstation",
-    subcategory: "ps5",
-    price: 1799,
-    description: "تجربة ألعاب الجيل الجديد بنسخة رقمية.",
-    battery: "",
-    storage: "1TB SSD",
+    storage: "1TB",
     screen: "",
     colors: "أبيض",
     icon: "🎮"
@@ -302,31 +303,31 @@ const defaultProducts = [
 
   {
     id: 19,
-    name: "PlayStation 4 Pro",
-    brand: "Sony",
+    name: "PlayStation 5 Pro",
+    brand: "PlayStation",
     category: "playstation",
-    subcategory: "ps4",
-    price: 1199,
-    description: "أداء قوي وتجربة ألعاب بدقة عالية.",
+    subcategory: "ps5",
+    price: 3299,
+    description: "أقوى تجربة ألعاب PlayStation برسوميات محسنة.",
     battery: "",
-    storage: "1TB",
+    storage: "2TB",
     screen: "",
-    colors: "أسود",
+    colors: "أبيض",
     icon: "🎮"
   },
 
   {
     id: 20,
-    name: "PlayStation 4 Slim",
-    brand: "Sony",
+    name: "DualSense Wireless Controller",
+    brand: "PlayStation",
     category: "playstation",
-    subcategory: "ps4",
-    price: 899,
-    description: "جهاز ألعاب عملي ومناسب للترفيه المنزلي.",
-    battery: "",
-    storage: "500GB",
+    subcategory: "accessories",
+    price: 299,
+    description: "يد تحكم لاسلكية بتجربة لعب غامرة.",
+    battery: "حتى 12 ساعة",
+    storage: "",
     screen: "",
-    colors: "أسود",
+    colors: "أبيض، أسود",
     icon: "🎮"
   }
 
@@ -370,6 +371,10 @@ const subcategoryNames = {
 
   xiaomi: "Xiaomi",
 
+  apple: "Apple",
+
+  sony: "Sony",
+
   other: "أخرى",
 
   "apple-watch": "Apple Watch",
@@ -382,7 +387,9 @@ const subcategoryNames = {
 
   ps4: "PlayStation 4",
 
-  ps3: "PlayStation 3"
+  ps3: "PlayStation 3",
+
+  accessories: "الإكسسوارات"
 
 };
 
@@ -392,34 +399,67 @@ const subcategoryNames = {
 ========================================================= */
 
 let currentCategory = "all";
-
 let currentSubcategory = "all";
 
 
 /* =========================================================
    GET PRODUCTS
+   IMPORTANT:
+   نستخدم نسخة جديدة من المنتجات تلقائيًا.
 ========================================================= */
 
 function getProducts() {
 
+  const VERSION = "wisam-store-20-products-v1";
+
   try {
 
-    const saved = JSON.parse(
-      localStorage.getItem("wisamProducts")
-    );
+    const savedVersion =
+      localStorage.getItem("wisamProductsVersion");
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem("wisamProducts") || "[]"
+      );
+
+    /*
+      إذا كانت النسخة القديمة موجودة،
+      نستبدلها تلقائيًا بالقائمة الجديدة.
+    */
 
     if (
-      Array.isArray(saved) &&
-      saved.length
+      savedVersion !== VERSION ||
+      !Array.isArray(saved) ||
+      saved.length < 20
     ) {
 
-      return saved;
+      localStorage.setItem(
+        "wisamProducts",
+        JSON.stringify(defaultProducts)
+      );
+
+      localStorage.setItem(
+        "wisamProductsVersion",
+        VERSION
+      );
+
+      return defaultProducts;
 
     }
 
-    return defaultProducts;
+    return saved;
 
-  } catch (e) {
+  } catch (error) {
+
+    localStorage.setItem(
+      "wisamProducts",
+      JSON.stringify(defaultProducts)
+    );
+
+    localStorage.setItem(
+      "wisamProductsVersion",
+      VERSION
+    );
 
     return defaultProducts;
 
@@ -436,9 +476,10 @@ let cart = [];
 
 try {
 
-  cart = JSON.parse(
-    localStorage.getItem("wisamCart") || "[]"
-  );
+  cart =
+    JSON.parse(
+      localStorage.getItem("wisamCart") || "[]"
+    );
 
   if (!Array.isArray(cart)) {
 
@@ -446,7 +487,7 @@ try {
 
   }
 
-} catch (e) {
+} catch (error) {
 
   cart = [];
 
@@ -503,7 +544,7 @@ function subName(product) {
 
 
 /* =========================================================
-   PRODUCT SPECIFICATIONS
+   PRODUCT SPECS
 ========================================================= */
 
 function getProductSpecs(product) {
@@ -511,237 +552,66 @@ function getProductSpecs(product) {
   const specs = [];
 
 
-  if (product.category === "phones") {
+  if (product.brand) {
 
-    if (product.brand) {
-
-      specs.push({
-        icon: "🏷️",
-        label: "العلامة التجارية",
-        value: product.brand
-      });
-
-    }
-
-    if (product.battery) {
-
-      specs.push({
-        icon: "🔋",
-        label: "البطارية",
-        value: product.battery
-      });
-
-    }
-
-    if (product.screen) {
-
-      specs.push({
-        icon: "📱",
-        label: "حجم الشاشة",
-        value: product.screen
-      });
-
-    }
-
-    if (product.storage) {
-
-      specs.push({
-        icon: "💾",
-        label: "التخزين",
-        value: product.storage
-      });
-
-    }
-
-    if (product.colors) {
-
-      specs.push({
-        icon: "🎨",
-        label: "الألوان",
-        value: product.colors
-      });
-
-    }
+    specs.push({
+      icon: "🏷️",
+      label: "العلامة التجارية",
+      value: product.brand
+    });
 
   }
 
 
-  else if (product.category === "watches") {
+  if (product.battery) {
 
-    if (product.brand) {
-
-      specs.push({
-        icon: "🏷️",
-        label: "العلامة التجارية",
-        value: product.brand
-      });
-
-    }
-
-    if (product.battery) {
-
-      specs.push({
-        icon: "🔋",
-        label: "البطارية",
-        value: product.battery
-      });
-
-    }
-
-    if (product.storage) {
-
-      specs.push({
-        icon: "💾",
-        label: "التخزين",
-        value: product.storage
-      });
-
-    }
-
-    if (product.screen) {
-
-      specs.push({
-        icon: "⌚",
-        label: "حجم الشاشة",
-        value: product.screen
-      });
-
-    }
-
-    if (product.colors) {
-
-      specs.push({
-        icon: "🎨",
-        label: "الألوان",
-        value: product.colors
-      });
-
-    }
+    specs.push({
+      icon: "🔋",
+      label:
+        product.category === "headphones"
+          ? "عمر البطارية"
+          : "البطارية",
+      value: product.battery
+    });
 
   }
 
 
-  else if (product.category === "headphones") {
+  if (product.screen) {
 
-    if (product.brand) {
-
-      specs.push({
-        icon: "🏷️",
-        label: "العلامة التجارية",
-        value: product.brand
-      });
-
-    }
-
-    if (product.battery) {
-
-      specs.push({
-        icon: "🔋",
-        label: "عمر البطارية",
-        value: product.battery
-      });
-
-    }
-
-    if (product.colors) {
-
-      specs.push({
-        icon: "🎨",
-        label: "الألوان",
-        value: product.colors
-      });
-
-    }
+    specs.push({
+      icon:
+        product.category === "watches"
+          ? "⌚"
+          : "📱",
+      label:
+        product.category === "watches"
+          ? "الحجم"
+          : "حجم الشاشة",
+      value: product.screen
+    });
 
   }
 
 
-  else if (product.category === "playstation") {
+  if (product.storage) {
 
-    if (product.brand) {
-
-      specs.push({
-        icon: "🏷️",
-        label: "العلامة التجارية",
-        value: product.brand
-      });
-
-    }
-
-    if (product.storage) {
-
-      specs.push({
-        icon: "💾",
-        label: "مساحة التخزين",
-        value: product.storage
-      });
-
-    }
-
-    if (product.colors) {
-
-      specs.push({
-        icon: "🎨",
-        label: "الألوان",
-        value: product.colors
-      });
-
-    }
+    specs.push({
+      icon: "💾",
+      label: "التخزين",
+      value: product.storage
+    });
 
   }
 
 
-  else {
+  if (product.colors) {
 
-    if (product.brand) {
-
-      specs.push({
-        icon: "🏷️",
-        label: "العلامة التجارية",
-        value: product.brand
-      });
-
-    }
-
-    if (product.battery) {
-
-      specs.push({
-        icon: "🔋",
-        label: "البطارية",
-        value: product.battery
-      });
-
-    }
-
-    if (product.storage) {
-
-      specs.push({
-        icon: "💾",
-        label: "التخزين",
-        value: product.storage
-      });
-
-    }
-
-    if (product.screen) {
-
-      specs.push({
-        icon: "📱",
-        label: "الشاشة",
-        value: product.screen
-      });
-
-    }
-
-    if (product.colors) {
-
-      specs.push({
-        icon: "🎨",
-        label: "الألوان",
-        value: product.colors
-      });
-
-    }
+    specs.push({
+      icon: "🎨",
+      label: "الألوان",
+      value: product.colors
+    });
 
   }
 
@@ -777,10 +647,8 @@ function createCategoryNavigation() {
   const wrapper =
     document.createElement("div");
 
-
   wrapper.id =
     "storeCategoryNavigation";
-
 
   wrapper.className =
     "store-category-navigation";
@@ -863,15 +731,11 @@ function createCategoryNavigation() {
               ".category-main-btn"
             )
             .forEach(btn =>
-              btn.classList.remove(
-                "active"
-              )
+              btn.classList.remove("active")
             );
 
 
-          this.classList.add(
-            "active"
-          );
+          this.classList.add("active");
 
 
           renderSubcategories();
@@ -900,13 +764,10 @@ function renderSubcategories() {
       "subcategoryNavigation"
     );
 
-
   if (!box) return;
 
 
-  if (
-    currentCategory === "all"
-  ) {
+  if (currentCategory === "all") {
 
     box.innerHTML = "";
 
@@ -922,70 +783,23 @@ function renderSubcategories() {
   let available = [];
 
 
-  products.forEach(
-    product => {
+  products.forEach(product => {
 
-      if (
-        product.category ===
-        currentCategory
-      ) {
+    if (
+      product.category === currentCategory &&
+      product.subcategory &&
+      !available.includes(
+        product.subcategory
+      )
+    ) {
 
-        if (
-          product.subcategory &&
-          !available.includes(
-            product.subcategory
-          )
-        ) {
-
-          available.push(
-            product.subcategory
-          );
-
-        }
-
-      }
-
-    }
-  );
-
-
-  if (!available.length) {
-
-    if (currentCategory === "phones") {
-
-      available = [
-        "iphone",
-        "samsung",
-        "huawei",
-        "redmi",
-        "xiaomi"
-      ];
+      available.push(
+        product.subcategory
+      );
 
     }
 
-
-    if (currentCategory === "watches") {
-
-      available = [
-        "apple-watch",
-        "samsung-watch",
-        "huawei-watch"
-      ];
-
-    }
-
-
-    if (currentCategory === "playstation") {
-
-      available = [
-        "ps5",
-        "ps4",
-        "ps3"
-      ];
-
-    }
-
-  }
+  });
 
 
   box.innerHTML = `
@@ -997,23 +811,22 @@ function renderSubcategories() {
       الكل
     </button>
 
-    ${available.map(
-      item => `
+    ${available
+      .map(
+        item => `
 
         <button
           class="subcategory-btn"
           data-subcategory="${escapeHtml(item)}"
         >
-
           ${escapeHtml(
-            subcategoryNames[item] ||
-            item
+            subcategoryNames[item] || item
           )}
-
         </button>
 
       `
-    ).join("")}
+      )
+      .join("")}
 
   `;
 
@@ -1037,15 +850,11 @@ function renderSubcategories() {
               ".subcategory-btn"
             )
             .forEach(btn =>
-              btn.classList.remove(
-                "active"
-              )
+              btn.classList.remove("active")
             );
 
 
-          this.classList.add(
-            "active"
-          );
+          this.classList.add("active");
 
 
           renderProducts();
@@ -1068,9 +877,7 @@ function getFilteredProducts() {
     getProducts();
 
 
-  if (
-    currentCategory !== "all"
-  ) {
+  if (currentCategory !== "all") {
 
     products =
       products.filter(
@@ -1082,9 +889,7 @@ function getFilteredProducts() {
   }
 
 
-  if (
-    currentSubcategory !== "all"
-  ) {
+  if (currentSubcategory !== "all") {
 
     products =
       products.filter(
@@ -1102,23 +907,13 @@ function getFilteredProducts() {
 
 
 /* =========================================================
-   PRODUCT SPECS UI
+   PRODUCT SPECS PILLS
 ========================================================= */
 
 function renderProductSpecs(product) {
 
-  const specs =
-    getProductSpecs(product);
-
-
-  if (!specs.length) {
-
-    return "";
-
-  }
-
-
-  return specs
+  return getProductSpecs(product)
+    .slice(0, 3)
     .map(
       spec => `
 
@@ -1126,9 +921,7 @@ function renderProductSpecs(product) {
 
           ${spec.icon}
 
-          ${escapeHtml(
-            spec.value
-          )}
+          ${escapeHtml(spec.value)}
 
         </span>
 
@@ -1149,7 +942,6 @@ function renderProducts() {
     document.getElementById(
       "productGrid"
     );
-
 
   if (!grid) return;
 
@@ -1192,7 +984,7 @@ function renderProducts() {
         class="product-card"
         style="
           animation-delay:${Math.min(
-            index * 60,
+            index * 50,
             400
           )}ms
         "
@@ -1205,7 +997,6 @@ function renderProducts() {
             product.image
 
               ? `
-
                 <img
                   src="${escapeHtml(
                     product.image
@@ -1214,13 +1005,15 @@ function renderProducts() {
                     product.name
                   )}"
                 >
-
               `
 
-              : escapeHtml(
-                  product.icon ||
-                  "📦"
-                )
+              : `
+                <span>
+                  ${escapeHtml(
+                    product.icon || "📦"
+                  )}
+                </span>
+              `
           }
 
         </div>
@@ -1233,8 +1026,7 @@ function renderProducts() {
             ${escapeHtml(
               categoryNames[
                 product.category
-              ] ||
-              "منتج"
+              ] || "منتج"
             )}
 
             ·
@@ -1322,7 +1114,6 @@ function openProduct(id) {
       item => item.id == id
     );
 
-
   if (!product) return;
 
 
@@ -1330,7 +1121,6 @@ function openProduct(id) {
     document.getElementById(
       "productDetails"
     );
-
 
   if (!details) return;
 
@@ -1349,7 +1139,6 @@ function openProduct(id) {
           product.image
 
             ? `
-
               <img
                 src="${escapeHtml(
                   product.image
@@ -1358,20 +1147,14 @@ function openProduct(id) {
                   product.name
                 )}"
               >
-
             `
 
             : `
-
               <span class="detail-icon">
-
                 ${escapeHtml(
-                  product.icon ||
-                  "📦"
+                  product.icon || "📦"
                 )}
-
               </span>
-
             `
         }
 
@@ -1393,11 +1176,9 @@ function openProduct(id) {
 
 
         <h2>
-
           ${escapeHtml(
             product.name
           )}
-
         </h2>
 
 
@@ -1434,7 +1215,6 @@ function openProduct(id) {
           specs.length
 
             ? `
-
               <div class="spec-grid">
 
                 ${specs
@@ -1444,11 +1224,9 @@ function openProduct(id) {
                     <div class="spec-item">
 
                       <small>
-
                         ${escapeHtml(
                           spec.label
                         )}
-
                       </small>
 
                       <strong>
@@ -1468,11 +1246,9 @@ function openProduct(id) {
                   .join("")}
 
               </div>
-
             `
 
             : ""
-
         }
 
 
@@ -1487,9 +1263,7 @@ function openProduct(id) {
             closeProduct();
           "
         >
-
           أضف إلى السلة 🛒
-
         </button>
 
       </div>
@@ -1503,7 +1277,6 @@ function openProduct(id) {
     document.getElementById(
       "productModal"
     );
-
 
   if (!modal) return;
 
@@ -1527,7 +1300,6 @@ function closeProduct() {
       "productModal"
     );
 
-
   if (!modal) return;
 
 
@@ -1549,7 +1321,6 @@ function addToCart(id) {
     getProducts().find(
       item => item.id == id
     );
-
 
   if (!product) return;
 
@@ -1573,8 +1344,7 @@ function addToCart(id) {
       name: product.name,
 
       price:
-        Number(product.price) ||
-        0,
+        Number(product.price) || 0,
 
       qty: 1
 
@@ -1601,7 +1371,6 @@ function saveCart() {
     JSON.stringify(cart)
   );
 
-
   renderCart();
 
 }
@@ -1618,12 +1387,10 @@ function renderCart() {
       "cartCount"
     );
 
-
   const box =
     document.getElementById(
       "cartItems"
     );
-
 
   const total =
     document.getElementById(
@@ -1645,7 +1412,7 @@ function renderCart() {
   count.textContent =
     cart.reduce(
       (sum, item) =>
-        sum + item.qty,
+        sum + Number(item.qty || 0),
       0
     );
 
@@ -1655,7 +1422,6 @@ function renderCart() {
     box.innerHTML = `
 
       <div
-        class="empty-cart"
         style="
           text-align:center;
           padding:50px 20px;
@@ -1672,16 +1438,9 @@ function renderCart() {
           🛒
         </div>
 
-
-        <h3
-          style="
-            color:#333;
-            margin-bottom:8px;
-          "
-        >
+        <h3 style="color:#333;">
           السلة فارغة
         </h3>
-
 
         <p>
           أضف منتجًا للبدء بالطلب.
@@ -1698,60 +1457,56 @@ function renderCart() {
         .map(
           item => `
 
-        <div class="cart-row">
+          <div class="cart-row">
 
-          <div>
+            <div>
 
-            <b>
-              ${escapeHtml(
-                item.name
-              )}
-            </b>
+              <b>
+                ${escapeHtml(
+                  item.name
+                )}
+              </b>
 
-            <br>
+              <br>
 
-            <span>
-              ${money(
-                item.price
-              )}
-            </span>
+              <span>
+                ${money(item.price)}
+              </span>
 
-          </div>
+            </div>
 
 
-          <div class="qty">
+            <div class="qty">
 
-            <button
-              onclick="
-                changeQty(
-                  ${item.id},
-                  -1
-                )
-              "
-            >
-              −
-            </button>
+              <button
+                onclick="
+                  changeQty(
+                    ${item.id},
+                    -1
+                  )
+                "
+              >
+                −
+              </button>
 
+              ${item.qty}
 
-            ${item.qty}
+              <button
+                onclick="
+                  changeQty(
+                    ${item.id},
+                    1
+                  )
+                "
+              >
+                +
+              </button>
 
-
-            <button
-              onclick="
-                changeQty(
-                  ${item.id},
-                  1
-                )
-              "
-            >
-              +
-            </button>
+            </div>
 
           </div>
 
-        </div>
-
-      `
+        `
         )
         .join("");
 
@@ -1763,13 +1518,11 @@ function renderCart() {
       .reduce(
         (sum, item) =>
           sum +
-          item.price *
-          item.qty,
+          Number(item.price || 0) *
+          Number(item.qty || 0),
         0
       )
-      .toLocaleString(
-        "ar-SA"
-      );
+      .toLocaleString("ar-SA");
 
 }
 
@@ -1778,17 +1531,13 @@ function renderCart() {
    CHANGE QUANTITY
 ========================================================= */
 
-function changeQty(
-  id,
-  amount
-) {
+function changeQty(id, amount) {
 
   const item =
     cart.find(
       product =>
         product.id == id
     );
-
 
   if (!item) return;
 
@@ -1823,7 +1572,6 @@ function openCart() {
       "cartDrawer"
     );
 
-
   const overlay =
     document.getElementById(
       "overlay"
@@ -1851,7 +1599,6 @@ function closeCart() {
     document.getElementById(
       "cartDrawer"
     );
-
 
   const overlay =
     document.getElementById(
@@ -2002,7 +1749,6 @@ function setupCheckout() {
       "checkoutForm"
     );
 
-
   if (!form) return;
 
 
@@ -2025,8 +1771,7 @@ function setupCheckout() {
       const payment =
         document.querySelector(
           'input[name="payment"]:checked'
-        )?.value ||
-        "cod";
+        )?.value || "cod";
 
 
       const order = {
@@ -2125,7 +1870,7 @@ function setupCheckout() {
 
         }
 
-      } catch (e) {
+      } catch (error) {
 
         orders = [];
 
@@ -2143,12 +1888,9 @@ function setupCheckout() {
 
       cart = [];
 
-
       saveCart();
 
-
       form.reset();
-
 
       closeCheckout();
 
@@ -2202,36 +1944,30 @@ function setupEvents() {
       "cartButton"
     );
 
-
   const closeCartButton =
     document.getElementById(
       "closeCart"
     );
-
 
   const overlay =
     document.getElementById(
       "overlay"
     );
 
-
   const closeProductButton =
     document.getElementById(
       "closeProductModal"
     );
-
 
   const checkoutButton =
     document.getElementById(
       "checkoutButton"
     );
 
-
   const closeCheckoutButton =
     document.getElementById(
       "closeCheckout"
     );
-
 
   const closeSuccessButton =
     document.getElementById(
@@ -2419,9 +2155,7 @@ function injectCategoryStyles() {
 
 
   const style =
-    document.createElement(
-      "style"
-    );
+    document.createElement("style");
 
 
   style.id =
@@ -2434,14 +2168,12 @@ function injectCategoryStyles() {
       margin-bottom:32px;
     }
 
-
     .category-main-buttons{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
       margin-bottom:14px;
     }
-
 
     .category-main-btn{
       border:1px solid #e3e1da;
@@ -2455,12 +2187,10 @@ function injectCategoryStyles() {
       transition:.25s;
     }
 
-
     .category-main-btn:hover{
       border-color:#c99a3f;
       transform:translateY(-2px);
     }
-
 
     .category-main-btn.active{
       background:#111;
@@ -2469,14 +2199,12 @@ function injectCategoryStyles() {
       box-shadow:0 8px 20px #00000014;
     }
 
-
     .subcategory-navigation{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
       min-height:0;
     }
-
 
     .subcategory-btn{
       border:1px solid #e5e3dc;
@@ -2490,12 +2218,10 @@ function injectCategoryStyles() {
       transition:.2s;
     }
 
-
     .subcategory-btn:hover{
       border-color:#c99a3f;
       color:#222;
     }
-
 
     .subcategory-btn.active{
       background:#c99a3f;
@@ -2503,7 +2229,6 @@ function injectCategoryStyles() {
       border-color:#c99a3f;
       font-weight:800;
     }
-
 
     .empty-products{
       grid-column:1/-1;
@@ -2514,24 +2239,20 @@ function injectCategoryStyles() {
       padding:70px 20px;
     }
 
-
     .empty-products div{
       font-size:55px;
       margin-bottom:15px;
     }
-
 
     .empty-products h3{
       margin:0 0 8px;
       font-size:22px;
     }
 
-
     .empty-products p{
       color:#999;
       margin:0;
     }
-
 
     @media(max-width:600px){
 
@@ -2540,19 +2261,16 @@ function injectCategoryStyles() {
         grid-template-columns:1fr 1fr;
       }
 
-
       .category-main-btn{
         padding:12px 8px;
         font-size:13px;
       }
-
 
       .subcategory-navigation{
         overflow-x:auto;
         flex-wrap:nowrap;
         padding-bottom:5px;
       }
-
 
       .subcategory-btn{
         white-space:nowrap;
@@ -2575,6 +2293,13 @@ function injectCategoryStyles() {
 ========================================================= */
 
 function initStore() {
+
+  /*
+    أول شيء نحصل على المنتجات الجديدة.
+    هذا يجبر المتجر على تحديث القائمة.
+  */
+
+  getProducts();
 
   injectCategoryStyles();
 
@@ -2610,3 +2335,4 @@ if (
   initStore();
 
 }
+```
